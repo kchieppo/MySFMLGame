@@ -21,7 +21,7 @@ DialogueBox::DialogueBox(std::string& message)
 	text.setFont(font);
 	text.setCharacterSize(20);
 	text.setString(" ");
-	text.setFillColor(sf::Color::Red);
+	text.setFillColor(sf::Color::Black);
 	//text.setPosition({ diagBoxXLoc, diagBoxYLoc });
 
 	tokenize(message);
@@ -48,8 +48,8 @@ void DialogueBox::drawToRenderTexture()
 	renderTexture.clear();
 	renderTexture.draw(rectangleShape);
 
-	float totalWidthOfLine = lineWidthPadding;
-	float totalHeightOfLines = 0.0f;
+	float totalWidthOfLine = outlineThickness + lineWidthPadding;
+	float totalHeightOfLines = outlineThickness;
 
 	text.setString(" ");
 	float widthOfSpace = text.getLocalBounds().width;
@@ -61,26 +61,28 @@ void DialogueBox::drawToRenderTexture()
 		text.setString(word);
 
 		float potentialWidthOfLine = totalWidthOfLine + text.getLocalBounds().width;
-		if (potentialWidthOfLine > diagBoxWidth - lineWidthPadding)
+		if (potentialWidthOfLine > diagBoxWidth - outlineThickness - lineWidthPadding)
 		{
 			// try without space
 			word.pop_back();
 			text.setString(word);
 			potentialWidthOfLine -= widthOfSpace;
-			if (potentialWidthOfLine > diagBoxWidth - lineWidthPadding)
+			if (potentialWidthOfLine > diagBoxWidth - outlineThickness - lineWidthPadding)
 			{
 				float potentialHeightOfLines = totalHeightOfLines +
 					text.getLocalBounds().height + lineHeightPadding;
 				// prepare text object only if room for another line
-				if (potentialHeightOfLines <= diagBoxHeight - text.getLocalBounds().height)
+				if (potentialHeightOfLines <= diagBoxHeight - outlineThickness
+					- text.getLocalBounds().height)
 				{
 					totalHeightOfLines = potentialHeightOfLines;
 
-					text.setPosition({ lineWidthPadding, totalHeightOfLines });
+					text.setPosition({ outlineThickness + lineWidthPadding, totalHeightOfLines });
 					word = *it + " ";
 					text.setString(word);
 					renderTexture.draw(text);
-					totalWidthOfLine = lineWidthPadding + text.getLocalBounds().width;
+					totalWidthOfLine = outlineThickness + lineWidthPadding
+						+ text.getLocalBounds().width;
 				}
 				else
 				{
@@ -90,7 +92,8 @@ void DialogueBox::drawToRenderTexture()
 			else
 			{
 				text.setPosition({ totalWidthOfLine, totalHeightOfLines });
-				totalWidthOfLine = lineWidthPadding;
+				// reset width of line for new line
+				totalWidthOfLine = outlineThickness + lineWidthPadding;
 				renderTexture.draw(text);
 			}
 		}
@@ -125,11 +128,14 @@ void DialogueBox::reset()
 {
 	curWord = tokenizedMessage.begin() + 1;
 	time = 0;
+	renderTexture.clear();
+	renderTexture.draw(rectangleShape);
+	renderTexture.display();
 }
 
 bool DialogueBox::hasMoreWords()
 {
-	if (curWord != tokenizedMessage.end())
+	if (curWord != tokenizedMessage.end() + 1)
 		return true;
 	else
 		return false;

@@ -30,9 +30,10 @@ int main()
 	Character boy({ 0.0f, 0.0f });
 	sf::Vector2f walkDir;
 	// Menu
-	std::string dialogueMsg = "Man, what the hell? There is nothing "
-		"here I guess. I love my mom. Mom is the best mom. Mom is "
-		"really nice and cool.";
+	std::string dialogueMsg = "I like eating shit for breakfast "
+		"mostly because it's a really tasty thiiiiing! Poop poopy "
+		"poopity scoop dee doop. There's so much text here I can't "
+		"read it fast enough!";
 	DialogueBox dialogueBox(dialogueMsg);
 	// timepoint for dt measurement
 	auto tp = std::chrono::steady_clock::now();
