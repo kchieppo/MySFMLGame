@@ -7,19 +7,25 @@
 
 DialogueBox::DialogueBox(std::string& message)
 	:
-	rectangleShape({ diagBoxWidth, diagBoxHeight })
+	rectangleShape({ diagBoxWidth - 2*outlineThickness,
+		diagBoxHeight - 2*outlineThickness })
 {
-	rectangleShape.setPosition({ diagBoxXLoc, diagBoxYLoc });
+	renderTexture.create(int(diagBoxWidth), int(diagBoxHeight));
+	sprite.setPosition({ diagBoxXLoc, diagBoxYLoc });
+
+	rectangleShape.setPosition({ outlineThickness, outlineThickness });
 	rectangleShape.setOutlineColor({ 0, 0, 255 });
-	rectangleShape.setOutlineThickness(5.0f);
+	rectangleShape.setOutlineThickness(outlineThickness);
 
 	font.loadFromFile("Sprites/Fonts/p052l-bold.ttf");
 	text.setFont(font);
 	text.setCharacterSize(20);
+	text.setString(" ");
 	text.setFillColor(sf::Color::Red);
-	text.setPosition({ diagBoxXLoc, diagBoxYLoc });
+	//text.setPosition({ diagBoxXLoc, diagBoxYLoc });
 
 	tokenize(message);
+	curWord = tokenizedMessage.begin() + 1;
 }
 
 void DialogueBox::tokenize(std::string& message)
@@ -31,10 +37,16 @@ void DialogueBox::tokenize(std::string& message)
 		tokenizedMessage.emplace_back(*it++);
 }
 
-void DialogueBox::drawAndDisplay(sf::RenderWindow& rw)
+void DialogueBox::draw(sf::RenderTarget& rt) const
 {
-	rw.draw(rectangleShape);
-	rw.display();
+	rt.draw(sprite);
+}
+
+// use memoization here?
+void DialogueBox::drawToRenderTexture()
+{
+	renderTexture.clear();
+	renderTexture.draw(rectangleShape);
 
 	float totalWidthOfLine = lineWidthPadding;
 	float totalHeightOfLines = 0.0f;
@@ -43,7 +55,7 @@ void DialogueBox::drawAndDisplay(sf::RenderWindow& rw)
 	float widthOfSpace = text.getLocalBounds().width;
 
 	for (std::vector<std::string>::iterator it = tokenizedMessage.begin();
-		it != tokenizedMessage.end(); ++it)
+		it != curWord; ++it)
 	{
 		std::string word = *it + " ";
 		text.setString(word);
@@ -64,13 +76,11 @@ void DialogueBox::drawAndDisplay(sf::RenderWindow& rw)
 				{
 					totalHeightOfLines = potentialHeightOfLines;
 
-					text.setPosition({ diagBoxXLoc + lineWidthPadding, diagBoxYLoc + totalHeightOfLines });
+					text.setPosition({ lineWidthPadding, totalHeightOfLines });
 					word = *it + " ";
 					text.setString(word);
-					rw.draw(text);
-					rw.display();
+					renderTexture.draw(text);
 					totalWidthOfLine = lineWidthPadding + text.getLocalBounds().width;
-					std::this_thread::sleep_for(std::chrono::milliseconds(200));
 				}
 				else
 				{
@@ -79,21 +89,53 @@ void DialogueBox::drawAndDisplay(sf::RenderWindow& rw)
 			}
 			else
 			{
-				text.setPosition({ diagBoxXLoc + totalWidthOfLine, diagBoxYLoc + totalHeightOfLines });
+				text.setPosition({ totalWidthOfLine, totalHeightOfLines });
 				totalWidthOfLine = lineWidthPadding;
-				rw.draw(text);
-				rw.display();
-				std::this_thread::sleep_for(std::chrono::milliseconds(200));
+				renderTexture.draw(text);
 			}
 		}
 		else // update current line
 		{
-			text.setPosition({ diagBoxXLoc + totalWidthOfLine, diagBoxYLoc + totalHeightOfLines });
+			text.setPosition({ totalWidthOfLine, totalHeightOfLines });
 
-			rw.draw(text);
-			rw.display();
+			renderTexture.draw(text);
 			totalWidthOfLine = potentialWidthOfLine;
-			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		}
 	}
+
+	if (curWord != tokenizedMessage.end())
+		curWord++;
+
+	renderTexture.display();
+	sprite.setTexture(renderTexture.getTexture());
+}
+
+void DialogueBox::update(float dt)
+{
+	time += dt;
+	while (time >= holdTime)
+	{
+		time -= holdTime;
+		if (hasMoreWords())
+			drawToRenderTexture();
+	}
+}
+
+void DialogueBox::reset()
+{
+	curWord = tokenizedMessage.begin() + 1;
+	time = 0;
+}
+
+bool DialogueBox::hasMoreWords()
+{
+	if (curWord != tokenizedMessage.end())
+		return true;
+	else
+		return false;
+}
+
+const sf::RenderTexture& DialogueBox::getRenderTexture()
+{
+	return renderTexture;
 }

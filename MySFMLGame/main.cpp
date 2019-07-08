@@ -18,6 +18,8 @@ int main()
 		sf::Style::Titlebar | sf::Style::Close);
 	window.setActive(true);
 	window.setVerticalSyncEnabled(true);
+	sf::RenderTexture gameScreenTexture;
+	gameScreenTexture.create(800, 600);
 	// Init game state machine
 	GameState gameState = GameState::TitleScreen;
 	// Title screen
@@ -26,20 +28,18 @@ int main()
 	Room room(64, 64);
 	// Load main character sprite to display
 	Character boy({ 0.0f, 0.0f });
+	sf::Vector2f walkDir;
 	// Menu
 	std::string dialogueMsg = "Man, what the hell? There is nothing "
-		"here I guess. I love my mom. Mom is the best mom.";
+		"here I guess. I love my mom. Mom is the best mom. Mom is "
+		"really nice and cool.";
 	DialogueBox dialogueBox(dialogueMsg);
 	// timepoint for dt measurement
 	auto tp = std::chrono::steady_clock::now();
 
-	// Start the game loop
-	bool running = true;
 	bool titleScreen = true;
 	bool gameIsPaused = false;
-	bool dialogueOnce = true;
-	bool once = true;
-	while (running)
+	while (window.isOpen())
 	{
 		// Process events
 		sf::Event event;
@@ -49,7 +49,7 @@ int main()
 			{
 				// Close window: exit
 			case sf::Event::Closed:
-				running = false;
+				window.close();
 				break;
 
 			default:
@@ -68,69 +68,59 @@ int main()
 		switch (gameState)
 		{
 			case GameState::TitleScreen:
-			{
+
+				window.clear();
 				tScreen.draw(window);
+				window.display();
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 					gameState = GameState::GameScreen;
-
-				// Update the window
-				window.display();
 				break;
-			}
 			case GameState::GameScreen:
-			{
 				// handle movement input
-				sf::Vector2f dir = { 0.0f, 0.0f };
+				walkDir = { 0.0f, 0.0f };
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 				{
-					dir.y -= 1.0f;
+					walkDir.y -= 1.0f;
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 				{
-					dir.y += 1.0f;
+					walkDir.y += 1.0f;
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 				{
-					dir.x -= 1.0f;
+					walkDir.x -= 1.0f;
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					dir.x += 1.0f;
+					walkDir.x += 1.0f;
 				}
-				boy.setDirection(dir);
-
+				boy.setDirection(walkDir);
 				boy.update(dt);
 
 				window.clear();
-
-				// Draw the room
 				room.draw(window);
-				// Draw the sprite
 				boy.draw(window);
+				window.display();
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 					gameState = GameState::MainMenuScreen;
-				// Update the window
-				window.display();
 				break;
-			}
 			case GameState::MainMenuScreen:
-			{
-				// Draw DialogueBox and update the window
-				if (dialogueOnce)
-				{
-					dialogueBox.drawAndDisplay(window);
-					dialogueOnce = false;
-				}
+				dialogueBox.update(dt);
+
+				window.clear();
+				room.draw(window);
+				boy.draw(window);
+				dialogueBox.draw(window);
+				window.display();
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 				{
 					gameState = GameState::GameScreen;
-					dialogueOnce = true;
+					dialogueBox.reset();
 				}
 				break;
-			}
 		}
 	}
 	return EXIT_SUCCESS;
