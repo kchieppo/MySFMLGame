@@ -42,7 +42,7 @@ void DialogueBox::draw(sf::RenderTarget& rt) const
 	rt.draw(sprite);
 }
 
-// use memoization here?
+// TODO: use memoization here?
 void DialogueBox::drawToRenderTexture()
 {
 	renderTexture.clear();

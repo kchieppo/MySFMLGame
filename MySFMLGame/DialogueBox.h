@@ -20,7 +20,7 @@ private:
 	static constexpr float diagBoxWidth = 400.0f;
 	static constexpr float diagBoxHeight = 100.0f;
 	static constexpr float lineWidthPadding = 5.0f;
-	static constexpr float lineHeightPadding = 5.0f;
+	static constexpr float lineHeightPadding = 2.0f;
 	static constexpr float holdTime = 0.2f;
 	static constexpr float outlineThickness = 5.0f;
 	float time = 0.0f;

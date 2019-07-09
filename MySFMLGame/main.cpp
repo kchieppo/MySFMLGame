@@ -3,7 +3,8 @@
 #include <SFML/Window.hpp>
 #include <chrono>
 #include <thread>
-#include "Character.h"
+#include "MainCharacter.h"
+#include "DemonCharacter.h"
 #include "DialogueBox.h"
 #include "TitleScreen.h"
 #include "GameState.h"
@@ -27,13 +28,17 @@ int main()
 	// Load first room
 	Room room(64, 64);
 	// Load main character sprite to display
-	Character boy({ 0.0f, 0.0f });
+	MainCharacter boy({ 0.0f, 0.0f });
+
+	// Load other character
+	DemonCharacter demon({ 400.0f, 300.0f });
+
 	sf::Vector2f walkDir;
 	// Menu
-	std::string dialogueMsg = "I like eating shit for breakfast "
-		"mostly because it's a really tasty thiiiiing! Poop poopy "
-		"poopity scoop dee doop. There's so much text here I can't "
-		"read it fast enough!";
+	std::string dialogueMsg = "This is a long message. A really, "
+		"really long message. Why did I write such a long message? "
+		"It's because I wanted to test out my dialogue box. By the "
+		"way, I love you.";
 	DialogueBox dialogueBox(dialogueMsg);
 	// timepoint for dt measurement
 	auto tp = std::chrono::steady_clock::now();
