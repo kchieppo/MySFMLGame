@@ -1,29 +1,35 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <string>
+#include <vector>
 
 class Animation
 {
 public:
-	Animation();
-	Animation(int x, int y, int width, int height, int xMult, int yMult);
+	Animation() = default;
+	Animation(const std::string&& name, const std::string&& fileName,
+		int numFrames, float timePerFrame);
 	virtual void applyToSprite(sf::Sprite& s) const;
 	virtual void update(float dt);
 	virtual void reset();
+protected:
+	virtual void createFrames(int xFirstFrame, int yFirstFrame,
+		int widthFrame, int heightFrame, int xOffset, int yOffset) = 0;
 private:
-	void advance()
+	void advanceFrame()
 	{
-		if (++iFrame >= nFrames)
+		if (++curFrameIndex >= numFrames)
 		{
-			iFrame = 0;
+			curFrameIndex = 0;
 		}
 	}
 protected:
+	std::string name;
 	sf::Texture texture;
-	int iFrame = 0;
-	float time = 0.0f;
-private:
-	static constexpr int nFrames = 4;
-	static constexpr float holdTime = 0.2f;
-	sf::IntRect frames[nFrames];
+	std::vector<sf::IntRect> frames;
+	int numFrames;
+	int curFrameIndex;
+	float totalDeltaT;
+	float timePerFrame;
 };

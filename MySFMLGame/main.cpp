@@ -31,7 +31,7 @@ int main()
 	MainCharacter boy({ 0.0f, 0.0f });
 
 	// Load other character
-	DemonCharacter demon({ 400.0f, 300.0f });
+	//DemonCharacter demon({ 400.0f, 300.0f });
 
 	sf::Vector2f walkDir;
 	// Menu

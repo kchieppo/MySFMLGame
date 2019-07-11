@@ -2,17 +2,26 @@
 
 MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	:
+	speed(100.0f),
 	curAnimation(AnimationIndex::WalkingDown)
 {
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
 	animations[int(AnimationIndex::WalkingUp)]
-		= Animation(105, 10, 30, 32, 0, 48);
+		= MainCharacterAnimation("MainCharacterWalkingUp",
+			"Sprites/Characters/george.png",
+			105, 10, 30, 32, 0, 48, 4, 0.2f);
 	animations[int(AnimationIndex::WalkingDown)]
-		= Animation(9, 10, 30, 32, 0, 48);
+		= MainCharacterAnimation("MainCharacterWalkingDown",
+			"Sprites/Characters/george.png",
+			9, 10, 30, 32, 0, 48, 4, 0.2f);
 	animations[int(AnimationIndex::WalkingLeft)]
-		= Animation(55, 10, 29, 33, 0, 48);
+		= MainCharacterAnimation("MainCharacterWalkingLeft",
+			"Sprites/Characters/george.png",
+			55, 10, 29, 33, 0, 48, 4, 0.2f);
 	animations[int(AnimationIndex::WalkingRight)]
-		= Animation(154, 10, 29, 33, 0, 48);
+		= MainCharacterAnimation("MainCharacterWalkingRight",
+			"Sprites/Characters/george.png",
+			154, 10, 29, 33, 0, 48, 4, 0.2f);
 }
 
 void MainCharacter::setDirection(const sf::Vector2f& dir)

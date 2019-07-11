@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Character.h"
-#include "Animation.h"
+#include "MainCharacterAnimation.h"
+#include <array>
 
 class MainCharacter : public Character
 {
@@ -18,7 +19,8 @@ private:
 		WalkingRight,
 		Count
 	};
-	const float speed = 100.0f;
-	Animation animations[int(AnimationIndex::Count)];
+	const float speed;
+	std::array<MainCharacterAnimation,
+		static_cast<int>(AnimationIndex::Count)> animations;
 	AnimationIndex curAnimation;
 };

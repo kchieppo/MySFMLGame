@@ -4,11 +4,13 @@
 class MainCharacterAnimation : public Animation
 {
 public:
-	MainCharacterAnimation();
-	MainCharacterAnimation(int x, int y, int width, int height,
-		int xMult, int yMult);
-private:
-	static constexpr int nFrames = 4;
-	static constexpr float holdTime = 0.2f;
-	sf::IntRect frames[nFrames];
+	MainCharacterAnimation() = default;
+	MainCharacterAnimation(const std::string&& name,
+		const std::string&& fileName, int xFirstFrame,
+		int yFirstFrame, int widthFrame, int heightFrame,
+		int xOffset, int yOffset, int numFrames, float timePerFrame);
+protected:
+	void createFrames(int xFirstFrame, int yFirstFrame,
+		int widthFrame, int heightFrame, int xOffset,
+		int yOffset) override;
 };
