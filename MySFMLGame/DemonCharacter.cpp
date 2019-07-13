@@ -30,18 +30,15 @@ DemonCharacter::DemonCharacter(const sf::Vector2f& pos)
 void DemonCharacter::setAnimationIndex(const sf::Vector2f& dir)
 {
 	vel = dir * speed;
+	prevAnimation = curAnimation;
 	if (dir.y != 0.0f)
 	{
-		if (curAnimation == AnimationIndex::StandingStillLeft)
-		{
-			prevAnimation = curAnimation;
+		if (dir.x < 0.0f
+			|| prevAnimation == AnimationIndex::StandingStillLeft)
 			curAnimation = AnimationIndex::WalkingLeft;
-		}
-		else if (curAnimation == AnimationIndex::StandingStillRight)
-		{
-			prevAnimation = curAnimation;
+		else if (dir.x > 0.0f
+			|| prevAnimation == AnimationIndex::StandingStillRight)
 			curAnimation = AnimationIndex::WalkingRight;
-		}
 	}
 	else if (dir.x < 0.0f)
 		curAnimation = AnimationIndex::WalkingLeft;
@@ -50,15 +47,9 @@ void DemonCharacter::setAnimationIndex(const sf::Vector2f& dir)
 	else
 	{
 		if (curAnimation == AnimationIndex::WalkingLeft)
-		{
-			prevAnimation = curAnimation;
 			curAnimation = AnimationIndex::StandingStillLeft;
-		}
 		else if (curAnimation == AnimationIndex::WalkingRight)
-		{
-			prevAnimation = curAnimation;
 			curAnimation = AnimationIndex::StandingStillRight;
-		}
 	}
 }
 
