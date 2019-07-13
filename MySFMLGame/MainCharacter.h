@@ -8,7 +8,7 @@ class MainCharacter : public Character
 {
 public:
 	MainCharacter(const sf::Vector2f& pos);
-	void setDirection(const sf::Vector2f& dir);
+	void setAnimationIndex(const sf::Vector2f& dir);
 	void update(const float& dt);
 private:
 	enum class AnimationIndex

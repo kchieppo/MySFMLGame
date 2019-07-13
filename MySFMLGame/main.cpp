@@ -31,7 +31,8 @@ int main()
 	MainCharacter boy({ 0.0f, 0.0f });
 
 	// Load other character
-	//DemonCharacter demon({ 400.0f, 300.0f });
+	DemonCharacter demon({ 400.0f, 300.0f });
+	sf::Vector2f demDir;
 
 	sf::Vector2f walkDir;
 	// Menu
@@ -101,12 +102,25 @@ int main()
 				{
 					walkDir.x += 1.0f;
 				}
-				boy.setDirection(walkDir);
+				boy.setAnimationIndex(walkDir);
 				boy.update(dt);
+
+				demDir = { 0.0f, 0.0f };
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+					demDir.y -= 1.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+					demDir.y += 1.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+					demDir.x -= 1.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+					demDir.x += 1.0f;
+				demon.setAnimationIndex(demDir);
+				demon.update(dt);
 
 				window.clear();
 				room.draw(window);
 				boy.draw(window);
+				demon.draw(window);
 				window.display();
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
@@ -118,6 +132,7 @@ int main()
 				window.clear();
 				room.draw(window);
 				boy.draw(window);
+				demon.draw(window);
 				dialogueBox.draw(window);
 				window.display();
 

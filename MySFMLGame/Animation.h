@@ -26,6 +26,7 @@ private:
 	}
 protected:
 	std::string name;
+	sf::Image image;
 	sf::Texture texture;
 	std::vector<sf::IntRect> frames;
 	int numFrames;

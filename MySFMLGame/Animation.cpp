@@ -11,9 +11,11 @@ Animation::Animation(const std::string&& name,
 	timePerFrame(timePerFrame)
 {
 	frames.reserve(10);
-	if (!texture.loadFromFile(fileName))
+	if (!image.loadFromFile(fileName))
 		std::cerr << "Animation can't open "
 			+ fileName + ". " << std::endl;
+	image.createMaskFromColor(sf::Color::White);
+	texture.loadFromImage(image);
 }
 
 void Animation::applyToSprite(sf::Sprite& s) const

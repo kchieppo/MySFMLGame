@@ -2,6 +2,7 @@
 
 MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	:
+	Character(pos),
 	speed(100.0f),
 	curAnimation(AnimationIndex::WalkingDown)
 {
@@ -9,22 +10,22 @@ MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	animations[int(AnimationIndex::WalkingUp)]
 		= MainCharacterAnimation("MainCharacterWalkingUp",
 			"Sprites/Characters/george.png",
-			105, 10, 30, 32, 0, 48, 4, 0.2f);
+			106, 11, 29, 31, 0, 48, 4, 0.2f);
 	animations[int(AnimationIndex::WalkingDown)]
 		= MainCharacterAnimation("MainCharacterWalkingDown",
 			"Sprites/Characters/george.png",
-			9, 10, 30, 32, 0, 48, 4, 0.2f);
+			10, 11, 29, 31, 0, 48, 4, 0.2f);
 	animations[int(AnimationIndex::WalkingLeft)]
 		= MainCharacterAnimation("MainCharacterWalkingLeft",
 			"Sprites/Characters/george.png",
-			55, 10, 29, 33, 0, 48, 4, 0.2f);
+			56, 11, 29, 32, 0, 48, 4, 0.2f);
 	animations[int(AnimationIndex::WalkingRight)]
 		= MainCharacterAnimation("MainCharacterWalkingRight",
 			"Sprites/Characters/george.png",
-			154, 10, 29, 33, 0, 48, 4, 0.2f);
+			155, 11, 28, 32, 0, 48, 4, 0.2f);
 }
 
-void MainCharacter::setDirection(const sf::Vector2f& dir)
+void MainCharacter::setAnimationIndex(const sf::Vector2f& dir)
 {
 	vel = dir * speed;
 	if (dir.y < 0.0f)
