@@ -9,20 +9,16 @@ MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
 	animations[int(AnimationIndex::WalkingUp)]
 		= MainCharacterAnimation("MainCharacterWalkingUp",
-			"Sprites/Characters/george.png",
-			106, 11, 29, 31, 0, 48, 4, 0.2f);
+			"Sprites/Characters/george.png", 106, 4, 0.2f);
 	animations[int(AnimationIndex::WalkingDown)]
 		= MainCharacterAnimation("MainCharacterWalkingDown",
-			"Sprites/Characters/george.png",
-			10, 11, 29, 31, 0, 48, 4, 0.2f);
+			"Sprites/Characters/george.png", 10, 4, 0.2f);
 	animations[int(AnimationIndex::WalkingLeft)]
 		= MainCharacterAnimation("MainCharacterWalkingLeft",
-			"Sprites/Characters/george.png",
-			56, 11, 29, 32, 0, 48, 4, 0.2f);
+			"Sprites/Characters/george.png", 56, 4, 0.2f);
 	animations[int(AnimationIndex::WalkingRight)]
 		= MainCharacterAnimation("MainCharacterWalkingRight",
-			"Sprites/Characters/george.png",
-			155, 11, 28, 32, 0, 48, 4, 0.2f);
+			"Sprites/Characters/george.png", 155, 4, 0.2f);
 }
 
 void MainCharacter::setAnimationIndex(const sf::Vector2f& dir)
@@ -49,4 +45,24 @@ void MainCharacter::update(const float& dt)
 		sprite.setPosition(pos);
 	}
 	animations[int(curAnimation)].applyToSprite(sprite);
+}
+
+MainCharacter::MainCharacterAnimation::MainCharacterAnimation(
+	const std::string&& name, const std::string&& fileName,
+	int xFirstFrame, int numFrames, float timePerFrame)
+	:
+	Animation(std::move(name), std::move(fileName), numFrames,
+		timePerFrame, false)
+{
+	createFrames(xFirstFrame, yFirstFrame, xOffset, yOffset);
+}
+
+void MainCharacter::MainCharacterAnimation::createFrames(
+	int xFirstFrame, int yFirstFrame, int xOffset, int yOffset)
+{
+	for (int i = 0; i < numFrames; i++)
+	{
+		frames.emplace_back(xFirstFrame + i * xOffset,
+			yFirstFrame + i * yOffset, widthFrame, heightFrame);
+	}
 }

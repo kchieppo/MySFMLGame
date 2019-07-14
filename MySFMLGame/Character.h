@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
+#include "AABB.h"
 
 class Character
 {
@@ -16,4 +17,5 @@ protected:
 	sf::Sprite sprite;
 	sf::Vector2f pos;
 	sf::Vector2f vel;
+	//AABB aabb;
 };

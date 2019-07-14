@@ -7,24 +7,26 @@ DemonCharacter::DemonCharacter(const sf::Vector2f& pos)
 	curAnimation(AnimationIndex::StandingStillRight),
 	prevAnimation(AnimationIndex::StandingStillRight)
 {
+	/*aabb.min = { pos.x, pos.y + 34 };
+	aabb.max = { pos.x, pos.y };*/
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
 	sprite.scale({ 2.0f, 2.0f });
 	animations[int(AnimationIndex::StandingStillLeft)]
 		= DemonCharacterAnimation("DemonCharacterSSL",
 			"Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png",
-			45, 366, -26, 34, 32, 0, 4, 0.2f);
+			45, 4, 0.2f, true);
 	animations[int(AnimationIndex::StandingStillRight)]
 		= DemonCharacterAnimation("DemonCharacterSSR",
 			"Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png",
-			19, 366, 26, 34, 32, 0, 4, 0.2f);
+			19, 4, 0.2f, false);
 	animations[int(AnimationIndex::WalkingLeft)]
 		= DemonCharacterAnimation("DemonCharacterWL",
 			"Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png",
-			172, 366, -26, 34, 32, 0, 4, 0.2f);
+			172, 4, 0.2f, true);
 	animations[int(AnimationIndex::WalkingRight)]
 		= DemonCharacterAnimation("DemonCharacterWR",
 			"Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png",
-			146, 366, 26, 34, 32, 0, 4, 0.2f);
+			146, 4, 0.2f, false);
 }
 
 void DemonCharacter::setAnimationIndex(const sf::Vector2f& dir)
@@ -64,4 +66,28 @@ void DemonCharacter::update(const float& dt)
 	sprite.setPosition(pos);
 	animations[int(curAnimation)].update(dt);
 	animations[int(curAnimation)].applyToSprite(sprite);
+}
+
+DemonCharacter::DemonCharacterAnimation::DemonCharacterAnimation(
+	const std::string&& name, const std::string&& fileName,
+	int xFirstFrame, int numFrames, float timePerFrame,
+	bool flipHorizontal)
+	:
+	Animation(std::move(name), std::move(fileName), numFrames,
+		timePerFrame, flipHorizontal)
+{
+	createFrames(xFirstFrame, yFirstFrame, xOffset, yOffset);
+}
+
+void DemonCharacter::DemonCharacterAnimation::createFrames(
+	int xFirstFrame, int yFirstFrame, int xOffset, int yOffset)
+{
+	int newWidth = 0;
+	(flipHorizontal) ? newWidth -= widthFrame : newWidth = widthFrame;
+
+	for (int i = 0; i < numFrames; i++)
+	{
+		frames.emplace_back(xFirstFrame + i * xOffset,
+			yFirstFrame + i * yOffset, newWidth, heightFrame);
+	}
 }

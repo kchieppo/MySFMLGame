@@ -9,13 +9,13 @@ class Animation
 public:
 	Animation() = default;
 	Animation(const std::string&& name, const std::string&& fileName,
-		int numFrames, float timePerFrame);
+		int numFrames, float timePerFrame, bool flipHorizontal);
 	virtual void applyToSprite(sf::Sprite& s) const;
 	virtual void update(float dt);
 	virtual void reset();
 protected:
 	virtual void createFrames(int xFirstFrame, int yFirstFrame,
-		int widthFrame, int heightFrame, int xOffset, int yOffset) = 0;
+		int xOffset, int yOffset) = 0;
 private:
 	void advanceFrame()
 	{
@@ -33,4 +33,5 @@ protected:
 	int curFrameIndex;
 	float totalDeltaT;
 	float timePerFrame;
+	bool flipHorizontal;
 };

@@ -2,13 +2,15 @@
 #include <iostream>
 
 Animation::Animation(const std::string&& name,
-	const std::string&& fileName, int numFrames, float timePerFrame)
+	const std::string&& fileName, int numFrames, float timePerFrame,
+	bool flipHorizontal)
 	:
 	name(""),
 	numFrames(numFrames),
 	curFrameIndex(0),
 	totalDeltaT(0.0f),
-	timePerFrame(timePerFrame)
+	timePerFrame(timePerFrame),
+	flipHorizontal(flipHorizontal)
 {
 	frames.reserve(10);
 	if (!image.loadFromFile(fileName))

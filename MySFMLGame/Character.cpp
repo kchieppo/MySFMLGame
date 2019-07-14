@@ -5,7 +5,6 @@ Character::Character()
 	pos({ 0.0f, 0.0f }),
 	vel({ 0.0f, 0.0f })
 {
-
 }
 
 Character::Character(const sf::Vector2f& pos)
