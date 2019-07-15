@@ -9,13 +9,16 @@
 #include "TitleScreen.h"
 #include "GameState.h"
 #include "Room.h"
+#include "Constants.h"
 
 // TODO: fix vibrating sprite
 
 int main()
 {
 	// Create the main window
-	sf::RenderWindow window(sf::VideoMode(800, 600), "False Vacuum",
+	sf::RenderWindow window(
+		sf::VideoMode(Constants::WINDOW_WIDTH_PIXELS,
+			Constants::WINDOW_HEIGHT_PIXELS), "False Vacuum",
 		sf::Style::Titlebar | sf::Style::Close);
 	window.setActive(true);
 	window.setVerticalSyncEnabled(true);

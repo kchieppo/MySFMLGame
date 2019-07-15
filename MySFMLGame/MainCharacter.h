@@ -7,8 +7,8 @@ class MainCharacter : public Character
 {
 public:
 	MainCharacter(const sf::Vector2f& pos);
-	void setAnimationIndex(const sf::Vector2f& dir);
-	void update(const float& dt);
+	void setAnimationIndex(const sf::Vector2f& dir) override;
+	void update(const float& dt) override;
 private:
 
 	class MainCharacterAnimation : public Animation

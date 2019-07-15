@@ -2,13 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include "Character.h"
 #include <array>
+#include "AABB.h"
 
 class DemonCharacter : public Character
 {
 public:
-	DemonCharacter(const sf::Vector2f& pos);
-	void setAnimationIndex(const sf::Vector2f& dir);
-	void update(const float& dt);
+	DemonCharacter(const sf::Vector2f& spritePos);
+	void setAnimationIndex(const sf::Vector2f& dir) override;
+	void update(const float& dt) override;
 private:
 
 	class DemonCharacterAnimation : public Animation
@@ -38,9 +39,11 @@ private:
 		Count
 	};
 
+	static constexpr float scaleFactor = 2.0f;
 	const float speed;
 	std::array<DemonCharacterAnimation,
 		static_cast<int>(AnimationIndex::Count)> animations;
 	AnimationIndex curAnimation;
 	AnimationIndex prevAnimation;
+	AABB aabb;
 };

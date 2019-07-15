@@ -1,16 +1,18 @@
 #include "DemonCharacter.h"
+#include <iostream>
 
-DemonCharacter::DemonCharacter(const sf::Vector2f& pos)
+DemonCharacter::DemonCharacter(const sf::Vector2f& spritePos)
 	:
-	Character(pos),
+	Character(spritePos),
 	speed(50.0f),
 	curAnimation(AnimationIndex::StandingStillRight),
-	prevAnimation(AnimationIndex::StandingStillRight)
+	prevAnimation(AnimationIndex::StandingStillRight),
+	aabb{ {spritePos.x - 1.0f * scaleFactor, spritePos.y + 26.0f * scaleFactor},
+		{spritePos.x - 1.0f * scaleFactor, spritePos.y + 35.0f * scaleFactor},
+		{spritePos.x + 26.0f * scaleFactor, spritePos.y + 26.0f * scaleFactor} }
 {
-	/*aabb.min = { pos.x, pos.y + 34 };
-	aabb.max = { pos.x, pos.y };*/
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
-	sprite.scale({ 2.0f, 2.0f });
+	sprite.scale({ scaleFactor, scaleFactor });
 	animations[int(AnimationIndex::StandingStillLeft)]
 		= DemonCharacterAnimation("DemonCharacterSSL",
 			"Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png",
@@ -62,8 +64,32 @@ void DemonCharacter::update(const float& dt)
 		animations[int(prevAnimation)].reset();
 		prevAnimation = curAnimation;
 	}
-	pos += vel * dt;
-	sprite.setPosition(pos);
+	sf::Vector2f spriteDir(vel * dt);
+	aabb.update(spriteDir);
+
+	// test collision
+	float diffx1, diffx2, diffy1, diffy2;
+	int xp = 300, yp = 300;
+	diffx1 = xp - aabb.getMin().x;
+	diffx2 = aabb.getMax().x - xp;
+	diffy1 = yp - aabb.getMax().y;
+	diffy2 = aabb.getMin().y - yp;
+
+	std::cout << "Diffx1: " << diffx1 << std::endl;
+	std::cout << "Diffx2: " << diffx2 << std::endl;
+	std::cout << "Diffy1: " << diffy1 << std::endl;
+	std::cout << "Diffy2: " << diffy2 << std::endl;
+
+	// if collision with aabb, backtrack sprite's aabb position
+	if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
+	{
+		aabb.update(-spriteDir);
+		std::cout << "COLLISION" << std::endl;
+	}
+	else // leave new aabb position alone and adjust sprite pos
+		spritePos += spriteDir;
+
+	sprite.setPosition(spritePos);
 	animations[int(curAnimation)].update(dt);
 	animations[int(curAnimation)].applyToSprite(sprite);
 }

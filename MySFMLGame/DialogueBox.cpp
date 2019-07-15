@@ -1,6 +1,5 @@
 #include "DialogueBox.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <regex>
 #include <thread>
 #include <chrono>

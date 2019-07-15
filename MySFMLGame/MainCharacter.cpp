@@ -40,9 +40,9 @@ void MainCharacter::update(const float& dt)
 		animations[int(curAnimation)].reset();
 	else
 	{
-		pos += vel * dt;
+		spritePos += vel * dt;
 		animations[int(curAnimation)].update(dt);
-		sprite.setPosition(pos);
+		sprite.setPosition(spritePos);
 	}
 	animations[int(curAnimation)].applyToSprite(sprite);
 }

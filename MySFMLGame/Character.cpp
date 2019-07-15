@@ -2,27 +2,19 @@
 
 Character::Character()
 	:
-	pos({ 0.0f, 0.0f }),
-	vel({ 0.0f, 0.0f })
+	spritePos{ 0.0f, 0.0f },
+	vel{ 0.0f, 0.0f }
 {
 }
 
-Character::Character(const sf::Vector2f& pos)
+Character::Character(const sf::Vector2f& spritePos)
 	:
-	pos(pos),
-	vel({ 0.0f, 0.0f })
+	spritePos(spritePos),
+	vel{ 0.0f, 0.0f }
 {
 }
 
 void Character::draw(sf::RenderTarget& rt) const
 {
 	rt.draw(sprite);
-}
-
-void Character::setAnimationIndex(const sf::Vector2f& dir)
-{
-}
-
-void Character::update(const float& dt)
-{
 }

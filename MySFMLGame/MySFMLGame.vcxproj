@@ -123,9 +123,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AABB.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CollisionMap.cpp" />
+    <ClCompile Include="Constants.cpp" />
     <ClCompile Include="DemonCharacter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DialogueBox.cpp" />
@@ -139,6 +141,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CollisionMap.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="DemonCharacter.h" />
     <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="GameState.h" />
