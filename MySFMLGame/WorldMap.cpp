@@ -1,62 +1,63 @@
 #include "WorldMap.h"
 #include "GrassRoom.h"
+#include "BlueRoom.h"
 
 WorldMap::WorldMap()
 	:
 	worldMatrix{ {
-		{new GrassRoom(), new GrassRoom()},
+		{new BlueRoom(), new GrassRoom()},
 		{new GrassRoom(), new GrassRoom()}
 	} },
-	locationX{ 0 },
-	locationY{ 0 },
-	currentRoom{ worldMatrix.at(locationX).at(locationY) }
+	worldMatRow{ 0 },
+	worldMatCol{ 1 },
+	currentRoom{ worldMatrix.at(worldMatRow).at(worldMatCol) }
 {
 	loadCurrentRoom();
 }
 
 void WorldMap::up()
 {
-	if (locationY != 0)
+	if (worldMatRow != 0)
 	{
-		locationY -= 1;
-		currentRoom = worldMatrix.at(locationX).at(locationY);
+		worldMatRow -= 1;
+		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
 	}
 }
 
 void WorldMap::down()
 {
-	if (locationY != worldMapDimY - 1)
+	if (worldMatRow != worldMapDimRow - 1)
 	{
-		locationY += 1;
-		currentRoom = worldMatrix.at(locationX).at(locationY);
+		worldMatRow += 1;
+		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
 	}
 }
 
 void WorldMap::left()
 {
-	if (locationX != 0)
+	if (worldMatCol != 0)
 	{
-		locationX -= 1;
-		currentRoom = worldMatrix.at(locationX).at(locationY);
+		worldMatCol -= 1;
+		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
 	}
 }
 
 void WorldMap::right()
 {
-	if (locationX != worldMapDimX - 1)
+	if (worldMatCol != worldMapDimCol - 1)
 	{
-		locationX += 1;
-		currentRoom = worldMatrix.at(locationX).at(locationY);
+		worldMatCol += 1;
+		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
 	}
 }
 
 const Room& WorldMap::getCurrentRoom()
 {
-	return *worldMatrix.at(locationX).at(locationY);
+	return *worldMatrix.at(worldMatRow).at(worldMatCol);
 }
 
 void WorldMap::loadCurrentRoom()

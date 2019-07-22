@@ -15,10 +15,10 @@ public:
 private:
 	void loadCurrentRoom();
 private:
-	static constexpr unsigned char worldMapDimX = 2;
-	static constexpr unsigned char worldMapDimY = 2;
-	Matrix<Room*, worldMapDimX, worldMapDimY> worldMatrix;
+	static constexpr unsigned char worldMapDimRow = 2;
+	static constexpr unsigned char worldMapDimCol = 2;
+	Matrix<Room*, worldMapDimRow, worldMapDimCol> worldMatrix;
 
-	unsigned char locationX, locationY;
+	unsigned char worldMatRow, worldMatCol;
 	Room* currentRoom;
 };

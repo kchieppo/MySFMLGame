@@ -65,6 +65,11 @@ void MainCharacter::update(const float& dt)
 	animations[int(curAnimation)].applyToSprite(sprite);
 }
 
+const sf::Vector2f& MainCharacter::getPosition() const
+{
+	return spritePos;
+}
+
 MainCharacter::MainCharacterAnimation::MainCharacterAnimation(
 	const std::string&& name, const std::string&& fileName,
 	int xFirstFrame, int numFrames, float timePerFrame)

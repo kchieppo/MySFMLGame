@@ -49,6 +49,7 @@ int main()
 
 	bool titleScreen = true;
 	bool gameIsPaused = false;
+	bool once = true;
 	while (window.isOpen())
 	{
 		// Process events
@@ -104,6 +105,12 @@ int main()
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
 					walkDir.x += 1.0f;
+				}
+				std::cout << boy.getPosition().x << std::endl;
+				if (once && boy.getPosition().x < 0)
+				{
+					worldMap.left();
+					once = false;
 				}
 				boy.setAnimationIndex(walkDir);
 				boy.update(dt);

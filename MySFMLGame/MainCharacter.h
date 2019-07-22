@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "Character.h"
 #include <array>
 #include "AABB.h"
@@ -10,6 +9,7 @@ public:
 	MainCharacter(const sf::Vector2f& spritePos);
 	void setAnimationIndex(const sf::Vector2f& dir) override;
 	void update(const float& dt) override;
+	const sf::Vector2f& getPosition() const;
 private:
 
 	class MainCharacterAnimation : public Animation
