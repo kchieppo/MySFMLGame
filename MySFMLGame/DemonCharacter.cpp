@@ -7,8 +7,7 @@ DemonCharacter::DemonCharacter(const sf::Vector2f& spritePos)
 	speed(50.0f),
 	curAnimation(AnimationIndex::StandingStillRight),
 	prevAnimation(AnimationIndex::StandingStillRight),
-	aabb{ {spritePos.x - 1.0f * scaleFactor, spritePos.y + 26.0f * scaleFactor},
-		{spritePos.x - 1.0f * scaleFactor, spritePos.y + 35.0f * scaleFactor},
+	aabb{ {spritePos.x - 1.0f * scaleFactor, spritePos.y + 35.0f * scaleFactor},
 		{spritePos.x + 26.0f * scaleFactor, spritePos.y + 26.0f * scaleFactor} }
 {
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
@@ -69,23 +68,15 @@ void DemonCharacter::update(const float& dt)
 
 	// test collision
 	float diffx1, diffx2, diffy1, diffy2;
-	int xp = 300, yp = 300;
+	int xp = 200, yp = 200;
 	diffx1 = xp - aabb.getMin().x;
 	diffx2 = aabb.getMax().x - xp;
 	diffy1 = yp - aabb.getMax().y;
 	diffy2 = aabb.getMin().y - yp;
 
-	std::cout << "Diffx1: " << diffx1 << std::endl;
-	std::cout << "Diffx2: " << diffx2 << std::endl;
-	std::cout << "Diffy1: " << diffy1 << std::endl;
-	std::cout << "Diffy2: " << diffy2 << std::endl;
-
 	// if collision with aabb, backtrack sprite's aabb position
 	if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
-	{
 		aabb.update(-spriteDir);
-		std::cout << "COLLISION" << std::endl;
-	}
 	else // leave new aabb position alone and adjust sprite pos
 		spritePos += spriteDir;
 

@@ -129,12 +129,14 @@
     <ClCompile Include="CollisionMap.cpp" />
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="DemonCharacter.cpp" />
+    <ClCompile Include="GrassRoom.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DialogueBox.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
+    <ClCompile Include="WorldMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.h" />
@@ -145,10 +147,13 @@
     <ClInclude Include="DemonCharacter.h" />
     <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="GrassRoom.h" />
     <ClInclude Include="MainCharacter.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="TitleScreen.h" />
+    <ClInclude Include="WorldMap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

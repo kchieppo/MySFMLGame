@@ -1,10 +1,12 @@
 #include "MainCharacter.h"
 
-MainCharacter::MainCharacter(const sf::Vector2f& pos)
+MainCharacter::MainCharacter(const sf::Vector2f& spritePos)
 	:
-	Character(pos),
+	Character(spritePos),
 	speed(100.0f),
-	curAnimation(AnimationIndex::WalkingDown)
+	curAnimation(AnimationIndex::WalkingDown),
+	aabb{ {spritePos.x + 3.0f, spritePos.y + 32.0f},
+		{spritePos.x + 25.0f, spritePos.y + 23.0f} }
 {
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
 	animations[int(AnimationIndex::WalkingUp)]
@@ -40,9 +42,25 @@ void MainCharacter::update(const float& dt)
 		animations[int(curAnimation)].reset();
 	else
 	{
-		spritePos += vel * dt;
-		animations[int(curAnimation)].update(dt);
+		sf::Vector2f spriteDir(vel * dt);
+		aabb.update(spriteDir);
+
+		// test collision
+		float diffx1, diffx2, diffy1, diffy2;
+		int xp = 200, yp = 200;
+		diffx1 = xp - aabb.getMin().x;
+		diffx2 = aabb.getMax().x - xp;
+		diffy1 = yp - aabb.getMax().y;
+		diffy2 = aabb.getMin().y - yp;
+
+		// if collision with aabb, backtrack sprite's aabb position
+		if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
+			aabb.update(-spriteDir);
+		else // leave new aabb position alone and adjust sprite pos
+			spritePos += spriteDir;
+
 		sprite.setPosition(spritePos);
+		animations[int(curAnimation)].update(dt);
 	}
 	animations[int(curAnimation)].applyToSprite(sprite);
 }

@@ -2,11 +2,12 @@
 #include <SFML/Graphics.hpp>
 #include "Character.h"
 #include <array>
+#include "AABB.h"
 
 class MainCharacter : public Character
 {
 public:
-	MainCharacter(const sf::Vector2f& pos);
+	MainCharacter(const sf::Vector2f& spritePos);
 	void setAnimationIndex(const sf::Vector2f& dir) override;
 	void update(const float& dt) override;
 private:
@@ -42,4 +43,5 @@ private:
 	std::array<MainCharacterAnimation,
 		static_cast<int>(AnimationIndex::Count)> animations;
 	AnimationIndex curAnimation;
+	AABB aabb;
 };

@@ -8,7 +8,7 @@
 #include "DialogueBox.h"
 #include "TitleScreen.h"
 #include "GameState.h"
-#include "Room.h"
+#include "WorldMap.h"
 #include "Constants.h"
 
 // TODO: fix vibrating sprite
@@ -23,13 +23,13 @@ int main()
 	window.setActive(true);
 	window.setVerticalSyncEnabled(true);
 	sf::RenderTexture gameScreenTexture;
-	gameScreenTexture.create(800, 600);
+	gameScreenTexture.create(800, 800);
 	// Init game state machine
 	GameState gameState = GameState::TitleScreen;
 	// Title screen
 	TitleScreen tScreen;
-	// Load first room
-	Room room(64, 64);
+	// Load world map
+	WorldMap worldMap;
 	// Load main character sprite to display
 	MainCharacter boy({ 0.0f, 0.0f });
 
@@ -121,7 +121,7 @@ int main()
 				demon.update(dt);
 
 				window.clear();
-				room.draw(window);
+				window.draw(worldMap.getCurrentRoom());
 				boy.draw(window);
 				demon.draw(window);
 				window.display();
@@ -133,7 +133,7 @@ int main()
 				dialogueBox.update(dt);
 
 				window.clear();
-				room.draw(window);
+				window.draw(worldMap.getCurrentRoom());
 				boy.draw(window);
 				demon.draw(window);
 				dialogueBox.draw(window);

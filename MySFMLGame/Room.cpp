@@ -1,33 +1,41 @@
 #include "Room.h"
 
-Room::Room(int tileWidth, int tileHeight)
+Room::Room(const std::string& fileName, const std::string& roomName,
+	const unsigned int tileWidth, const unsigned int tileHeight)
 	:
-	tileWidth(tileWidth),
-	tileHeight(tileHeight)
+	fileName{ fileName },
+	roomName{ roomName },
+	tileWidth{ tileWidth },
+	tileHeight{ tileHeight },
+	roomLoaded{ false }
 {
-	texture.loadFromFile("Sprites/Environment/ground_tiles.png");
-	grassTileIntRect = { 32, 64, tileWidth, tileHeight };
-	sprite.setTexture(texture);
-	sprite.setTextureRect(grassTileIntRect);
 }
 
-void Room::draw(sf::RenderTarget& rt)
+const bool& Room::isLoaded() const
 {
-	float curX = -1.0f * tileWidth;
-	float curY = 0;
+	return roomLoaded;
+}
 
-	while (curX <= rt.getSize().x - grassTileIntRect.width)
+bool Room::load()
+{
+	std::cout << "TITTIES" << std::endl;
+	return false;
+}
+
+void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	if (!roomLoaded)
 	{
-		curX += tileWidth;
-		sprite.setPosition({ curX, curY });
-		rt.draw(sprite);
-		if (curX + grassTileIntRect.width > rt.getSize().x)
-		{
-			curX = -1.0f * tileWidth;
-			if (curY + grassTileIntRect.height < rt.getSize().y)
-				curY += grassTileIntRect.height;
-			else
-				break;
-		}
+		std::cerr << "Room \"" << roomName << "\" could not be loaded."
+			<< std::endl;
+		return;
 	}
+	// apply the transform
+	states.transform *= getTransform();
+
+	// apply the tileset texture
+	states.texture = &texture;
+
+	// draw the vertex array
+	target.draw(vertexArray, states);
 }

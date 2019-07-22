@@ -3,8 +3,7 @@
 
 class AABB {
 public:
-	AABB(const sf::Vector2f& pos,
-		const sf::Vector2f& min, const sf::Vector2f& max);
+	AABB(const sf::Vector2f& min, const sf::Vector2f& max);
 	void update(const sf::Vector2f& spriteDir);
 	void update(const sf::Vector2f&& spriteDir);
 	const sf::Vector2f& getPosition() const;

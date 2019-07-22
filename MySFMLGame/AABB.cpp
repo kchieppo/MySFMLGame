@@ -1,9 +1,7 @@
 #include "AABB.h"
 
-AABB::AABB(const sf::Vector2f& pos,
-	const sf::Vector2f& min, const sf::Vector2f& max)
+AABB::AABB(const sf::Vector2f& min, const sf::Vector2f& max)
 	:
-	aabbPos(pos),
 	aabbMin(min),
 	aabbMax(max),
 	aabbDir{ 0.0f, 0.0f }
@@ -12,14 +10,12 @@ AABB::AABB(const sf::Vector2f& pos,
 
 void AABB::update(const sf::Vector2f& spriteDir)
 {
-	aabbPos += spriteDir;
 	aabbMin += spriteDir;
 	aabbMax += spriteDir;
 }
 
 void AABB::update(const sf::Vector2f&& spriteDir)
 {
-	aabbPos += spriteDir;
 	aabbMin += spriteDir;
 	aabbMax += spriteDir;
 }
