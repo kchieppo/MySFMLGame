@@ -1,0 +1,4 @@
+1) Smooth Room transitions
+2) Make diagonal walking speed same as x and y
+3) Maybe unload Rooms when not using
+3a) Maybe Room save states before unloading
