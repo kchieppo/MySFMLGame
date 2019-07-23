@@ -49,7 +49,6 @@ int main()
 
 	bool titleScreen = true;
 	bool gameIsPaused = false;
-	bool once = true;
 	while (window.isOpen())
 	{
 		// Process events
@@ -88,29 +87,31 @@ int main()
 					gameState = GameState::GameScreen;
 				break;
 			case GameState::GameScreen:
-				// handle movement input
+
 				walkDir = { 0.0f, 0.0f };
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+
+				// Load new room and adjust MainCharacter position, else
+				// listen for keyboard input for MainCharacter movement
+				if (boy.getPosition().y < 0 && worldMap.up())
+					boy.setPositionY(static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS - boy.getSpriteHeight()));
+				else if (boy.getPosition().y + boy.getSpriteHeight() > Constants::WINDOW_HEIGHT_PIXELS
+					&& worldMap.down())
+					boy.setPositionY(0);
+				else if (boy.getPosition().x < 0 && worldMap.left())
+					boy.setPositionX(static_cast<float>(Constants::WINDOW_WIDTH_PIXELS - boy.getSpriteWidth()));
+				else if (boy.getPosition().x + boy.getSpriteWidth() > Constants::WINDOW_WIDTH_PIXELS
+					&& worldMap.right())
+					boy.setPositionX(0);
+				else
 				{
-					walkDir.y -= 1.0f;
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-				{
-					walkDir.y += 1.0f;
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-				{
-					walkDir.x -= 1.0f;
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-				{
-					walkDir.x += 1.0f;
-				}
-				std::cout << boy.getPosition().x << std::endl;
-				if (once && boy.getPosition().x < 0)
-				{
-					worldMap.left();
-					once = false;
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+						walkDir.y -= 1.0f;
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+						walkDir.y += 1.0f;
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+						walkDir.x -= 1.0f;
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+						walkDir.x += 1.0f;
 				}
 				boy.setAnimationIndex(walkDir);
 				boy.update(dt);

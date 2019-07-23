@@ -10,6 +10,11 @@ public:
 	void setAnimationIndex(const sf::Vector2f& dir) override;
 	void update(const float& dt) override;
 	const sf::Vector2f& getPosition() const;
+	void setPosition(sf::Vector2f&& pos);
+	void setPositionX(float&& pos);
+	void setPositionY(float&& pos);
+	const int& getSpriteWidth() const;
+	const int& getSpriteHeight() const;
 private:
 
 	class MainCharacterAnimation : public Animation
@@ -19,13 +24,13 @@ private:
 		MainCharacterAnimation(const std::string&& name,
 			const std::string&& fileName, int xFirstFrame,
 			int numFrames, float timePerFrame);
+		static constexpr int widthFrame = 29;
+		static constexpr int heightFrame = 32;
 	protected:
 		void createFrames(int xFirstFrame, int yFirstFrame,
 			int xOffset, int yOffset) override;
 	private:
 		static constexpr int yFirstFrame = 11;
-		static constexpr int widthFrame = 29;
-		static constexpr int heightFrame = 32;
 		static constexpr int xOffset = 0;
 		static constexpr int yOffset = 48;
 	};
@@ -43,5 +48,6 @@ private:
 	std::array<MainCharacterAnimation,
 		static_cast<int>(AnimationIndex::Count)> animations;
 	AnimationIndex curAnimation;
+	AnimationIndex prevAnimation;
 	AABB aabb;
 };

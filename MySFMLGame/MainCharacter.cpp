@@ -3,8 +3,9 @@
 MainCharacter::MainCharacter(const sf::Vector2f& spritePos)
 	:
 	Character(spritePos),
-	speed(100.0f),
-	curAnimation(AnimationIndex::WalkingDown),
+	speed{ 100.0f },
+	curAnimation{ AnimationIndex::WalkingDown },
+	prevAnimation{ AnimationIndex::WalkingDown },
 	aabb{ {spritePos.x + 3.0f, spritePos.y + 32.0f},
 		{spritePos.x + 25.0f, spritePos.y + 23.0f} }
 {
@@ -26,6 +27,7 @@ MainCharacter::MainCharacter(const sf::Vector2f& spritePos)
 void MainCharacter::setAnimationIndex(const sf::Vector2f& dir)
 {
 	vel = dir * speed;
+	prevAnimation = curAnimation;
 	if (dir.y < 0.0f)
 		curAnimation = AnimationIndex::WalkingUp;
 	else if (dir.y > 0.0f)
@@ -38,6 +40,12 @@ void MainCharacter::setAnimationIndex(const sf::Vector2f& dir)
 
 void MainCharacter::update(const float& dt)
 {
+	if (prevAnimation != curAnimation)
+	{
+		animations[int(prevAnimation)].reset();
+		prevAnimation = curAnimation;
+	}
+
 	if (vel.x == 0 && vel.y == 0)
 		animations[int(curAnimation)].reset();
 	else
@@ -68,6 +76,34 @@ void MainCharacter::update(const float& dt)
 const sf::Vector2f& MainCharacter::getPosition() const
 {
 	return spritePos;
+}
+
+void MainCharacter::setPosition(sf::Vector2f&& pos)
+{
+	spritePos = pos;
+	sprite.setPosition(spritePos);
+}
+
+void MainCharacter::setPositionX(float&& pos)
+{
+	spritePos.x = pos;
+	sprite.setPosition(spritePos);
+}
+
+void MainCharacter::setPositionY(float&& pos)
+{
+	spritePos.y = pos;
+	sprite.setPosition(spritePos);
+}
+
+const int& MainCharacter::getSpriteWidth() const
+{
+	return MainCharacterAnimation::widthFrame;
+}
+
+const int& MainCharacter::getSpriteHeight() const
+{
+	return MainCharacterAnimation::heightFrame;
 }
 
 MainCharacter::MainCharacterAnimation::MainCharacterAnimation(

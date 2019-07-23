@@ -7,16 +7,16 @@ class WorldMap
 {
 public:
 	WorldMap();
-	void up();
-	void down();
-	void left();
-	void right();
+	bool up();
+	bool down();
+	bool left();
+	bool right();
 	const Room& getCurrentRoom();
 private:
 	void loadCurrentRoom();
 private:
 	static constexpr unsigned char worldMapDimRow = 2;
-	static constexpr unsigned char worldMapDimCol = 2;
+	static constexpr unsigned char worldMapDimCol = 3;
 	Matrix<Room*, worldMapDimRow, worldMapDimCol> worldMatrix;
 
 	unsigned char worldMatRow, worldMatCol;

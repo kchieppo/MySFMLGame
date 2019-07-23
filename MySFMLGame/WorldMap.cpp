@@ -1,12 +1,14 @@
 #include "WorldMap.h"
 #include "GrassRoom.h"
 #include "BlueRoom.h"
+#include "PurpleRoom.h"
+#include "BlackRoom.h"
 
 WorldMap::WorldMap()
 	:
 	worldMatrix{ {
-		{new BlueRoom(), new GrassRoom()},
-		{new GrassRoom(), new GrassRoom()}
+		{new GrassRoom(), new BlackRoom(), new PurpleRoom()},
+		{new PurpleRoom(), new BlueRoom(), new BlackRoom()}
 	} },
 	worldMatRow{ 0 },
 	worldMatCol{ 1 },
@@ -15,44 +17,52 @@ WorldMap::WorldMap()
 	loadCurrentRoom();
 }
 
-void WorldMap::up()
+bool WorldMap::up()
 {
 	if (worldMatRow != 0)
 	{
 		worldMatRow -= 1;
 		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
+		return true;
 	}
+	return false;
 }
 
-void WorldMap::down()
+bool WorldMap::down()
 {
 	if (worldMatRow != worldMapDimRow - 1)
 	{
 		worldMatRow += 1;
 		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
+		return true;
 	}
+	return false;
 }
 
-void WorldMap::left()
+bool WorldMap::left()
 {
 	if (worldMatCol != 0)
 	{
 		worldMatCol -= 1;
 		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
+		return true;
 	}
+	return false;
 }
 
-void WorldMap::right()
+bool WorldMap::right()
 {
 	if (worldMatCol != worldMapDimCol - 1)
 	{
 		worldMatCol += 1;
 		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
+		return true;
 	}
+	return false;
 }
 
 const Room& WorldMap::getCurrentRoom()
