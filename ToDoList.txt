@@ -2,3 +2,14 @@
 2) Make diagonal walking speed same as x and y
 3) Maybe unload Rooms when not using
 3a) Maybe Room save states before unloading
+4) Make DialogueBox nicer
+4a) Draw letter-by-letter instead of word-by-word
+4b) Make dialogue speed adjustable by button or setting
+4c) Move DialogueBox back to bottom of screen
+4c1) Make DialogueBox location dynamic with screen size
+5) Center title on TitleScreen
+5a) Make title dynamic with screen size
+6) Bind DemonCharacter to Room
+7) Give DemonCharacter some kind of movement path
+8) Add AABBs to collision tiles
+9) Associate Events with AABBs
