@@ -2,9 +2,10 @@
 
 AABB::AABB(const sf::Vector2f& min, const sf::Vector2f& max)
 	:
-	aabbMin(min),
-	aabbMax(max),
-	aabbDir{ 0.0f, 0.0f }
+	aabbMinStart{ min },
+	aabbMaxStart{ max },
+	aabbMin{ min },
+	aabbMax{ max }
 {
 }
 
@@ -20,11 +21,6 @@ void AABB::update(const sf::Vector2f&& spriteDir)
 	aabbMax += spriteDir;
 }
 
-const sf::Vector2f& AABB::getPosition() const
-{
-	return aabbPos;
-}
-
 const sf::Vector2f& AABB::getMin() const
 {
 	return aabbMin;
@@ -33,4 +29,10 @@ const sf::Vector2f& AABB::getMin() const
 const sf::Vector2f& AABB::getMax() const
 {
 	return aabbMax;
+}
+
+void AABB::reset()
+{
+	aabbMin = aabbMinStart;
+	aabbMax = aabbMaxStart;
 }

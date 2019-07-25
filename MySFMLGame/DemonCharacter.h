@@ -10,6 +10,7 @@ public:
 	DemonCharacter(const sf::Vector2f& spritePos);
 	void setAnimationIndex(const sf::Vector2f& dir) override;
 	void update(const float& dt) override;
+	void reset(const sf::Vector2f&& pos);
 private:
 
 	class DemonCharacterAnimation : public Animation

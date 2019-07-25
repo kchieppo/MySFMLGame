@@ -4,7 +4,7 @@ GrassRoom::GrassRoom()
 	:
 	Room("Sprites/Environment/grass_tile.png", "GrassRoom",
 		64, 64),
-	roomMatrix{{
+	roomMatrix{ {
 		{1, 0, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -30,7 +30,8 @@ GrassRoom::GrassRoom()
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-	}}
+	} },
+	demon{ {demonStartPosX, demonStartPosY} }
 {
 }
 
@@ -84,4 +85,23 @@ bool GrassRoom::load()
 		}
 	roomLoaded = true;
 	return true;
+}
+
+void GrassRoom::update(const float& dt)
+{
+	demon.update(dt);
+}
+
+void GrassRoom::reset()
+{
+	demon.reset({ demonStartPosX, demonStartPosY });
+}
+
+void GrassRoom::draw(sf::RenderTarget& rt, sf::RenderStates states) const
+{
+	Room::draw(rt, states);
+
+	demon.draw(rt);
+	// TODO
+	// rt.draw(demon.getSprite());
 }

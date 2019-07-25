@@ -65,7 +65,7 @@ bool WorldMap::right()
 	return false;
 }
 
-const Room& WorldMap::getCurrentRoom()
+Room& WorldMap::getCurrentRoom()
 {
 	return *worldMatrix.at(worldMatRow).at(worldMatCol);
 }
@@ -74,4 +74,5 @@ void WorldMap::loadCurrentRoom()
 {
 	if (!currentRoom->isLoaded())
 		currentRoom->load();
+	currentRoom->reset();
 }

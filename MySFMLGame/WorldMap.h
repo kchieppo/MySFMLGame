@@ -11,7 +11,7 @@ public:
 	bool down();
 	bool left();
 	bool right();
-	const Room& getCurrentRoom();
+	Room& getCurrentRoom();
 private:
 	void loadCurrentRoom();
 private:

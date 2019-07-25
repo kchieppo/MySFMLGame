@@ -22,8 +22,6 @@ int main()
 		sf::Style::Titlebar | sf::Style::Close);
 	window.setActive(true);
 	window.setVerticalSyncEnabled(true);
-	sf::RenderTexture gameScreenTexture;
-	gameScreenTexture.create(800, 800);
 	// Init game state machine
 	GameState gameState = GameState::TitleScreen;
 	// Title screen
@@ -32,11 +30,6 @@ int main()
 	WorldMap worldMap;
 	// Load main character sprite to display
 	MainCharacter boy({ 0.0f, 0.0f });
-
-	// Load other character
-	DemonCharacter demon({ 400.0f, 300.0f });
-	sf::Vector2f demDir;
-
 	sf::Vector2f walkDir;
 	// Menu
 	std::string dialogueMsg = "This is a long message. A really, "
@@ -116,22 +109,10 @@ int main()
 				boy.setAnimationIndex(walkDir);
 				boy.update(dt);
 
-				demDir = { 0.0f, 0.0f };
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-					demDir.y -= 1.0f;
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-					demDir.y += 1.0f;
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-					demDir.x -= 1.0f;
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-					demDir.x += 1.0f;
-				demon.setAnimationIndex(demDir);
-				demon.update(dt);
-
 				window.clear();
+				worldMap.getCurrentRoom().update(dt);
 				window.draw(worldMap.getCurrentRoom());
 				boy.draw(window);
-				demon.draw(window);
 				window.display();
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
@@ -143,7 +124,6 @@ int main()
 				window.clear();
 				window.draw(worldMap.getCurrentRoom());
 				boy.draw(window);
-				demon.draw(window);
 				dialogueBox.draw(window);
 				window.display();
 

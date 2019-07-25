@@ -12,8 +12,10 @@ public:
 		const unsigned int tileWidth, const unsigned int tileHeight);
 	const bool& isLoaded() const;
 	virtual bool load();
+	virtual void update(const float& dt);
+	virtual void reset();
 protected:
-	void draw(sf::RenderTarget& rt, sf::RenderStates states) const override;
+	virtual void draw(sf::RenderTarget& rt, sf::RenderStates states) const override;
 protected:
 	const std::string fileName;
 	const std::string roomName;

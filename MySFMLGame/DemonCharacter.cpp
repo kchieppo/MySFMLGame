@@ -4,9 +4,9 @@
 DemonCharacter::DemonCharacter(const sf::Vector2f& spritePos)
 	:
 	Character(spritePos),
-	speed(50.0f),
-	curAnimation(AnimationIndex::StandingStillRight),
-	prevAnimation(AnimationIndex::StandingStillRight),
+	speed{ 50.0f },
+	curAnimation{ AnimationIndex::StandingStillRight },
+	prevAnimation{ AnimationIndex::StandingStillRight },
 	aabb{ {spritePos.x - 1.0f * scaleFactor, spritePos.y + 35.0f * scaleFactor},
 		{spritePos.x + 26.0f * scaleFactor, spritePos.y + 26.0f * scaleFactor} }
 {
@@ -83,6 +83,18 @@ void DemonCharacter::update(const float& dt)
 	sprite.setPosition(spritePos);
 	animations[int(curAnimation)].update(dt);
 	animations[int(curAnimation)].applyToSprite(sprite);
+}
+
+void DemonCharacter::reset(const sf::Vector2f&& pos)
+{
+	spritePos = pos;
+	sprite.setPosition(spritePos);
+	vel = { 0.0f, 0.0f };
+	animations[int(prevAnimation)].reset();
+	curAnimation = AnimationIndex::StandingStillRight;
+	prevAnimation = curAnimation;
+	animations[int(curAnimation)].applyToSprite(sprite);
+	aabb.reset();
 }
 
 DemonCharacter::DemonCharacterAnimation::DemonCharacterAnimation(

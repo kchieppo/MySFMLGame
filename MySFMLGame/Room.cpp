@@ -18,9 +18,19 @@ const bool& Room::isLoaded() const
 
 bool Room::load()
 {
-	std::cout << "TITTIES" << std::endl;
 	return false;
 }
+
+void Room::update(const float& dt)
+{
+	return;
+}
+
+void Room::reset()
+{
+	return;
+}
+
 
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
