@@ -2,8 +2,8 @@
 
 namespace Constants
 {
-	extern const int WINDOW_WIDTH_PIXELS;
-	extern const int WINDOW_HEIGHT_PIXELS;
-	extern const int ROOM_WIDTH_IN_TILES;
-	extern const int ROOM_HEIGHT_IN_TILES;
+	constexpr unsigned int WINDOW_WIDTH_PIXELS{ 800 };
+	constexpr unsigned int WINDOW_HEIGHT_PIXELS{ 800 };
+	constexpr unsigned int ROOM_WIDTH_IN_TILES{ 50 };
+	constexpr unsigned int ROOM_HEIGHT_IN_TILES{ 50 };
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Constants.h"
+#include "TranslationDir.h"
 #include <array>
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -14,6 +15,8 @@ public:
 	virtual bool load();
 	virtual void update(const float& dt);
 	virtual void reset();
+	virtual void translateIn(TranslationDir& dir);
+	virtual void translateOut(TranslationDir& dir);
 protected:
 	virtual void draw(sf::RenderTarget& rt, sf::RenderStates states) const override;
 protected:
@@ -24,7 +27,11 @@ protected:
 	bool roomLoaded;
 	sf::VertexArray vertexArray;
 	sf::Texture texture;
-private:
-	sf::Sprite sprite;
-	sf::IntRect grassTileIntRect;
+	static constexpr unsigned int transMag = 2;
+	static_assert(Constants::ROOM_HEIGHT_IN_TILES %
+		transMag == 0, "Room transMag is not "
+		"divisible by Constants::ROOM_HEIGHT_IN_TILES");
+	static_assert(Constants::ROOM_WIDTH_IN_TILES %
+		transMag == 0, "Room transMag is not "
+		"divisible by Constants::ROOM_HEIGHT_IN_TILES");
 };

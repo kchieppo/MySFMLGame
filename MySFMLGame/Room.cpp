@@ -31,6 +31,15 @@ void Room::reset()
 	return;
 }
 
+void Room::translateIn(TranslationDir& dir)
+{
+	return;
+}
+
+void Room::translateOut(TranslationDir& dir)
+{
+	return;
+}
 
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {

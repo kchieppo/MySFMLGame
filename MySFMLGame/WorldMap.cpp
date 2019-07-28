@@ -7,12 +7,14 @@
 WorldMap::WorldMap()
 	:
 	worldMatrix{ {
-		{new GrassRoom(), new BlackRoom(), new PurpleRoom()},
-		{new PurpleRoom(), new BlueRoom(), new BlackRoom()}
+		{new GrassRoom(), new BlueRoom(), new PurpleRoom()},
+		{new PurpleRoom(), new BlackRoom(), new BlueRoom()}
 	} },
 	worldMatRow{ 0 },
 	worldMatCol{ 1 },
-	currentRoom{ worldMatrix.at(worldMatRow).at(worldMatCol) }
+	currentRoom{ worldMatrix.at(worldMatRow).at(worldMatCol) },
+	prevRoom{ currentRoom },
+	translationDir{ TranslationDir::None }
 {
 	loadCurrentRoom();
 }
@@ -21,8 +23,9 @@ bool WorldMap::up()
 {
 	if (worldMatRow != 0)
 	{
-		worldMatRow -= 1;
-		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
+		translationDir = TranslationDir::Down;
+		prevRoom = currentRoom;
+		currentRoom = worldMatrix.at(--worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
 		return true;
 	}
@@ -33,8 +36,9 @@ bool WorldMap::down()
 {
 	if (worldMatRow != worldMapDimRow - 1)
 	{
-		worldMatRow += 1;
-		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
+		translationDir = TranslationDir::Up;
+		prevRoom = currentRoom;
+		currentRoom = worldMatrix.at(++worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
 		return true;
 	}
@@ -45,8 +49,9 @@ bool WorldMap::left()
 {
 	if (worldMatCol != 0)
 	{
-		worldMatCol -= 1;
-		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
+		translationDir = TranslationDir::Right;
+		prevRoom = currentRoom;
+		currentRoom = worldMatrix.at(worldMatRow).at(--worldMatCol);
 		loadCurrentRoom();
 		return true;
 	}
@@ -57,8 +62,9 @@ bool WorldMap::right()
 {
 	if (worldMatCol != worldMapDimCol - 1)
 	{
-		worldMatCol += 1;
-		currentRoom = worldMatrix.at(worldMatRow).at(worldMatCol);
+		translationDir = TranslationDir::Left;
+		prevRoom = currentRoom;
+		currentRoom = worldMatrix.at(worldMatRow).at(++worldMatCol);
 		loadCurrentRoom();
 		return true;
 	}
@@ -68,6 +74,22 @@ bool WorldMap::right()
 Room& WorldMap::getCurrentRoom()
 {
 	return *worldMatrix.at(worldMatRow).at(worldMatCol);
+}
+
+void WorldMap::handleRoomDrawing(sf::RenderTarget& rt)
+{
+	if (translationDir == TranslationDir::None)
+		rt.draw(*currentRoom);
+	else
+	{
+		currentRoom->translateIn(translationDir);
+		prevRoom->translateOut(translationDir);
+		if (translationDir != TranslationDir::None)
+		{
+			rt.draw(*currentRoom);
+			rt.draw(*prevRoom);
+		}
+	}
 }
 
 void WorldMap::loadCurrentRoom()

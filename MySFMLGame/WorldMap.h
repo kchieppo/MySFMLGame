@@ -12,6 +12,7 @@ public:
 	bool left();
 	bool right();
 	Room& getCurrentRoom();
+	void handleRoomDrawing(sf::RenderTarget& rt);
 private:
 	void loadCurrentRoom();
 private:
@@ -20,5 +21,7 @@ private:
 	Matrix<Room*, worldMapDimRow, worldMapDimCol> worldMatrix;
 
 	unsigned char worldMatRow, worldMatCol;
-	Room* currentRoom;
+	Room* currentRoom, *prevRoom;
+
+	TranslationDir translationDir;
 };

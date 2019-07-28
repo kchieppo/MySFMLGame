@@ -111,7 +111,7 @@ int main()
 
 				window.clear();
 				worldMap.getCurrentRoom().update(dt);
-				window.draw(worldMap.getCurrentRoom());
+				worldMap.handleRoomDrawing(window);
 				boy.draw(window);
 				window.display();
 
