@@ -29,7 +29,7 @@ int main()
 	// Load world map
 	WorldMap worldMap;
 	// Load main character sprite to display
-	MainCharacter boy({ 0.0f, 0.0f });
+	MainCharacter boy({ 400.0f, 550.0f });
 	sf::Vector2f walkDir;
 	// Menu
 	std::string dialogueMsg = "This is a long message. A really, "

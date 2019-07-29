@@ -1,13 +1,13 @@
 #include "MainCharacter.h"
 
-MainCharacter::MainCharacter(const sf::Vector2f& spritePos)
+MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	:
-	Character(spritePos),
+	Character(pos),
 	speed{ 100.0f },
 	curAnimation{ AnimationIndex::WalkingDown },
 	prevAnimation{ AnimationIndex::WalkingDown },
-	aabb{ {spritePos.x + 3.0f, spritePos.y + 32.0f},
-		{spritePos.x + 25.0f, spritePos.y + 23.0f} }
+	aabb{ {pos.x + 3.0f, pos.y + 32.0f},
+		{pos.x + 25.0f, pos.y + 23.0f} }
 {
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
 	animations[int(AnimationIndex::WalkingUp)]
@@ -65,9 +65,8 @@ void MainCharacter::update(const float& dt)
 		if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
 			aabb.update(-spriteDir);
 		else // leave new aabb position alone and adjust sprite pos
-			spritePos += spriteDir;
+			sprite.setPosition(sprite.getPosition() + spriteDir);
 
-		sprite.setPosition(spritePos);
 		animations[int(curAnimation)].update(dt);
 	}
 	animations[int(curAnimation)].applyToSprite(sprite);
@@ -75,25 +74,22 @@ void MainCharacter::update(const float& dt)
 
 const sf::Vector2f& MainCharacter::getPosition() const
 {
-	return spritePos;
+	return sprite.getPosition();
 }
 
 void MainCharacter::setPosition(sf::Vector2f&& pos)
 {
-	spritePos = pos;
-	sprite.setPosition(spritePos);
+	sprite.setPosition(pos);
 }
 
-void MainCharacter::setPositionX(float&& pos)
+void MainCharacter::setPositionX(float&& posX)
 {
-	spritePos.x = pos;
-	sprite.setPosition(spritePos);
+	sprite.setPosition(posX, sprite.getPosition().y);
 }
 
-void MainCharacter::setPositionY(float&& pos)
+void MainCharacter::setPositionY(float&& posY)
 {
-	spritePos.y = pos;
-	sprite.setPosition(spritePos);
+	sprite.setPosition(sprite.getPosition().x, posY);
 }
 
 const int& MainCharacter::getSpriteWidth() const

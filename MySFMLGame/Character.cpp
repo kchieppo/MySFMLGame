@@ -2,16 +2,16 @@
 
 Character::Character()
 	:
-	spritePos{ 0.0f, 0.0f },
 	vel{ 0.0f, 0.0f }
 {
+	sprite.setPosition({ 0.0f, 0.0f });
 }
 
-Character::Character(const sf::Vector2f& spritePos)
+Character::Character(const sf::Vector2f& pos)
 	:
-	spritePos(spritePos),
 	vel{ 0.0f, 0.0f }
 {
+	sprite.setPosition(pos);
 }
 
 void Character::draw(sf::RenderTarget& rt) const

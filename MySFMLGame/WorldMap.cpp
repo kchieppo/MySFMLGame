@@ -7,8 +7,8 @@
 WorldMap::WorldMap()
 	:
 	worldMatrix{ {
-		{new GrassRoom(), new BlueRoom(), new PurpleRoom()},
-		{new PurpleRoom(), new BlackRoom(), new BlueRoom()}
+		{new BlueRoom(), new GrassRoom(), new BlueRoom()},
+		{new BlackRoom(), new PurpleRoom(), new BlackRoom()}
 	} },
 	worldMatRow{ 0 },
 	worldMatCol{ 1 },
@@ -82,11 +82,11 @@ void WorldMap::handleRoomDrawing(sf::RenderTarget& rt)
 		rt.draw(*currentRoom);
 	else
 	{
-		currentRoom->translateIn(translationDir);
+		//currentRoom->translateIn(translationDir);
 		prevRoom->translateOut(translationDir);
 		if (translationDir != TranslationDir::None)
 		{
-			rt.draw(*currentRoom);
+			//rt.draw(*currentRoom);
 			rt.draw(*prevRoom);
 		}
 	}

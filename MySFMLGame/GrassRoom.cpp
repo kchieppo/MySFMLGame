@@ -5,31 +5,16 @@ GrassRoom::GrassRoom()
 	Room("Sprites/Environment/grass_tile.png", "GrassRoom",
 		64, 64),
 	roomMatrix{ {
-		{1, 0, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+		{1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	} },
 	demon{ {demonStartPosX, demonStartPosY} }
 {
@@ -100,6 +85,7 @@ void GrassRoom::reset()
 
 void GrassRoom::translateIn(TranslationDir& dir)
 {
+	
 }
 
 void GrassRoom::translateOut(TranslationDir& dir)
@@ -109,17 +95,16 @@ void GrassRoom::translateOut(TranslationDir& dir)
 	switch (dir)
 	{
 	case TranslationDir::Up:
-		// Vertex 3 of bottom-left tile
-		if (vertexArray[((roomDimRow - 1) * roomDimCol) * 4 + 2].position.y
+		dirVec = { 0, -1 };
+		if (vertexArray[(roomDimRow - 1) * roomDimCol * 4 + 2].position.y
 			+ dirVec.y * static_cast<float>(transMag) < 0)
 		{
 			dir = TranslationDir::None;
 			resetVertexArrayPositions();
 			return;
 		}
-
-		dirVec = { 0, -1 };
-		for (int j = roomDimRow - 1; j < 0; j--)
+		
+		for (int j = roomDimRow - 1; j >= 0; j--)
 			for (int i = 0; i < roomDimCol; i++)
 			{
 				quad = &vertexArray[(i + j * roomDimCol) * 4];
@@ -129,12 +114,12 @@ void GrassRoom::translateOut(TranslationDir& dir)
 				quad[2].position.y += dirVec.y * static_cast<float>(transMag);
 				quad[3].position.y += dirVec.y * static_cast<float>(transMag);
 
-				if (quad[3].position.y < 0)
+				if (quad[2].position.y < 0 && i == roomDimCol - 1)
 					return;
 			}
 		break;
 	case TranslationDir::Down:
-		// Vertex 0 of top-left tile
+		dirVec = { 0, 1 };
 		if (vertexArray[0].position.y + dirVec.y * static_cast<float>(transMag)
 			> Constants::WINDOW_HEIGHT_PIXELS)
 		{
@@ -143,7 +128,6 @@ void GrassRoom::translateOut(TranslationDir& dir)
 			return;
 		}
 
-		dirVec = { 0, 1 };
 		for (int j = 0; j < roomDimRow; j++)
 			for (int i = 0; i < roomDimCol; i++)
 			{
@@ -154,12 +138,13 @@ void GrassRoom::translateOut(TranslationDir& dir)
 				quad[2].position.y += dirVec.y * static_cast<float>(transMag);
 				quad[3].position.y += dirVec.y * static_cast<float>(transMag);
 
-				if (quad[0].position.y > Constants::WINDOW_HEIGHT_PIXELS)
+				if (quad[0].position.y > Constants::WINDOW_HEIGHT_PIXELS
+					&& i == roomDimCol - 1)
 					return;
 			}
 		break;
 	case TranslationDir::Left:
-		// Vertex 1 of top-right tile
+		dirVec = { -1, 0 };
 		if (vertexArray[(roomDimCol - 1) * 4 + 1].position.x + dirVec.x
 			* static_cast<float>(transMag) < 0)
 		{
@@ -168,7 +153,6 @@ void GrassRoom::translateOut(TranslationDir& dir)
 			return;
 		}
 
-		dirVec = { -1, 0 };
 		for (int j = 0; j < roomDimRow; j++)
 			for (int i = roomDimCol - 1; i >= 0; i--)
 			{
@@ -184,7 +168,7 @@ void GrassRoom::translateOut(TranslationDir& dir)
 			}
 		break;
 	case TranslationDir::Right:
-		// Vertex 3 of bottom-left tile
+		dirVec = { 1, 0 };
 		if (vertexArray[0].position.x + dirVec.x * static_cast<float>(transMag)
 			> Constants::WINDOW_WIDTH_PIXELS)
 		{
@@ -193,7 +177,6 @@ void GrassRoom::translateOut(TranslationDir& dir)
 			return;
 		}
 
-		dirVec = { 1, 0 };
 		for (int j = 0; j < roomDimRow; j++)
 			for (int i = 0; i < roomDimCol; i++)
 			{

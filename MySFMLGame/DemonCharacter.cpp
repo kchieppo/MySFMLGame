@@ -1,14 +1,14 @@
 #include "DemonCharacter.h"
 #include <iostream>
 
-DemonCharacter::DemonCharacter(const sf::Vector2f& spritePos)
+DemonCharacter::DemonCharacter(const sf::Vector2f& pos)
 	:
-	Character(spritePos),
+	Character(pos),
 	speed{ 50.0f },
 	curAnimation{ AnimationIndex::StandingStillRight },
 	prevAnimation{ AnimationIndex::StandingStillRight },
-	aabb{ {spritePos.x - 1.0f * scaleFactor, spritePos.y + 35.0f * scaleFactor},
-		{spritePos.x + 26.0f * scaleFactor, spritePos.y + 26.0f * scaleFactor} }
+	aabb{ {pos.x - 1.0f * scaleFactor, pos.y + 35.0f * scaleFactor},
+		{pos.x + 26.0f * scaleFactor, pos.y + 26.0f * scaleFactor} }
 {
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
 	sprite.scale({ scaleFactor, scaleFactor });
@@ -78,17 +78,15 @@ void DemonCharacter::update(const float& dt)
 	if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
 		aabb.update(-spriteDir);
 	else // leave new aabb position alone and adjust sprite pos
-		spritePos += spriteDir;
+		sprite.setPosition(sprite.getPosition() + spriteDir);
 
-	sprite.setPosition(spritePos);
 	animations[int(curAnimation)].update(dt);
 	animations[int(curAnimation)].applyToSprite(sprite);
 }
 
 void DemonCharacter::reset(const sf::Vector2f&& pos)
 {
-	spritePos = pos;
-	sprite.setPosition(spritePos);
+	sprite.setPosition(pos);
 	vel = { 0.0f, 0.0f };
 	animations[int(prevAnimation)].reset();
 	curAnimation = AnimationIndex::StandingStillRight;

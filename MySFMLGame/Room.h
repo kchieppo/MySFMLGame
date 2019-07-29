@@ -27,11 +27,5 @@ protected:
 	bool roomLoaded;
 	sf::VertexArray vertexArray;
 	sf::Texture texture;
-	static constexpr unsigned int transMag = 2;
-	static_assert(Constants::ROOM_HEIGHT_IN_TILES %
-		transMag == 0, "Room transMag is not "
-		"divisible by Constants::ROOM_HEIGHT_IN_TILES");
-	static_assert(Constants::ROOM_WIDTH_IN_TILES %
-		transMag == 0, "Room transMag is not "
-		"divisible by Constants::ROOM_HEIGHT_IN_TILES");
+	static constexpr unsigned int transMag = 5;
 };
