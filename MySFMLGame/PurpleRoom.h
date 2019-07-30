@@ -7,16 +7,14 @@ class PurpleRoom : public Room
 public:
 	PurpleRoom();
 	bool load() override;
-	void translateIn(TranslationDir& dir) override;
-	void translateOut(TranslationDir& dir) override;
+	void translateIn(Direction& dir) override;
+	void translateOut(Direction& dir) override;
 private:
-	void populateVertexStartingPositions();
-	void resetVertexArrayPositions();
+	void prepareTilePositions(Direction& transInDir);
 private:
-	static constexpr unsigned char roomDimCol = 12;
-	static constexpr unsigned char roomDimRow = 10;
+	static constexpr int roomDimCol = 12;
+	static constexpr int roomDimRow = 10;
 	Matrix<unsigned int, roomDimRow, roomDimCol> roomMatrix;
 
-	std::array<sf::Vector2f, roomDimRow*roomDimCol * 4>
-		vertexStartingPositions;
+	bool tilePositionsPrepared;
 };

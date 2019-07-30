@@ -16,12 +16,12 @@ public:
 private:
 	void loadCurrentRoom();
 private:
-	static constexpr unsigned char worldMapDimRow = 2;
+	static constexpr unsigned char worldMapDimRow = 3;
 	static constexpr unsigned char worldMapDimCol = 3;
 	Matrix<Room*, worldMapDimRow, worldMapDimCol> worldMatrix;
 
 	unsigned char worldMatRow, worldMatCol;
 	Room* currentRoom, *prevRoom;
 
-	TranslationDir translationDir;
+	Direction direction;
 };

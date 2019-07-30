@@ -1,6 +1,6 @@
 #pragma once
 
-enum class TranslationDir
+enum class Direction
 {
 	None,
 	Up,

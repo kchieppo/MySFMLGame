@@ -8,13 +8,14 @@ WorldMap::WorldMap()
 	:
 	worldMatrix{ {
 		{new BlueRoom(), new GrassRoom(), new BlueRoom()},
-		{new BlackRoom(), new PurpleRoom(), new BlackRoom()}
+		{new GrassRoom(), new BlueRoom(), new GrassRoom()},
+		{new BlueRoom(), new PurpleRoom(), new BlueRoom()}
 	} },
-	worldMatRow{ 0 },
+	worldMatRow{ 1 },
 	worldMatCol{ 1 },
 	currentRoom{ worldMatrix.at(worldMatRow).at(worldMatCol) },
 	prevRoom{ currentRoom },
-	translationDir{ TranslationDir::None }
+	direction{ Direction::None }
 {
 	loadCurrentRoom();
 }
@@ -23,7 +24,7 @@ bool WorldMap::up()
 {
 	if (worldMatRow != 0)
 	{
-		translationDir = TranslationDir::Down;
+		direction = Direction::Down;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(--worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
@@ -36,7 +37,7 @@ bool WorldMap::down()
 {
 	if (worldMatRow != worldMapDimRow - 1)
 	{
-		translationDir = TranslationDir::Up;
+		direction = Direction::Up;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(++worldMatRow).at(worldMatCol);
 		loadCurrentRoom();
@@ -49,7 +50,7 @@ bool WorldMap::left()
 {
 	if (worldMatCol != 0)
 	{
-		translationDir = TranslationDir::Right;
+		direction = Direction::Right;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(worldMatRow).at(--worldMatCol);
 		loadCurrentRoom();
@@ -62,7 +63,7 @@ bool WorldMap::right()
 {
 	if (worldMatCol != worldMapDimCol - 1)
 	{
-		translationDir = TranslationDir::Left;
+		direction = Direction::Left;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(worldMatRow).at(++worldMatCol);
 		loadCurrentRoom();
@@ -78,15 +79,15 @@ Room& WorldMap::getCurrentRoom()
 
 void WorldMap::handleRoomDrawing(sf::RenderTarget& rt)
 {
-	if (translationDir == TranslationDir::None)
+	if (direction == Direction::None)
 		rt.draw(*currentRoom);
 	else
 	{
-		//currentRoom->translateIn(translationDir);
-		prevRoom->translateOut(translationDir);
-		if (translationDir != TranslationDir::None)
+		currentRoom->translateIn(direction);
+		prevRoom->translateOut(direction);
+		if (direction != Direction::None)
 		{
-			//rt.draw(*currentRoom);
+			rt.draw(*currentRoom);
 			rt.draw(*prevRoom);
 		}
 	}

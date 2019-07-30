@@ -3,7 +3,7 @@
 BlackRoom::BlackRoom()
 	:
 	Room("Sprites/Environment/grass_tile.png", "BlackRoom",
-		64, 64),
+		64, 64, false),
 	roomMatrix{ {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -47,15 +47,26 @@ bool BlackRoom::load()
 			// get a pointer to the current tile's quad
 			sf::Vertex* quad = &vertexArray[(i + j * roomDimCol) * 4];
 
-			// define its 4 corners
-			quad[0].position = sf::Vector2f(static_cast<float>(i * tileWidth),
-				static_cast<float>(j * tileHeight));
-			quad[1].position = sf::Vector2f(static_cast<float>((i + 1) * tileWidth),
-				static_cast<float>(j * tileHeight));
-			quad[2].position = sf::Vector2f(static_cast<float>((i + 1) * tileWidth),
-				static_cast<float>((j + 1) * tileHeight));
-			quad[3].position = sf::Vector2f(static_cast<float>(i * tileWidth),
-				static_cast<float>((j + 1) * tileHeight));
+			// load tile positions properly if starting room
+			if (firstRoom)
+			{
+				// define its 4 corners
+				quad[0].position = sf::Vector2f(static_cast<float>(i * tileWidth),
+					static_cast<float>(j * tileHeight));
+				quad[1].position = sf::Vector2f(static_cast<float>((i + 1) * tileWidth),
+					static_cast<float>(j * tileHeight));
+				quad[2].position = sf::Vector2f(static_cast<float>((i + 1) * tileWidth),
+					static_cast<float>((j + 1) * tileHeight));
+				quad[3].position = sf::Vector2f(static_cast<float>(i * tileWidth),
+					static_cast<float>((j + 1) * tileHeight));
+			}
+			else
+			{
+				quad[0].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[1].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[2].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[3].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+			}
 
 			// define its 4 texture coordinates
 			quad[0].texCoords = sf::Vector2f(static_cast<float>(tu * tileWidth),
@@ -71,23 +82,21 @@ bool BlackRoom::load()
 	return true;
 }
 
-void BlackRoom::translateIn(TranslationDir& dir)
+void BlackRoom::translateIn(Direction& dir)
 {
 }
 
-void BlackRoom::translateOut(TranslationDir& dir)
+void BlackRoom::translateOut(Direction& dir)
 {
-	sf::Vector2f dirVec;
+	sf::Vector2f dirVec = getUnitVector(dir);
 	sf::Vertex* quad;
 	switch (dir)
 	{
-	case TranslationDir::Up:
-		dirVec = { 0, -1 };
+	case Direction::Up:
 		if (vertexArray[(roomDimRow - 1) * roomDimCol * 4 + 2].position.y
 			+ dirVec.y * static_cast<float>(transMag) < 0)
 		{
-			dir = TranslationDir::None;
-			resetVertexArrayPositions();
+			dir = Direction::None;
 			return;
 		}
 
@@ -105,13 +114,11 @@ void BlackRoom::translateOut(TranslationDir& dir)
 					return;
 			}
 		break;
-	case TranslationDir::Down:
-		dirVec = { 0, 1 };
+	case Direction::Down:
 		if (vertexArray[0].position.y + dirVec.y * static_cast<float>(transMag)
 				> Constants::WINDOW_HEIGHT_PIXELS)
 		{
-			dir = TranslationDir::None;
-			resetVertexArrayPositions();
+			dir = Direction::None;
 			return;
 		}
 
@@ -130,13 +137,11 @@ void BlackRoom::translateOut(TranslationDir& dir)
 					return;
 			}
 		break;
-	case TranslationDir::Left:
-		dirVec = { -1, 0 };
+	case Direction::Left:
 		if (vertexArray[(roomDimCol - 1) * 4 + 1].position.x + dirVec.x
 			* static_cast<float>(transMag) < 0)
 		{
-			dir = TranslationDir::None;
-			resetVertexArrayPositions();
+			dir = Direction::None;
 			return;
 		}
 
@@ -154,13 +159,11 @@ void BlackRoom::translateOut(TranslationDir& dir)
 					break;
 			}
 		break;
-	case TranslationDir::Right:
-		dirVec = { 1, 0 };
+	case Direction::Right:
 		if (vertexArray[0].position.x + dirVec.x * static_cast<float>(transMag)
 				> Constants::WINDOW_WIDTH_PIXELS)
 		{
-			dir = TranslationDir::None;
-			resetVertexArrayPositions();
+			dir = Direction::None;
 			return;
 		}
 
@@ -179,16 +182,4 @@ void BlackRoom::translateOut(TranslationDir& dir)
 			}
 		break;
 	}
-}
-
-void BlackRoom::populateVertexStartingPositions()
-{
-	for (int i = 0; i < vertexStartingPositions.size(); i++)
-		vertexStartingPositions[i] = vertexArray[i].position;
-}
-
-void BlackRoom::resetVertexArrayPositions()
-{
-	for (int i = 0; i < vertexStartingPositions.size(); i++)
-		vertexArray[i].position = vertexStartingPositions[i];
 }

@@ -1,13 +1,14 @@
 #include "Room.h"
 
 Room::Room(const std::string& fileName, const std::string& roomName,
-	const unsigned int tileWidth, const unsigned int tileHeight)
+	const int tileWidth, const int tileHeight, bool&& firstRoom)
 	:
 	fileName{ fileName },
 	roomName{ roomName },
 	tileWidth{ tileWidth },
 	tileHeight{ tileHeight },
-	roomLoaded{ false }
+	roomLoaded{ false },
+	firstRoom{ firstRoom }
 {
 }
 
@@ -31,12 +32,12 @@ void Room::reset()
 	return;
 }
 
-void Room::translateIn(TranslationDir& dir)
+void Room::translateIn(Direction& dir)
 {
 	return;
 }
 
-void Room::translateOut(TranslationDir& dir)
+void Room::translateOut(Direction& dir)
 {
 	return;
 }
@@ -58,3 +59,21 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	// draw the vertex array
 	target.draw(vertexArray, states);
 }
+
+sf::Vector2f&& Room::getUnitVector(Direction& dir)
+{
+	switch (dir)
+	{
+	case Direction::Up:
+		return sf::Vector2f({ 0.0f, -1.0f });
+	case Direction::Down:
+		return sf::Vector2f({ 0.0f, 1.0f });
+	case Direction::Left:
+		return sf::Vector2f({ -1.0f, 0.0f });
+	case Direction::Right:
+		return sf::Vector2f({ 1.0f, 0.0f });
+	case Direction::None:
+		return sf::Vector2f({ 0.0f, 0.0f });
+	}
+}
+
