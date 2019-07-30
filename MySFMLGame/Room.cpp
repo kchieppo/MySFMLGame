@@ -9,7 +9,7 @@ Room::Room(const std::string& fileName, const std::string& roomName,
 	tileHeight{ tileHeight },
 	roomLoaded{ false },
 	firstRoom{ firstRoom },
-	translatingIn{ false }
+	translating{ false }
 {
 }
 
@@ -43,9 +43,9 @@ void Room::translateOut(Direction& dir)
 	return;
 }
 
-void Room::setTranslatingIn(bool&& transIn)
+void Room::setTranslating(bool&& trans)
 {
-	translatingIn = transIn;
+	translating = trans;
 }
 
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const

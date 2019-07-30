@@ -85,7 +85,7 @@ bool BlueRoom::load()
 
 void BlueRoom::update(const float& dt)
 {
-	if (!translatingIn)
+	if (!translating)
 	{
 
 	}
@@ -105,6 +105,7 @@ void BlueRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translating = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -128,6 +129,7 @@ void BlueRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translating = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -150,6 +152,7 @@ void BlueRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translating = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -172,6 +175,7 @@ void BlueRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translating = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -203,6 +207,7 @@ void BlueRoom::translateOut(Direction& dir)
 			+ dirVec.y * static_cast<float>(transMag) < 0)
 		{
 			dir = Direction::None;
+			translating = false;
 			return;
 		}
 
@@ -225,6 +230,7 @@ void BlueRoom::translateOut(Direction& dir)
 				> Constants::WINDOW_HEIGHT_PIXELS)
 		{
 			dir = Direction::None;
+			translating = false;
 			return;
 		}
 
@@ -248,6 +254,7 @@ void BlueRoom::translateOut(Direction& dir)
 			* static_cast<float>(transMag) < 0)
 		{
 			dir = Direction::None;
+			translating = false;
 			return;
 		}
 
@@ -270,6 +277,7 @@ void BlueRoom::translateOut(Direction& dir)
 				> Constants::WINDOW_WIDTH_PIXELS)
 		{
 			dir = Direction::None;
+			translating = false;
 			return;
 		}
 

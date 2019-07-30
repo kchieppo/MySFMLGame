@@ -86,7 +86,7 @@ bool GrassRoom::load()
 
 void GrassRoom::update(const float& dt)
 {
-	if (!translatingIn)
+	if (!translating)
 	{
 		demon.update(dt);
 	}
@@ -111,7 +111,7 @@ void GrassRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
-			translatingIn = false;
+			translating = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -135,7 +135,7 @@ void GrassRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
-			translatingIn = false;
+			translating = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -158,7 +158,7 @@ void GrassRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
-			translatingIn = false;
+			translating = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -181,7 +181,7 @@ void GrassRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
-			translatingIn = false;
+			translating = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -213,6 +213,7 @@ void GrassRoom::translateOut(Direction& dir)
 			+ dirVec.y * static_cast<float>(transMag) < 0)
 		{
 			dir = Direction::None;
+			translating = false;
 			return;
 		}
 		
@@ -235,6 +236,7 @@ void GrassRoom::translateOut(Direction& dir)
 			> Constants::WINDOW_HEIGHT_PIXELS)
 		{
 			dir = Direction::None;
+			translating = false;
 			return;
 		}
 
@@ -258,6 +260,7 @@ void GrassRoom::translateOut(Direction& dir)
 			* static_cast<float>(transMag) < 0)
 		{
 			dir = Direction::None;
+			translating = false;
 			return;
 		}
 
@@ -280,6 +283,7 @@ void GrassRoom::translateOut(Direction& dir)
 			> Constants::WINDOW_WIDTH_PIXELS)
 		{
 			dir = Direction::None;
+			translating = false;
 			return;
 		}
 
@@ -304,7 +308,10 @@ void GrassRoom::draw(sf::RenderTarget& rt, sf::RenderStates states) const
 {
 	Room::draw(rt, states);
 
-	demon.draw(rt);
+	if (!translating)
+	{
+		demon.draw(rt);
+	}
 	// TODO
 	// rt.draw(demon.getSprite());
 }

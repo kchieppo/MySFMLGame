@@ -17,7 +17,7 @@ public:
 	virtual void reset();
 	virtual void translateIn(Direction& dir);
 	virtual void translateOut(Direction& dir);
-	void setTranslatingIn(bool&& transIn);
+	void setTranslating(bool&& trans);
 protected:
 	virtual void draw(sf::RenderTarget& rt, sf::RenderStates states) const override;
 	sf::Vector2f&& getUnitVector(Direction& dir);
@@ -28,7 +28,7 @@ protected:
 	const int tileHeight;
 	bool roomLoaded;
 	bool firstRoom;
-	bool translatingIn;
+	bool translating;
 	sf::VertexArray vertexArray;
 	sf::Texture texture;
 	static constexpr unsigned int transMag = 4;

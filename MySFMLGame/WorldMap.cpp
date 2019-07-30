@@ -27,7 +27,8 @@ bool WorldMap::up()
 		direction = Direction::Down;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(--worldMatRow).at(worldMatCol);
-		currentRoom->setTranslatingIn(true);
+		prevRoom->setTranslating(true);
+		currentRoom->setTranslating(true);
 		loadCurrentRoom();
 		return true;
 	}
@@ -41,7 +42,8 @@ bool WorldMap::down()
 		direction = Direction::Up;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(++worldMatRow).at(worldMatCol);
-		currentRoom->setTranslatingIn(true);
+		prevRoom->setTranslating(true);
+		currentRoom->setTranslating(true);
 		loadCurrentRoom();
 		return true;
 	}
@@ -55,7 +57,8 @@ bool WorldMap::left()
 		direction = Direction::Right;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(worldMatRow).at(--worldMatCol);
-		currentRoom->setTranslatingIn(true);
+		prevRoom->setTranslating(true);
+		currentRoom->setTranslating(true);
 		loadCurrentRoom();
 		return true;
 	}
@@ -69,7 +72,8 @@ bool WorldMap::right()
 		direction = Direction::Left;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(worldMatRow).at(++worldMatCol);
-		currentRoom->setTranslatingIn(true);
+		prevRoom->setTranslating(true);
+		currentRoom->setTranslating(true);
 		loadCurrentRoom();
 		return true;
 	}
