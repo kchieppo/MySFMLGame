@@ -15,7 +15,8 @@ BlackRoom::BlackRoom()
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-	} }
+	} },
+	tilePositionsPrepared{ false }
 {
 }
 
@@ -82,8 +83,113 @@ bool BlackRoom::load()
 	return true;
 }
 
+void BlackRoom::update(const float& dt)
+{
+	if (!translatingIn)
+	{
+
+	}
+}
+
 void BlackRoom::translateIn(Direction& dir)
 {
+	if (!tilePositionsPrepared)
+		prepareTilePositions(dir);
+
+	sf::Vector2f dirVec = getUnitVector(dir);
+	sf::Vertex* quad;
+	switch (dir)
+	{
+	case Direction::Up:
+		if (vertexArray[0].position.y + dirVec.y
+			* static_cast<float>(transMag) == 0)
+		{
+			dir = Direction::None;
+			tilePositionsPrepared = false;
+		}
+
+		for (int j = 0; j < roomDimRow; j++)
+			for (int i = 0; i < roomDimCol; i++)
+			{
+				quad = &vertexArray[(i + j * roomDimCol) * 4];
+
+				quad[0].position.y += dirVec.y * static_cast<float>(transMag);
+				quad[1].position.y += dirVec.y * static_cast<float>(transMag);
+				quad[2].position.y += dirVec.y * static_cast<float>(transMag);
+				quad[3].position.y += dirVec.y * static_cast<float>(transMag);
+
+				if (roomDimRow * tileHeight - quad[0].position.y <= tileHeight
+					&& i == roomDimCol - 1)
+					return;
+			}
+		break;
+	case Direction::Down:
+		if (vertexArray[0].position.y + dirVec.y
+			* static_cast<float>(transMag) == 0)
+		{
+			dir = Direction::None;
+			tilePositionsPrepared = false;
+		}
+
+		for (int j = roomDimRow - 1; j >= 0; j--)
+			for (int i = 0; i < roomDimCol; i++)
+			{
+				quad = &vertexArray[(i + j * roomDimCol) * 4];
+
+				quad[0].position.y += dirVec.y * static_cast<float>(transMag);
+				quad[1].position.y += dirVec.y * static_cast<float>(transMag);
+				quad[2].position.y += dirVec.y * static_cast<float>(transMag);
+				quad[3].position.y += dirVec.y * static_cast<float>(transMag);
+
+				if (quad[2].position.y <= tileHeight && i == roomDimCol - 1)
+					return;
+			}
+		break;
+	case Direction::Left:
+		if (vertexArray[0].position.x + dirVec.x
+			* static_cast<float>(transMag) == 0)
+		{
+			dir = Direction::None;
+			tilePositionsPrepared = false;
+		}
+
+		for (int j = 0; j < roomDimRow; j++)
+			for (int i = 0; i < roomDimCol; i++)
+			{
+				quad = &vertexArray[(i + j * roomDimCol) * 4];
+
+				quad[0].position.x += dirVec.x * static_cast<float>(transMag);
+				quad[1].position.x += dirVec.x * static_cast<float>(transMag);
+				quad[2].position.x += dirVec.x * static_cast<float>(transMag);
+				quad[3].position.x += dirVec.x * static_cast<float>(transMag);
+
+				if (roomDimCol * tileWidth - quad[0].position.x <= tileWidth)
+					break;
+			}
+		break;
+	case Direction::Right:
+		if (vertexArray[0].position.x + dirVec.x
+			* static_cast<float>(transMag) == 0)
+		{
+			dir = Direction::None;
+			tilePositionsPrepared = false;
+		}
+
+		for (int j = 0; j < roomDimRow; j++)
+			for (int i = roomDimCol - 1; i >= 0; i--)
+			{
+				quad = &vertexArray[(i + j * roomDimCol) * 4];
+
+				quad[0].position.x += dirVec.x * static_cast<float>(transMag);
+				quad[1].position.x += dirVec.x * static_cast<float>(transMag);
+				quad[2].position.x += dirVec.x * static_cast<float>(transMag);
+				quad[3].position.x += dirVec.x * static_cast<float>(transMag);
+
+				if (quad[1].position.x - tileWidth <= 0)
+					break;
+			}
+		break;
+	}
 }
 
 void BlackRoom::translateOut(Direction& dir)
@@ -182,4 +288,107 @@ void BlackRoom::translateOut(Direction& dir)
 			}
 		break;
 	}
+}
+
+void BlackRoom::prepareTilePositions(Direction& transInDir)
+{
+	sf::Vertex* quad;
+	for (int j = 0; j < roomDimRow; j++)
+		for (int i = 0; i < roomDimCol; i++)
+		{
+			quad = &vertexArray[(i + j * roomDimCol) * 4];
+
+			switch (transInDir)
+			{
+			case Direction::Up:
+				quad[0].position =
+				{
+					static_cast<float>(i * tileWidth),
+					static_cast<float>(roomDimRow * tileHeight)
+				};
+				quad[1].position =
+				{
+					static_cast<float>((i + 1) * tileWidth),
+					static_cast<float>(roomDimRow * tileHeight)
+				};
+				quad[2].position =
+				{
+					static_cast<float>((i + 1) * tileWidth),
+					static_cast<float>((roomDimRow + 1) * tileHeight)
+				};
+				quad[3].position =
+				{
+					static_cast<float>(i * tileWidth),
+					static_cast<float>((roomDimRow + 1) * tileHeight)
+				};
+				break;
+			case Direction::Down:
+				quad[0].position =
+				{
+					static_cast<float>(i * tileWidth),
+					static_cast<float>(-tileHeight)
+				};
+				quad[1].position =
+				{
+					static_cast<float>((i + 1) * tileWidth),
+					static_cast<float>(-tileHeight)
+				};
+				quad[2].position =
+				{
+					static_cast<float>((i + 1) * tileWidth),
+					0
+				};
+				quad[3].position =
+				{
+					static_cast<float>(i * tileWidth),
+					0
+				};
+				break;
+			case Direction::Left:
+				quad[0].position =
+				{
+					static_cast<float>(roomDimCol * tileWidth),
+					static_cast<float>(j * tileHeight)
+				};
+				quad[1].position =
+				{
+					static_cast<float>((roomDimCol + 1) * tileWidth),
+					static_cast<float>(j * tileHeight)
+				};
+				quad[2].position =
+				{
+					static_cast<float>((roomDimCol + 1) * tileWidth),
+					static_cast<float>((j + 1) * tileHeight)
+				};
+				quad[3].position =
+				{
+					static_cast<float>(roomDimCol * tileWidth),
+					static_cast<float>((j + 1) * tileHeight)
+				};
+				break;
+			case Direction::Right:
+				quad[0].position =
+				{
+					static_cast<float>(-tileWidth),
+					static_cast<float>(j * tileHeight)
+				};
+				quad[1].position =
+				{
+					0,
+					static_cast<float>(j * tileHeight)
+				};
+				quad[2].position =
+				{
+					0,
+					static_cast<float>((j + 1) * tileHeight)
+				};
+				quad[3].position =
+				{
+					static_cast<float>(-tileWidth),
+					static_cast<float>((j + 1) * tileHeight)
+				};
+				break;
+			}
+		}
+	tilePositionsPrepared = true;
 }

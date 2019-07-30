@@ -7,6 +7,7 @@ class BlueRoom : public Room
 public:
 	BlueRoom();
 	bool load() override;
+	void update(const float& dt) override;
 	void translateIn(Direction& dir) override;
 	void translateOut(Direction& dir) override;
 private:

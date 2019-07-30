@@ -86,7 +86,10 @@ bool GrassRoom::load()
 
 void GrassRoom::update(const float& dt)
 {
-	demon.update(dt);
+	if (!translatingIn)
+	{
+		demon.update(dt);
+	}
 }
 
 void GrassRoom::reset()
@@ -108,6 +111,7 @@ void GrassRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translatingIn = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -131,6 +135,7 @@ void GrassRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translatingIn = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -153,6 +158,7 @@ void GrassRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translatingIn = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -175,6 +181,7 @@ void GrassRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translatingIn = false;
 			tilePositionsPrepared = false;
 		}
 

@@ -86,12 +86,14 @@ int main()
 				// Load new room and adjust MainCharacter position, else
 				// listen for keyboard input for MainCharacter movement
 				if (boy.getPosition().y < 0 && worldMap.up())
-					boy.setPositionY(static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS - boy.getSpriteHeight()));
+					boy.setPositionY(static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS
+						- boy.getSpriteHeight()));
 				else if (boy.getPosition().y + boy.getSpriteHeight() > Constants::WINDOW_HEIGHT_PIXELS
 					&& worldMap.down())
 					boy.setPositionY(0);
 				else if (boy.getPosition().x < 0 && worldMap.left())
-					boy.setPositionX(static_cast<float>(Constants::WINDOW_WIDTH_PIXELS - boy.getSpriteWidth()));
+					boy.setPositionX(static_cast<float>(Constants::WINDOW_WIDTH_PIXELS
+						- boy.getSpriteWidth()));
 				else if (boy.getPosition().x + boy.getSpriteWidth() > Constants::WINDOW_WIDTH_PIXELS
 					&& worldMap.right())
 					boy.setPositionX(0);

@@ -83,6 +83,14 @@ bool PurpleRoom::load()
 	return true;
 }
 
+void PurpleRoom::update(const float& dt)
+{
+	if (!translatingIn)
+	{
+
+	}
+}
+
 void PurpleRoom::translateIn(Direction& dir)
 {
 	if (!tilePositionsPrepared)
@@ -97,6 +105,7 @@ void PurpleRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translatingIn = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -120,6 +129,7 @@ void PurpleRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translatingIn = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -142,6 +152,7 @@ void PurpleRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translatingIn = false;
 			tilePositionsPrepared = false;
 		}
 
@@ -164,6 +175,7 @@ void PurpleRoom::translateIn(Direction& dir)
 			* static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
+			translatingIn = false;
 			tilePositionsPrepared = false;
 		}
 

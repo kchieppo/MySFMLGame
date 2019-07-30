@@ -13,3 +13,4 @@
 7) Give DemonCharacter some kind of movement path
 8) Add AABBs to collision tiles
 9) Associate Events with AABBs
+10) Fix screen flashing after room transition

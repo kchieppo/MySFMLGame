@@ -83,6 +83,14 @@ bool BlueRoom::load()
 	return true;
 }
 
+void BlueRoom::update(const float& dt)
+{
+	if (!translatingIn)
+	{
+
+	}
+}
+
 void BlueRoom::translateIn(Direction& dir)
 {
 	if (!tilePositionsPrepared)
