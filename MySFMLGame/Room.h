@@ -20,7 +20,7 @@ public:
 	void setTranslating(bool&& trans);
 protected:
 	virtual void draw(sf::RenderTarget& rt, sf::RenderStates states) const override;
-	sf::Vector2f&& getUnitVector(Direction& dir);
+	sf::Vector2f getUnitVector(Direction& dir);
 protected:
 	const std::string fileName;
 	const std::string roomName;

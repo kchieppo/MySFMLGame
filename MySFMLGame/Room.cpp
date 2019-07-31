@@ -66,7 +66,7 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(vertexArray, states);
 }
 
-sf::Vector2f&& Room::getUnitVector(Direction& dir)
+sf::Vector2f Room::getUnitVector(Direction& dir)
 {
 	switch (dir)
 	{
@@ -79,6 +79,8 @@ sf::Vector2f&& Room::getUnitVector(Direction& dir)
 	case Direction::Right:
 		return sf::Vector2f({ 1.0f, 0.0f });
 	case Direction::None:
+		return sf::Vector2f({ 0.0f, 0.0f });
+	default:
 		return sf::Vector2f({ 0.0f, 0.0f });
 	}
 }

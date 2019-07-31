@@ -5,15 +5,15 @@ BlackRoom::BlackRoom()
 	Room("Sprites/Environment/grass_tile.png", "BlackRoom",
 		64, 64, false),
 	roomMatrix{ {
+		{0, 1, 2, 1, 3, 1, 0, 1, 2, 1, 3, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	} },
 	tilePositionsPrepared{ false }
@@ -208,7 +208,6 @@ void BlackRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = roomDimRow - 1; j >= 0; j--)
@@ -231,7 +230,6 @@ void BlackRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = 0; j < roomDimRow; j++)
@@ -255,7 +253,6 @@ void BlackRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = 0; j < roomDimRow; j++)
@@ -278,7 +275,6 @@ void BlackRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = 0; j < roomDimRow; j++)

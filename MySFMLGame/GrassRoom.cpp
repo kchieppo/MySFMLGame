@@ -3,7 +3,7 @@
 GrassRoom::GrassRoom()
 	:
 	Room("Sprites/Environment/grass_tile.png", "GrassRoom",
-		64, 64, false),
+		64, 64, true),
 	roomMatrix{ {
 		{1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -214,7 +214,6 @@ void GrassRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 		
 		for (int j = roomDimRow - 1; j >= 0; j--)
@@ -237,7 +236,6 @@ void GrassRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = 0; j < roomDimRow; j++)
@@ -261,7 +259,6 @@ void GrassRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = 0; j < roomDimRow; j++)
@@ -284,7 +281,6 @@ void GrassRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = 0; j < roomDimRow; j++)

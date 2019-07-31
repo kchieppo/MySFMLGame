@@ -5,15 +5,15 @@ PurpleRoom::PurpleRoom()
 	Room("Sprites/Environment/grass_tile.png", "PurpleRoom",
 		64, 64, false),
 	roomMatrix{ {
+		{0, 2, 1, 2, 3, 2, 0, 2, 1, 2, 3, 2},
 		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+		{1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+		{3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+		{0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+		{1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 		{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}
 	} },
 	tilePositionsPrepared{ false }
@@ -208,7 +208,6 @@ void PurpleRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = roomDimRow - 1; j >= 0; j--)
@@ -231,7 +230,6 @@ void PurpleRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = 0; j < roomDimRow; j++)
@@ -255,7 +253,6 @@ void PurpleRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = 0; j < roomDimRow; j++)
@@ -278,7 +275,6 @@ void PurpleRoom::translateOut(Direction& dir)
 		{
 			dir = Direction::None;
 			translating = false;
-			return;
 		}
 
 		for (int j = 0; j < roomDimRow; j++)
