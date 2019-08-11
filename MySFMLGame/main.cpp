@@ -28,8 +28,9 @@ int main()
 	TitleScreen tScreen;
 	// Load world map
 	WorldMap worldMap;
-	// Load main character sprite to display
-	MainCharacter boy({ 400.0f, 600.0f });
+	MainCharacter* const mainCharacterPtr
+		= worldMap.getMainCharacterPtr();
+
 	sf::Vector2f walkDir;
 	// Menu
 	std::string dialogueMsg = "This is a long message. A really, "
@@ -71,7 +72,6 @@ int main()
 		switch (gameState)
 		{
 			case GameState::TitleScreen:
-
 				window.clear();
 				tScreen.draw(window);
 				window.display();
@@ -80,23 +80,17 @@ int main()
 					gameState = GameState::GameScreen;
 				break;
 			case GameState::GameScreen:
-
 				walkDir = { 0.0f, 0.0f };
-
-				// Load new room and adjust MainCharacter position, else
-				// listen for keyboard input for MainCharacter movement
-				if (boy.getPosition().y < 0 && worldMap.up())
-					boy.setPositionY(static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS
-						- boy.getSpriteHeight()));
-				else if (boy.getPosition().y + boy.getSpriteHeight() > Constants::WINDOW_HEIGHT_PIXELS
-					&& worldMap.down())
-					boy.setPositionY(0);
-				else if (boy.getPosition().x < 0 && worldMap.left())
-					boy.setPositionX(static_cast<float>(Constants::WINDOW_WIDTH_PIXELS
-						- boy.getSpriteWidth()));
-				else if (boy.getPosition().x + boy.getSpriteWidth() > Constants::WINDOW_WIDTH_PIXELS
-					&& worldMap.right())
-					boy.setPositionX(0);
+				if (mainCharacterPtr->getAabbMax().y < 0 && worldMap.up())
+					mainCharacterPtr->setPositionY(static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS
+						- mainCharacterPtr->getSpriteHeight()));
+				else if (mainCharacterPtr->getAabbMin().y > Constants::WINDOW_HEIGHT_PIXELS && worldMap.down())
+					mainCharacterPtr->setPositionY(0);
+				else if (mainCharacterPtr->getAabbMin().x < 0 && worldMap.left())
+					mainCharacterPtr->setPositionX(static_cast<float>(Constants::WINDOW_WIDTH_PIXELS
+						- mainCharacterPtr->getSpriteWidth()));
+				else if (mainCharacterPtr->getAabbMax().x > Constants::WINDOW_WIDTH_PIXELS && worldMap.right())
+					mainCharacterPtr->setPositionX(0);
 				else
 				{
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -108,13 +102,16 @@ int main()
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 						walkDir.x += 1.0f;
 				}
-				boy.setAnimationIndex(walkDir);
-				boy.update(dt);
+				mainCharacterPtr->setAnimationIndex(walkDir);
+
+				worldMap.updateCurrentRoom(dt);
+				mainCharacterPtr->update(dt);
+
+				worldMap.adjustForCollisionsWithRoom();
 
 				window.clear();
-				worldMap.getCurrentRoom().update(dt);
 				worldMap.handleRoomDrawing(window);
-				boy.draw(window);
+				mainCharacterPtr->draw(window);
 				window.display();
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
@@ -124,8 +121,8 @@ int main()
 				dialogueBox.update(dt);
 
 				window.clear();
-				window.draw(worldMap.getCurrentRoom());
-				boy.draw(window);
+				worldMap.handleRoomDrawing(window);
+				mainCharacterPtr->draw(window);
 				dialogueBox.draw(window);
 				window.display();
 

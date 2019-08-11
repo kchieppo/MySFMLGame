@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include "Room.h"
+#include "MainCharacter.h"
 #include "Matrix.h"
 
 class WorldMap
@@ -11,8 +12,10 @@ public:
 	bool down();
 	bool left();
 	bool right();
-	Room& getCurrentRoom();
+	void updateCurrentRoom(const float& dt);
+	void adjustForCollisionsWithRoom();
 	void handleRoomDrawing(sf::RenderTarget& rt);
+	MainCharacter* const getMainCharacterPtr();
 private:
 	void loadCurrentRoom();
 private:
@@ -23,5 +26,7 @@ private:
 	unsigned char worldMatRow, worldMatCol;
 	Room* currentRoom, *prevRoom;
 
-	Direction direction;
+	Direction translationDir;
+
+	MainCharacter mainCharacter;
 };

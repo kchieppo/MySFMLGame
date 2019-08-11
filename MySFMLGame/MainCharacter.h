@@ -10,9 +10,16 @@ public:
 	void setAnimationIndex(const sf::Vector2f& dir) override;
 	void update(const float& dt) override;
 	const sf::Vector2f& getPosition() const;
-	void setPosition(sf::Vector2f&& pos);
-	void setPositionX(float&& pos);
-	void setPositionY(float&& pos);
+	const sf::Vector2f& getAabbMin() const;
+	const sf::Vector2f& getAabbMax() const;
+	void setPosition(const sf::Vector2f& pos);
+	void setPositionX(const float& pos);
+	void setPositionY(const float& pos);
+	void moveDistance(const sf::Vector2f& dist);
+	void moveDistanceX(const float& distX);
+	void moveDistanceY(const float& distY);
+	bool getPositionChanged() const;
+	void setPositionChanged(const bool& posChanged);
 	const int& getSpriteWidth() const;
 	const int& getSpriteHeight() const;
 private:
@@ -21,8 +28,8 @@ private:
 	{
 	public:
 		MainCharacterAnimation() = default;
-		MainCharacterAnimation(const std::string&& name,
-			const std::string&& fileName, int xFirstFrame,
+		MainCharacterAnimation(const std::string& name,
+			const std::string& fileName, int xFirstFrame,
 			int numFrames, float timePerFrame);
 		static constexpr int widthFrame = 29;
 		static constexpr int heightFrame = 32;
@@ -44,10 +51,11 @@ private:
 		Count
 	};
 
+	bool positionChanged;
 	const float speed;
 	std::array<MainCharacterAnimation,
 		static_cast<int>(AnimationIndex::Count)> animations;
 	AnimationIndex curAnimation;
 	AnimationIndex prevAnimation;
-	AABB aabb;
+	AABB<sf::Vector2f> aabb;
 };

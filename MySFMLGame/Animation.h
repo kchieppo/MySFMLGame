@@ -8,7 +8,7 @@ class Animation
 {
 public:
 	Animation() = default;
-	Animation(const std::string&& name, const std::string&& fileName,
+	Animation(const std::string& name, const std::string& fileName,
 		int numFrames, float timePerFrame, bool flipHorizontal);
 	virtual void applyToSprite(sf::Sprite& s) const;
 	virtual void update(float dt);

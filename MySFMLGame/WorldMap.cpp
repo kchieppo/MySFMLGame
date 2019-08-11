@@ -15,7 +15,8 @@ WorldMap::WorldMap()
 	worldMatCol{ 1 },
 	currentRoom{ worldMatrix.at(worldMatRow).at(worldMatCol) },
 	prevRoom{ currentRoom },
-	direction{ Direction::None }
+	translationDir{ Direction::None },
+	mainCharacter{ {400.0f, 600.0f} }
 {
 	loadCurrentRoom();
 }
@@ -24,7 +25,7 @@ bool WorldMap::up()
 {
 	if (worldMatRow != 0)
 	{
-		direction = Direction::Down;
+		translationDir = Direction::Down;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(--worldMatRow).at(worldMatCol);
 		prevRoom->setTranslating(true);
@@ -39,7 +40,7 @@ bool WorldMap::down()
 {
 	if (worldMatRow != worldMapDimRow - 1)
 	{
-		direction = Direction::Up;
+		translationDir = Direction::Up;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(++worldMatRow).at(worldMatCol);
 		prevRoom->setTranslating(true);
@@ -54,7 +55,7 @@ bool WorldMap::left()
 {
 	if (worldMatCol != 0)
 	{
-		direction = Direction::Right;
+		translationDir = Direction::Right;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(worldMatRow).at(--worldMatCol);
 		prevRoom->setTranslating(true);
@@ -69,7 +70,7 @@ bool WorldMap::right()
 {
 	if (worldMatCol != worldMapDimCol - 1)
 	{
-		direction = Direction::Left;
+		translationDir = Direction::Left;
 		prevRoom = currentRoom;
 		currentRoom = worldMatrix.at(worldMatRow).at(++worldMatCol);
 		prevRoom->setTranslating(true);
@@ -80,30 +81,40 @@ bool WorldMap::right()
 	return false;
 }
 
-Room& WorldMap::getCurrentRoom()
+void WorldMap::updateCurrentRoom(const float& dt)
 {
-	return *worldMatrix.at(worldMatRow).at(worldMatCol);
+	currentRoom->update(dt);
+}
+
+void WorldMap::adjustForCollisionsWithRoom()
+{
+	currentRoom->findTilesStandingOver();
 }
 
 void WorldMap::handleRoomDrawing(sf::RenderTarget& rt)
 {
-	if (direction == Direction::None)
+	if (translationDir == Direction::None)
 		rt.draw(*currentRoom);
 	else
 	{
-		currentRoom->translateIn(direction);
-		if (direction != Direction::None)
+		currentRoom->translateIn(translationDir);
+		if (translationDir != Direction::None)
 		{
-			prevRoom->translateOut(direction);
+			prevRoom->translateOut(translationDir);
 			rt.draw(*prevRoom);
 		}
 		rt.draw(*currentRoom);
 	}
 }
 
+MainCharacter* const WorldMap::getMainCharacterPtr()
+{
+	return currentRoom->getMainCharacterPtr();
+}
+
 void WorldMap::loadCurrentRoom()
 {
 	if (!currentRoom->isLoaded())
-		currentRoom->load();
+		currentRoom->load(&mainCharacter);
 	currentRoom->reset();
 }

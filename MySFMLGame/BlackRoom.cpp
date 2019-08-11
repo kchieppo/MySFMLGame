@@ -20,14 +20,15 @@ BlackRoom::BlackRoom()
 {
 }
 
-bool BlackRoom::load()
+void BlackRoom::load(MainCharacter* mcP)
 {
+	Room::load(mcP);
+
 	// load the tileset texture
 	if (!texture.loadFromFile(fileName))
 	{
 		std::cerr << "Problem loading " << fileName << " to texture in "
 			<< roomName << " load." << std::endl;
-		return false;
 	}
 
 	// resize the vertex array to fit the level size
@@ -80,7 +81,6 @@ bool BlackRoom::load()
 				static_cast<float>((tv + 1) * tileHeight));
 		}
 	roomLoaded = true;
-	return true;
 }
 
 void BlackRoom::update(const float& dt)

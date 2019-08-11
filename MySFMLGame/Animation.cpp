@@ -1,8 +1,8 @@
 #include "Animation.h"
 #include <iostream>
 
-Animation::Animation(const std::string&& name,
-	const std::string&& fileName, int numFrames, float timePerFrame,
+Animation::Animation(const std::string& name,
+	const std::string& fileName, int numFrames, float timePerFrame,
 	bool flipHorizontal)
 	:
 	name(""),

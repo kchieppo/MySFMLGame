@@ -1,8 +1,9 @@
 #include "Room.h"
 
 Room::Room(const std::string& fileName, const std::string& roomName,
-	const int tileWidth, const int tileHeight, bool&& firstRoom)
+	const int tileWidth, const int tileHeight, const bool& firstRoom)
 	:
+	mcPointer{ nullptr },
 	fileName{ fileName },
 	roomName{ roomName },
 	tileWidth{ tileWidth },
@@ -18,9 +19,9 @@ const bool& Room::isLoaded() const
 	return roomLoaded;
 }
 
-bool Room::load()
+void Room::load(MainCharacter* mcP)
 {
-	return false;
+	mcPointer = mcP;
 }
 
 void Room::update(const float& dt)
@@ -43,7 +44,17 @@ void Room::translateOut(Direction& dir)
 	return;
 }
 
-void Room::setTranslating(bool&& trans)
+void Room::findTilesStandingOver()
+{
+	return;
+}
+
+MainCharacter* const Room::getMainCharacterPtr()
+{
+	return mcPointer;
+}
+
+void Room::setTranslating(const bool& trans)
 {
 	translating = trans;
 }
@@ -64,6 +75,9 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	// draw the vertex array
 	target.draw(vertexArray, states);
+
+	if (vertexArrayLayerTwo.getVertexCount() > 0)
+		target.draw(vertexArrayLayerTwo, states);
 }
 
 sf::Vector2f Room::getUnitVector(Direction& dir)
@@ -84,4 +98,3 @@ sf::Vector2f Room::getUnitVector(Direction& dir)
 		return sf::Vector2f({ 0.0f, 0.0f });
 	}
 }
-

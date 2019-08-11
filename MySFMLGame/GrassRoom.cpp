@@ -2,38 +2,76 @@
 
 GrassRoom::GrassRoom()
 	:
-	Room("Sprites/Environment/grass_tile.png", "GrassRoom",
-		64, 64, true),
+	Room("Sprites/Environment/gfx/Overworld.png", "GrassRoom",
+		16, 16, true),
 	roomMatrix{ {
-		{1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 283, 283, 283, 283, 283, 283, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 283, 283, 283, 283, 283, 283, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 283, 283, 283, 283, 283, 283, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 283, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 323, 323, 323, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 364, 365, 365, 365, 365, 365, 365, 365, 365, 365, 365, 366, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 404, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 406, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 444, 445, 445, 445, 445, 445, 445, 445, 445, 445, 445, 446, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 484, 485, 485, 485, 485, 485, 485, 485, 485, 485, 485, 486, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 524, 525, 525, 525, 525, 525, 525, 525, 525, 525, 525, 526, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 524, 525, 525, 525, 525, 525, 525, 525, 525, 525, 525, 526, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 524, 525, 525, 525, 525, 525, 525, 525, 525, 525, 525, 526, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 524, 525, 525, 525, 525, 525, 525, 525, 525, 525, 525, 526, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 524, 525, 525, 525, 525, 525, 525, 525, 525, 525, 525, 526, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 524, 525, 525, 525, 525, 525, 525, 525, 525, 525, 525, 526, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	} },
 	demon{ {demonStartPosX, demonStartPosY} },
-	tilePositionsPrepared{ false }
+	tilePositionsPrepared{ false },
+	mainCharAabbMinLast{ 0.0f, 0.0f }
 {
+	initTilePropertiesMat();
 }
 
-bool GrassRoom::load()
+void GrassRoom::load(MainCharacter* mcP)
 {
+	Room::load(mcP);
+
+	mainCharAabbMinLast = mcPointer->getAabbMin();
 	// load the tileset texture
 	if (!texture.loadFromFile(fileName))
 	{
 		std::cerr << "Problem loading " << fileName << " to texture in "
 			<< roomName << " load." << std::endl;
-		return false;
+		return;
 	}
 
 	// resize the vertex array to fit the level size
 	vertexArray.setPrimitiveType(sf::Quads);
 	vertexArray.resize(roomDimCol * roomDimRow * 4);
+
+	/*vertexArrayLayerTwo.setPrimitiveType(sf::Quads);
+	vertexArrayLayerTwo.resize(roomDimCol * roomDimRow * 4);*/
 
 	// populate the vertex array, with one quad per tile
 	for (int j = 0; j < roomDimRow; j++)
@@ -81,7 +119,191 @@ bool GrassRoom::load()
 				static_cast<float>((tv + 1) * tileHeight));
 		}
 	roomLoaded = true;
-	return true;
+}
+
+void GrassRoom::findTilesStandingOver()
+{
+	if (!mcPointer->getPositionChanged())
+		return;
+	mcPointer->setPositionChanged(false);
+
+	float diffX = mcPointer->getAabbMin().x - mainCharAabbMinLast.x;
+	float diffY = mcPointer->getAabbMin().y - mainCharAabbMinLast.y;
+	mainCharAabbMinLast = mcPointer->getAabbMin();
+
+	Direction dirX = Direction::None, dirY = Direction::None;
+
+	if (diffX > 0) dirX = Direction::Right;
+	else if (diffX < 0) dirX = Direction::Left;
+	if (diffY > 0) dirY = Direction::Down;
+	else if (diffY < 0) dirY = Direction::Up;
+
+	sf::Vector2i tileIndexTopLeft
+	{
+		static_cast<int>(mcPointer->getAabbMin().x) / tileWidth,
+		static_cast<int>(mcPointer->getAabbMax().y) / tileHeight
+	};
+	sf::Vector2i tileIndexTopRight
+	{
+		static_cast<int>(mcPointer->getAabbMax().x) / tileWidth,
+		static_cast<int>(mcPointer->getAabbMax().y) / tileHeight
+	};
+	sf::Vector2i tileIndexBottomLeft
+	{
+		static_cast<int>(mcPointer->getAabbMin().x) / tileWidth,
+		static_cast<int>(mcPointer->getAabbMin().y) / tileHeight
+	};
+	sf::Vector2i tileIndexBottomRight
+	{
+		static_cast<int>(mcPointer->getAabbMax().x) / tileWidth,
+		static_cast<int>(mcPointer->getAabbMin().y) / tileHeight
+	};
+
+	sf::Vector2i tileLocation;
+	if (dirY == Direction::Up)
+	{
+		int col = tileIndexTopLeft.x;
+		while (col <= tileIndexTopRight.x)
+		{
+			std::cout << "Up::Tile Index: " << col;
+
+			tileLocation = { col, tileIndexTopLeft.y };
+			const TileProperties& tileProperties
+				= tilePropertiesMat[tileIndexTopLeft.y][col];
+			if (const auto& aabb = tileProperties.getAabb())
+				if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+					return;
+			col++;
+		}
+		std::cout << std::endl;
+
+		if (tileIndexTopLeft != tileIndexBottomLeft)
+		{
+			if (dirX == Direction::Left)
+			{
+				int row = tileIndexTopLeft.y + 1;
+				while (row <= tileIndexBottomLeft.y)
+				{
+					std::cout << "UpLeft::Tile Index: " << row;
+
+					tileLocation = { tileIndexTopLeft.x, row };
+					const TileProperties& tileProperties
+						= tilePropertiesMat[row][tileIndexTopLeft.x];
+					if (const auto& aabb = tileProperties.getAabb())
+						if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+							return;
+					row++;
+				}
+				std::cout << std::endl;
+			}
+			else if (dirX == Direction::Right)
+			{
+				int row = tileIndexTopRight.y + 1;
+				while (row <= tileIndexBottomRight.y)
+				{
+					std::cout << "UpRight::Tile Index: " << row;
+
+					tileLocation = { tileIndexTopRight.x, row };
+					const TileProperties& tileProperties
+						= tilePropertiesMat[row][tileIndexTopRight.x];
+					if (const auto& aabb = tileProperties.getAabb())
+						if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+							return;
+					row++;
+				}
+				std::cout << std::endl;
+			}
+		}
+	}
+	else if (dirY == Direction::Down)
+	{
+		int col = tileIndexBottomLeft.x;
+		while (col <= tileIndexBottomRight.x)
+		{
+			std::cout << "Down::Tile Index: " << col;
+
+			tileLocation = { col, tileIndexBottomLeft.y };
+			const TileProperties& tileProperties
+				= tilePropertiesMat[tileIndexBottomLeft.y][col];
+			if (const auto& aabb = tileProperties.getAabb())
+				if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+					return;
+			col++;
+		}
+		std::cout << std::endl;
+
+		if (dirX == Direction::Left)
+		{
+			int row = tileIndexBottomLeft.y - 1;
+			while (row >= tileIndexTopLeft.y)
+			{
+				std::cout << "DownLeft::Tile Index: " << row;
+
+				tileLocation = { tileIndexBottomLeft.x, row };
+				const TileProperties& tileProperties
+					= tilePropertiesMat[row][tileIndexBottomLeft.x];
+				if (const auto& aabb = tileProperties.getAabb())
+					if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+						return;
+				row--;
+			}
+			std::cout << std::endl;
+		}
+		else if (dirX == Direction::Right)
+		{
+			int row = tileIndexBottomRight.y - 1;
+			while (row >= tileIndexTopRight.y)
+			{
+				std::cout << "DownRight::Tile Index: " << row;
+
+				tileLocation = { tileIndexBottomRight.x, row };
+				const TileProperties& tileProperties
+					= tilePropertiesMat[row][tileIndexBottomRight.x];
+				if (const auto& aabb = tileProperties.getAabb())
+					if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+						return;
+				row--;
+			}
+			std::cout << std::endl;
+		}
+	}
+	else
+	{
+		if (dirX == Direction::Left)
+		{
+			int row = tileIndexTopLeft.y;
+			while (row <= tileIndexBottomLeft.y)
+			{
+				std::cout << "TrueLeft::Tile Index: " << row;
+
+				tileLocation = { tileIndexTopLeft.x, row };
+				const TileProperties& tileProperties
+					= tilePropertiesMat[row][tileIndexTopLeft.x];
+				if (const auto& aabb = tileProperties.getAabb())
+					if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+						return;
+				row++;
+			}
+			std::cout << std::endl;
+		}
+		else if (dirX == Direction::Right)
+		{
+			int row = tileIndexTopRight.y;
+			while (row <= tileIndexBottomRight.y)
+			{
+				std::cout << "TrueRight::Tile Index: " << row;
+
+				tileLocation = { tileIndexTopRight.x, row };
+				const TileProperties& tileProperties
+					= tilePropertiesMat[row][tileIndexTopRight.x];
+				if (const auto& aabb = tileProperties.getAabb())
+					if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+						return;
+				row++;
+			}
+			std::cout << std::endl;
+		}
+	}
 }
 
 void GrassRoom::update(const float& dt)
@@ -312,6 +534,14 @@ void GrassRoom::draw(sf::RenderTarget& rt, sf::RenderStates states) const
 	// rt.draw(demon.getSprite());
 }
 
+void GrassRoom::initTilePropertiesMat()
+{
+	for (int row = 0; row < tilePropertiesMat.size(); row++)
+		for (int col = 0; col < tilePropertiesMat[0].size(); col++)
+			tilePropertiesMat[row][col]
+				= TileProperties(roomMatrix[row][col]);
+}
+
 void GrassRoom::prepareTilePositions(Direction& transInDir)
 {
 	sf::Vertex* quad;
@@ -413,4 +643,47 @@ void GrassRoom::prepareTilePositions(Direction& transInDir)
 			}
 		}
 	tilePositionsPrepared = true;
+}
+
+bool GrassRoom::checkForCollision(const Direction& mcDirX,
+	const Direction& mcDirY,
+	const sf::Vector2i& tileLocation,
+	const AABB<sf::Vector2i>& tileAabb) const
+{
+	sf::Vector2i tileAabbAbsoluteMin
+	{
+		tileLocation.x * tileWidth + tileAabb.getMin().x,
+		tileLocation.y * tileHeight + tileAabb.getMin().y
+	};
+	sf::Vector2i tileAabbAbsoluteMax
+	{
+		tileLocation.x * tileWidth + tileAabb.getMax().x,
+		tileLocation.y * tileHeight + tileAabb.getMax().y
+	};
+
+	float diffx1 = static_cast<float>(tileAabbAbsoluteMax.x)
+		- mcPointer->getAabbMin().x;
+	float diffx2 = mcPointer->getAabbMax().x
+		- static_cast<float>(tileAabbAbsoluteMin.x);
+	float diffy1 = static_cast<float>(tileAabbAbsoluteMin.y)
+		- mcPointer->getAabbMax().y;
+	float diffy2 = mcPointer->getAabbMin().y
+		- static_cast<float>(tileAabbAbsoluteMax.y);
+
+	if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
+	{
+		//collision
+		std::cout << "Collision!" << std::endl;
+		if (mcDirY == Direction::Up)
+			mcPointer->moveDistanceY(diffy1);
+		else if (mcDirY == Direction::Down)
+			mcPointer->moveDistanceY(-diffy2);
+		if (mcDirX == Direction::Left)
+			mcPointer->moveDistanceX(diffx1);
+		else if (mcDirX == Direction::Right)
+			mcPointer->moveDistanceX(-diffx2);
+		return true;
+	}
+	else
+		return false;
 }

@@ -3,6 +3,7 @@
 MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	:
 	Character(pos),
+	positionChanged{ false },
 	speed{ 100.0f },
 	curAnimation{ AnimationIndex::WalkingDown },
 	prevAnimation{ AnimationIndex::WalkingDown },
@@ -50,8 +51,8 @@ void MainCharacter::update(const float& dt)
 		animations[int(curAnimation)].reset();
 	else
 	{
-		sf::Vector2f spriteDir(vel * dt);
-		aabb.update(spriteDir);
+		sf::Vector2f spriteDist(vel * dt);
+		aabb.update(spriteDist);
 
 		// test collision
 		float diffx1, diffx2, diffy1, diffy2;
@@ -63,9 +64,9 @@ void MainCharacter::update(const float& dt)
 
 		// if collision with aabb, backtrack sprite's aabb position
 		if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
-			aabb.update(-spriteDir);
+			aabb.update(-spriteDist);
 		else // leave new aabb position alone and adjust sprite pos
-			sprite.setPosition(sprite.getPosition() + spriteDir);
+			setPosition(sprite.getPosition() + spriteDist);
 
 		animations[int(curAnimation)].update(dt);
 	}
@@ -77,19 +78,87 @@ const sf::Vector2f& MainCharacter::getPosition() const
 	return sprite.getPosition();
 }
 
-void MainCharacter::setPosition(sf::Vector2f&& pos)
+const sf::Vector2f& MainCharacter::getAabbMin() const
+{
+	return aabb.getMin();
+}
+
+const sf::Vector2f& MainCharacter::getAabbMax() const
+{
+	return aabb.getMax();
+}
+
+void MainCharacter::setPosition(const sf::Vector2f& pos)
 {
 	sprite.setPosition(pos);
+	aabb.setMinMax(
+		{ pos.x + 3.0f, pos.y + 32.0f },
+		{ pos.x + 25.0f, pos.y + 23.0f }
+	);
+	positionChanged = true;
 }
 
-void MainCharacter::setPositionX(float&& posX)
+void MainCharacter::setPositionX(const float& posX)
 {
 	sprite.setPosition(posX, sprite.getPosition().y);
+	aabb.setMinMax(
+		{ posX + 3.0f, aabb.getMin().y },
+		{ posX + 25.0f, aabb.getMax().y }
+	);
+	positionChanged = true;
 }
 
-void MainCharacter::setPositionY(float&& posY)
+void MainCharacter::setPositionY(const float& posY)
 {
 	sprite.setPosition(sprite.getPosition().x, posY);
+	aabb.setMinMax(
+		{ aabb.getMin().x, posY + 32.0f },
+		{ aabb.getMax().x, posY + 23.0f }
+	);
+	positionChanged = true;
+}
+
+void MainCharacter::moveDistance(const sf::Vector2f& dist)
+{
+	sprite.setPosition(sprite.getPosition().x + dist.x,
+		sprite.getPosition().y + dist.y);
+	aabb.setMinMax(
+		{ aabb.getMin().x + dist.x, aabb.getMin().y + dist.y },
+		{ aabb.getMax().x + dist.x, aabb.getMax().y + dist.y }
+	);
+	positionChanged = true;
+}
+
+void MainCharacter::moveDistanceX(const float& distX)
+{
+	sprite.setPosition(sprite.getPosition().x + distX,
+		sprite.getPosition().y);
+	aabb.setMinMax(
+		{ aabb.getMin().x + distX, aabb.getMin().y },
+		{ aabb.getMax().x + distX, aabb.getMax().y }
+	);
+	positionChanged = true;
+}
+
+void MainCharacter::moveDistanceY(const float& distY)
+{
+	sprite.setPosition(sprite.getPosition().x,
+		sprite.getPosition().y + distY);
+	aabb.setMinMax(
+		{ aabb.getMin().x, aabb.getMin().y + distY },
+		{ aabb.getMax().x, aabb.getMax().y + distY }
+	);
+	positionChanged = true;
+}
+
+bool MainCharacter::getPositionChanged() const
+{
+	return positionChanged;
+}
+
+void MainCharacter::setPositionChanged(const bool& posChanged)
+{
+	positionChanged = posChanged;
 }
 
 const int& MainCharacter::getSpriteWidth() const
@@ -103,7 +172,7 @@ const int& MainCharacter::getSpriteHeight() const
 }
 
 MainCharacter::MainCharacterAnimation::MainCharacterAnimation(
-	const std::string&& name, const std::string&& fileName,
+	const std::string& name, const std::string& fileName,
 	int xFirstFrame, int numFrames, float timePerFrame)
 	:
 	Animation(std::move(name), std::move(fileName), numFrames,

@@ -6,7 +6,7 @@ class BlueRoom : public Room
 {
 public:
 	BlueRoom();
-	bool load() override;
+	void load(MainCharacter* mcP) override;
 	void update(const float& dt) override;
 	void translateIn(Direction& dir) override;
 	void translateOut(Direction& dir) override;
@@ -15,7 +15,7 @@ private:
 private:
 	static constexpr int roomDimCol = 12;
 	static constexpr int roomDimRow = 10;
-	Matrix<unsigned int, roomDimRow, roomDimCol> roomMatrix;
+	Matrix<int, roomDimRow, roomDimCol> roomMatrix;
 
 	bool tilePositionsPrepared;
 };

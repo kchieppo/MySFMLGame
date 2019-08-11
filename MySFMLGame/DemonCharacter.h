@@ -10,15 +10,15 @@ public:
 	DemonCharacter(const sf::Vector2f& pos);
 	void setAnimationIndex(const sf::Vector2f& dir) override;
 	void update(const float& dt) override;
-	void reset(const sf::Vector2f&& pos);
+	void reset(const sf::Vector2f& pos);
 private:
 
 	class DemonCharacterAnimation : public Animation
 	{
 	public:
 		DemonCharacterAnimation() = default;
-		DemonCharacterAnimation(const std::string&& name,
-			const std::string&& fileName, int xFirstFrame,
+		DemonCharacterAnimation(const std::string& name,
+			const std::string& fileName, int xFirstFrame,
 			int numFrames, float timePerFrame, bool flipHorizontal);
 	protected:
 		void createFrames(int xFirstFrame, int yFirstFrame,
@@ -46,5 +46,5 @@ private:
 		static_cast<int>(AnimationIndex::Count)> animations;
 	AnimationIndex curAnimation;
 	AnimationIndex prevAnimation;
-	AABB aabb;
+	AABB<sf::Vector2f> aabb;
 };

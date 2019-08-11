@@ -63,8 +63,8 @@ void DemonCharacter::update(const float& dt)
 		animations[int(prevAnimation)].reset();
 		prevAnimation = curAnimation;
 	}
-	sf::Vector2f spriteDir(vel * dt);
-	aabb.update(spriteDir);
+	sf::Vector2f spriteDist(vel * dt);
+	aabb.update(spriteDist);
 
 	// test collision
 	float diffx1, diffx2, diffy1, diffy2;
@@ -76,15 +76,15 @@ void DemonCharacter::update(const float& dt)
 
 	// if collision with aabb, backtrack sprite's aabb position
 	if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
-		aabb.update(-spriteDir);
+		aabb.update(-spriteDist);
 	else // leave new aabb position alone and adjust sprite pos
-		sprite.setPosition(sprite.getPosition() + spriteDir);
+		sprite.setPosition(sprite.getPosition() + spriteDist);
 
 	animations[int(curAnimation)].update(dt);
 	animations[int(curAnimation)].applyToSprite(sprite);
 }
 
-void DemonCharacter::reset(const sf::Vector2f&& pos)
+void DemonCharacter::reset(const sf::Vector2f& pos)
 {
 	sprite.setPosition(pos);
 	vel = { 0.0f, 0.0f };
@@ -96,7 +96,7 @@ void DemonCharacter::reset(const sf::Vector2f&& pos)
 }
 
 DemonCharacter::DemonCharacterAnimation::DemonCharacterAnimation(
-	const std::string&& name, const std::string&& fileName,
+	const std::string& name, const std::string& fileName,
 	int xFirstFrame, int numFrames, float timePerFrame,
 	bool flipHorizontal)
 	:
