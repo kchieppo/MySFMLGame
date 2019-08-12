@@ -4,11 +4,12 @@ MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	:
 	Character(pos),
 	positionChanged{ false },
-	speed{ 100.0f },
+	speed{ 10.0f },
 	curAnimation{ AnimationIndex::WalkingDown },
 	prevAnimation{ AnimationIndex::WalkingDown },
 	aabb{ {pos.x + 3.0f, pos.y + 32.0f},
-		{pos.x + 25.0f, pos.y + 23.0f} }
+		{pos.x + 25.0f, pos.y + 23.0f} },
+	drawAabb{ true }
 {
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
 	animations[int(AnimationIndex::WalkingUp)]
@@ -23,6 +24,30 @@ MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	animations[int(AnimationIndex::WalkingRight)]
 		= MainCharacterAnimation("MainCharacterWalkingRight",
 			"Sprites/Characters/george.png", 155, 4, 0.2f);
+
+	if (drawAabb)
+	{
+		aabbForDrawing.setPrimitiveType(sf::LineStrip);
+		aabbForDrawing.resize(5);
+		aabbForDrawing[0] = sf::Vertex({ pos.x + 3.0f, pos.y + 23.0f });
+		aabbForDrawing[1] = sf::Vertex({ pos.x + 25.0f, pos.y + 23.0f });
+		aabbForDrawing[2] = sf::Vertex({ pos.x + 25.0f, pos.y + 32.0f });
+		aabbForDrawing[3] = sf::Vertex({ pos.x + 3.0f, pos.y + 32.0f });
+		aabbForDrawing[4] = aabbForDrawing[0];
+		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+			aabbForDrawing[i].color = sf::Color::Red;
+	}
+}
+
+void MainCharacter::draw(sf::RenderTarget& rt) const
+{
+	Character::draw(rt);
+
+	if (drawAabb)
+	{
+
+		rt.draw(aabbForDrawing);
+	}
 }
 
 void MainCharacter::setAnimationIndex(const sf::Vector2f& dir)
@@ -54,20 +79,17 @@ void MainCharacter::update(const float& dt)
 		sf::Vector2f spriteDist(vel * dt);
 		aabb.update(spriteDist);
 
-		// test collision
-		float diffx1, diffx2, diffy1, diffy2;
-		int xp = 200, yp = 200;
-		diffx1 = xp - aabb.getMin().x;
-		diffx2 = aabb.getMax().x - xp;
-		diffy1 = yp - aabb.getMax().y;
-		diffy2 = aabb.getMin().y - yp;
+		if (drawAabb)
+			for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+			{
+				aabbForDrawing[i] = sf::Vertex
+				(
+					aabbForDrawing[i].position + spriteDist
+				);
+				aabbForDrawing[i].color = sf::Color::Red;
+			}
 
-		// if collision with aabb, backtrack sprite's aabb position
-		if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
-			aabb.update(-spriteDist);
-		else // leave new aabb position alone and adjust sprite pos
-			setPosition(sprite.getPosition() + spriteDist);
-
+		setPosition(sprite.getPosition() + spriteDist);
 		animations[int(curAnimation)].update(dt);
 	}
 	animations[int(curAnimation)].applyToSprite(sprite);
@@ -95,6 +117,16 @@ void MainCharacter::setPosition(const sf::Vector2f& pos)
 		{ pos.x + 3.0f, pos.y + 32.0f },
 		{ pos.x + 25.0f, pos.y + 23.0f }
 	);
+	if (drawAabb)
+	{
+		aabbForDrawing[0] = sf::Vertex({ pos.x + 3.0f, pos.y + 23.0f });
+		aabbForDrawing[1] = sf::Vertex({ pos.x + 25.0f, pos.y + 23.0f });
+		aabbForDrawing[2] = sf::Vertex({ pos.x + 25.0f, pos.y + 32.0f });
+		aabbForDrawing[3] = sf::Vertex({ pos.x + 3.0f, pos.y + 32.0f });
+		aabbForDrawing[4] = aabbForDrawing[0];
+		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+			aabbForDrawing[i].color = sf::Color::Red;
+	}
 	positionChanged = true;
 }
 
@@ -105,6 +137,16 @@ void MainCharacter::setPositionX(const float& posX)
 		{ posX + 3.0f, aabb.getMin().y },
 		{ posX + 25.0f, aabb.getMax().y }
 	);
+	if (drawAabb)
+	{
+		aabbForDrawing[0].position.x = posX + 3.0f;
+		aabbForDrawing[1].position.x = posX + 25.0f;
+		aabbForDrawing[2].position.x = posX + 25.0f;
+		aabbForDrawing[3].position.x = posX + 3.0f;
+		aabbForDrawing[4].position.x = aabbForDrawing[0].position.x;
+		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+			aabbForDrawing[i].color = sf::Color::Red;
+	}
 	positionChanged = true;
 }
 
@@ -115,39 +157,71 @@ void MainCharacter::setPositionY(const float& posY)
 		{ aabb.getMin().x, posY + 32.0f },
 		{ aabb.getMax().x, posY + 23.0f }
 	);
+	if (drawAabb)
+	{
+		aabbForDrawing[0].position.y = posY + 23.0f;
+		aabbForDrawing[1].position.y = posY + 23.0f;
+		aabbForDrawing[2].position.y = posY + 32.0f;
+		aabbForDrawing[3].position.y = posY + 32.0f;
+		aabbForDrawing[4].position.y = aabbForDrawing[0].position.y;
+		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+			aabbForDrawing[i].color = sf::Color::Red;
+	}
 	positionChanged = true;
 }
 
 void MainCharacter::moveDistance(const sf::Vector2f& dist)
 {
 	sprite.setPosition(sprite.getPosition().x + dist.x,
-		sprite.getPosition().y + dist.y);
+      sprite.getPosition().y + dist.y);
 	aabb.setMinMax(
 		{ aabb.getMin().x + dist.x, aabb.getMin().y + dist.y },
 		{ aabb.getMax().x + dist.x, aabb.getMax().y + dist.y }
 	);
+	if (drawAabb)
+	{
+		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		{
+			aabbForDrawing[i].position += dist;
+			aabbForDrawing[i].color = sf::Color::Red;
+		}
+	}
 	positionChanged = true;
 }
 
 void MainCharacter::moveDistanceX(const float& distX)
 {
-	sprite.setPosition(sprite.getPosition().x + distX,
-		sprite.getPosition().y);
+	sprite.setPosition(sprite.getPosition().x + distX, sprite.getPosition().y);
 	aabb.setMinMax(
 		{ aabb.getMin().x + distX, aabb.getMin().y },
 		{ aabb.getMax().x + distX, aabb.getMax().y }
 	);
+	if (drawAabb)
+	{
+		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		{
+			aabbForDrawing[i].position.x += distX;
+			aabbForDrawing[i].color = sf::Color::Red;
+		}
+	}
 	positionChanged = true;
 }
 
 void MainCharacter::moveDistanceY(const float& distY)
 {
-	sprite.setPosition(sprite.getPosition().x,
-		sprite.getPosition().y + distY);
+	sprite.setPosition(sprite.getPosition().x, sprite.getPosition().y + distY);
 	aabb.setMinMax(
 		{ aabb.getMin().x, aabb.getMin().y + distY },
 		{ aabb.getMax().x, aabb.getMax().y + distY }
 	);
+	if (drawAabb)
+	{
+		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		{
+			aabbForDrawing[i].position.y += distY;
+			aabbForDrawing[i].color = sf::Color::Red;
+		}
+	}
 	positionChanged = true;
 }
 
@@ -172,21 +246,21 @@ const int& MainCharacter::getSpriteHeight() const
 }
 
 MainCharacter::MainCharacterAnimation::MainCharacterAnimation(
-	const std::string& name, const std::string& fileName,
-	int xFirstFrame, int numFrames, float timePerFrame)
+	const std::string& name, const std::string& fileName, int xFirstFrame,
+   int numFrames, float timePerFrame)
 	:
-	Animation(std::move(name), std::move(fileName), numFrames,
-		timePerFrame, false)
+	Animation(std::move(name), std::move(fileName), numFrames, timePerFrame,
+      false)
 {
 	createFrames(xFirstFrame, yFirstFrame, xOffset, yOffset);
 }
 
-void MainCharacter::MainCharacterAnimation::createFrames(
-	int xFirstFrame, int yFirstFrame, int xOffset, int yOffset)
+void MainCharacter::MainCharacterAnimation::createFrames( int xFirstFrame,
+   int yFirstFrame, int xOffset, int yOffset)
 {
 	for (int i = 0; i < numFrames; i++)
 	{
-		frames.emplace_back(xFirstFrame + i * xOffset,
-			yFirstFrame + i * yOffset, widthFrame, heightFrame);
+		frames.emplace_back(xFirstFrame + i * xOffset, yFirstFrame + i * yOffset,
+         widthFrame, heightFrame);
 	}
 }

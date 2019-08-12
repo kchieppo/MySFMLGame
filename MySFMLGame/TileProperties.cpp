@@ -6,7 +6,6 @@ TileProperties::TileProperties()
 	tileNumber{ 0 },
 	aabb{ std::nullopt }
 {
-
 }
 
 TileProperties::TileProperties(int& tileNumber)
@@ -38,7 +37,7 @@ void TileProperties::setProperties()
 	case 207:
 		sf::Vector2i&& min{ 0, 13 };
 		sf::Vector2i&& max{ 14, 1 };
-		aabb = AABB<sf::Vector2i>(min, max);
+      aabb = std::optional<AABB<sf::Vector2i>>{{ min, max }};
 		break;
 	}
 }

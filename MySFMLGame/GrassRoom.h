@@ -19,10 +19,9 @@ protected:
 private:
 	void initTilePropertiesMat();
 	void prepareTilePositions(Direction& transInDir);
-	bool checkForCollision(const Direction& mcDirX,
-		const Direction& mcDirY,
-		const sf::Vector2i& tileLocation,
-		const AABB<sf::Vector2i>& tileAabb) const;
+	bool checkForCollision(const Direction& mcDirX, const Direction& mcDirY,
+		const sf::Vector2i& tileLocation, const AABB<sf::Vector2i>& tileAabb)
+		const;
 private:
 	static constexpr int roomDimCol = 48;
 	static constexpr int roomDimRow = 40;

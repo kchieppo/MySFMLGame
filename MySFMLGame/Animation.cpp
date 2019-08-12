@@ -1,9 +1,8 @@
 #include "Animation.h"
 #include <iostream>
 
-Animation::Animation(const std::string& name,
-	const std::string& fileName, int numFrames, float timePerFrame,
-	bool flipHorizontal)
+Animation::Animation(const std::string& name, const std::string& fileName,
+   int numFrames, float timePerFrame, bool flipHorizontal)
 	:
 	name(""),
 	numFrames(numFrames),
@@ -14,8 +13,7 @@ Animation::Animation(const std::string& name,
 {
 	frames.reserve(10);
 	if (!image.loadFromFile(fileName))
-		std::cerr << "Animation can't open "
-			+ fileName + ". " << std::endl;
+		std::cerr << "Animation can't open " + fileName + ". " << std::endl;
 	image.createMaskFromColor(sf::Color::White);
 	texture.loadFromImage(image);
 }
@@ -27,11 +25,9 @@ void Animation::applyToSprite(sf::Sprite& s) const
 		s.setTextureRect(frames.at(curFrameIndex));
 	}
 	catch (const std::out_of_range& oor) {
-		std::cerr << "Animation " << name << "tried to "
-			"set non-existent frame at index " << curFrameIndex
-			<< " to sprite." << std::endl;
-		std::cerr << "Out of Range error: " << oor.what()
-			<< std::endl;
+		std::cerr << "Animation " << name << "tried to set non-existent frame at "
+         "index " << curFrameIndex << " to sprite." << std::endl;
+		std::cerr << "Out of Range error: " << oor.what() << std::endl;
 	}
 }
 

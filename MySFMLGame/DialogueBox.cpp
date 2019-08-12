@@ -6,8 +6,8 @@
 
 DialogueBox::DialogueBox(std::string& message)
 	:
-	rectangleShape({ diagBoxWidth - 2*outlineThickness,
-		diagBoxHeight - 2*outlineThickness })
+	rectangleShape({ diagBoxWidth - 2 * outlineThickness,
+		diagBoxHeight - 2 * outlineThickness })
 {
 	renderTexture.create(int(diagBoxWidth), int(diagBoxHeight));
 	sprite.setPosition({ diagBoxXLoc, diagBoxYLoc });
@@ -59,14 +59,17 @@ void DialogueBox::drawToRenderTexture()
 		std::string word = *it + " ";
 		text.setString(word);
 
-		float potentialWidthOfLine = totalWidthOfLine + text.getLocalBounds().width;
-		if (potentialWidthOfLine > diagBoxWidth - outlineThickness - lineWidthPadding)
+		float potentialWidthOfLine = totalWidthOfLine
+         + text.getLocalBounds().width;
+		if (potentialWidthOfLine > diagBoxWidth - outlineThickness
+         - lineWidthPadding)
 		{
 			// try without space
 			word.pop_back();
 			text.setString(word);
 			potentialWidthOfLine -= widthOfSpace;
-			if (potentialWidthOfLine > diagBoxWidth - outlineThickness - lineWidthPadding)
+			if (potentialWidthOfLine > diagBoxWidth - outlineThickness
+            - lineWidthPadding)
 			{
 				float potentialHeightOfLines = totalHeightOfLines +
 					text.getLocalBounds().height + lineHeightPadding;
@@ -76,7 +79,12 @@ void DialogueBox::drawToRenderTexture()
 				{
 					totalHeightOfLines = potentialHeightOfLines;
 
-					text.setPosition({ outlineThickness + lineWidthPadding, totalHeightOfLines });
+					text.setPosition(
+                  {
+                     outlineThickness + lineWidthPadding,
+                     totalHeightOfLines
+                  }
+               );
 					word = *it + " ";
 					text.setString(word);
 					renderTexture.draw(text);

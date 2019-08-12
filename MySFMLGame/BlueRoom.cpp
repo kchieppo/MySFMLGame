@@ -2,8 +2,7 @@
 
 BlueRoom::BlueRoom()
 	:
-	Room("Sprites/Environment/grass_tile.png", "BlueRoom",
-		64, 64, false),
+	Room("Sprites/Environment/grass_tile.png", "BlueRoom", 64, 64, false),
 	roomMatrix{ {
 		{0, 3, 1, 3, 2, 3, 0, 3, 1, 3, 2, 3},
 		{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
@@ -53,32 +52,60 @@ void BlueRoom::load(MainCharacter* mcP)
 			if (firstRoom)
 			{
 				// define its 4 corners
-				quad[0].position = sf::Vector2f(static_cast<float>(i * tileWidth),
-					static_cast<float>(j * tileHeight));
-				quad[1].position = sf::Vector2f(static_cast<float>((i + 1) * tileWidth),
-					static_cast<float>(j * tileHeight));
-				quad[2].position = sf::Vector2f(static_cast<float>((i + 1) * tileWidth),
-					static_cast<float>((j + 1) * tileHeight));
-				quad[3].position = sf::Vector2f(static_cast<float>(i * tileWidth),
-					static_cast<float>((j + 1) * tileHeight));
+				quad[0].position = sf::Vector2f
+            (
+               static_cast<float>(i * tileWidth),
+					static_cast<float>(j * tileHeight)
+            );
+				quad[1].position = sf::Vector2f
+            (
+               static_cast<float>((i + 1) * tileWidth),
+					static_cast<float>(j * tileHeight)
+            );
+				quad[2].position = sf::Vector2f
+            (
+               static_cast<float>((i + 1) * tileWidth),
+					static_cast<float>((j + 1) * tileHeight)
+            );
+				quad[3].position = sf::Vector2f
+            (
+               static_cast<float>(i * tileWidth),
+					static_cast<float>((j + 1) * tileHeight)
+            );
 			}
 			else
 			{
-				quad[0].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
-				quad[1].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
-				quad[2].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
-				quad[3].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[0].position
+               = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[1].position
+               = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[2].position
+               = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[3].position
+               = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
 			}
 
 			// define its 4 texture coordinates
-			quad[0].texCoords = sf::Vector2f(static_cast<float>(tu * tileWidth),
-				static_cast<float>(tv * tileHeight));
-			quad[1].texCoords = sf::Vector2f(static_cast<float>((tu + 1) * tileWidth),
-				static_cast<float>(tv * tileHeight));
-			quad[2].texCoords = sf::Vector2f(static_cast<float>((tu + 1) * tileWidth),
-				static_cast<float>((tv + 1) * tileHeight));
-			quad[3].texCoords = sf::Vector2f(static_cast<float>(tu * tileWidth),
-				static_cast<float>((tv + 1) * tileHeight));
+			quad[0].texCoords = sf::Vector2f
+         (
+            static_cast<float>(tu * tileWidth),
+				static_cast<float>(tv * tileHeight)
+         );
+			quad[1].texCoords = sf::Vector2f
+         (
+            static_cast<float>((tu + 1) * tileWidth),
+				static_cast<float>(tv * tileHeight)
+         );
+			quad[2].texCoords = sf::Vector2f
+         (
+            static_cast<float>((tu + 1) * tileWidth),
+				static_cast<float>((tv + 1) * tileHeight)
+         );
+			quad[3].texCoords = sf::Vector2f
+         (
+            static_cast<float>(tu * tileWidth),
+				static_cast<float>((tv + 1) * tileHeight)
+         );
 		}
 	roomLoaded = true;
 }
@@ -101,8 +128,8 @@ void BlueRoom::translateIn(Direction& dir)
 	switch (dir)
 	{
 	case Direction::Up:
-		if (vertexArray[0].position.y + dirVec.y
-			* static_cast<float>(transMag) == 0)
+		if (vertexArray[0].position.y
+         + dirVec.y * static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
 			translating = false;
@@ -125,8 +152,8 @@ void BlueRoom::translateIn(Direction& dir)
 			}
 		break;
 	case Direction::Down:
-		if (vertexArray[0].position.y + dirVec.y
-			* static_cast<float>(transMag) == 0)
+		if (vertexArray[0].position.y
+         + dirVec.y * static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
 			translating = false;
@@ -148,8 +175,8 @@ void BlueRoom::translateIn(Direction& dir)
 			}
 		break;
 	case Direction::Left:
-		if (vertexArray[0].position.x + dirVec.x
-			* static_cast<float>(transMag) == 0)
+		if (vertexArray[0].position.x
+         + dirVec.x * static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
 			translating = false;
@@ -171,8 +198,8 @@ void BlueRoom::translateIn(Direction& dir)
 			}
 		break;
 	case Direction::Right:
-		if (vertexArray[0].position.x + dirVec.x
-			* static_cast<float>(transMag) == 0)
+		if (vertexArray[0].position.x
+         + dirVec.x * static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
 			translating = false;
@@ -248,8 +275,8 @@ void BlueRoom::translateOut(Direction& dir)
 			}
 		break;
 	case Direction::Left:
-		if (vertexArray[(roomDimCol - 1) * 4 + 1].position.x + dirVec.x
-			* static_cast<float>(transMag) < 0)
+		if (vertexArray[(roomDimCol - 1) * 4 + 1].position.x
+         + dirVec.x * static_cast<float>(transMag) < 0)
 		{
 			dir = Direction::None;
 			translating = false;

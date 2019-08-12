@@ -4,18 +4,21 @@
 #include <string>
 #include <vector>
 
+/*
+The main logic for character animation.
+*/
 class Animation
 {
 public:
 	Animation() = default;
 	Animation(const std::string& name, const std::string& fileName,
-		int numFrames, float timePerFrame, bool flipHorizontal);
+      int numFrames, float timePerFrame, bool flipHorizontal);
 	virtual void applyToSprite(sf::Sprite& s) const;
 	virtual void update(float dt);
 	virtual void reset();
 protected:
-	virtual void createFrames(int xFirstFrame, int yFirstFrame,
-		int xOffset, int yOffset) = 0;
+	virtual void createFrames(int xFirstFrame, int yFirstFrame, int xOffset,
+      int yOffset) = 0;
 private:
 	void advanceFrame()
 	{

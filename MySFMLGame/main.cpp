@@ -17,9 +17,10 @@ int main()
 {
 	// Create the main window
 	sf::RenderWindow window(
-		sf::VideoMode(Constants::WINDOW_WIDTH_PIXELS,
-			Constants::WINDOW_HEIGHT_PIXELS), "False Vacuum",
-		sf::Style::Titlebar | sf::Style::Close);
+		sf::VideoMode
+      (Constants::WINDOW_WIDTH_PIXELS, Constants::WINDOW_HEIGHT_PIXELS),
+      "False Vacuum", sf::Style::Titlebar | sf::Style::Close
+   );
 	window.setActive(true);
 	window.setVerticalSyncEnabled(true);
 	// Init game state machine
@@ -28,15 +29,13 @@ int main()
 	TitleScreen tScreen;
 	// Load world map
 	WorldMap worldMap;
-	MainCharacter* const mainCharacterPtr
-		= worldMap.getMainCharacterPtr();
+	MainCharacter* const mainCharacterPtr = worldMap.getMainCharacterPtr();
 
 	sf::Vector2f walkDir;
 	// Menu
-	std::string dialogueMsg = "This is a long message. A really, "
-		"really long message. Why did I write such a long message? "
-		"It's because I wanted to test out my dialogue box. By the "
-		"way, I love you.";
+	std::string dialogueMsg = "This is a long message. A really, really long "
+      "message. Why did I write such a long message? It's because I wanted to "
+      "test out my dialogue box. By the way, I love you.";
 	DialogueBox dialogueBox(dialogueMsg);
 	// timepoint for dt measurement
 	auto tp = std::chrono::steady_clock::now();
@@ -82,14 +81,22 @@ int main()
 			case GameState::GameScreen:
 				walkDir = { 0.0f, 0.0f };
 				if (mainCharacterPtr->getAabbMax().y < 0 && worldMap.up())
-					mainCharacterPtr->setPositionY(static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS
-						- mainCharacterPtr->getSpriteHeight()));
-				else if (mainCharacterPtr->getAabbMin().y > Constants::WINDOW_HEIGHT_PIXELS && worldMap.down())
+					mainCharacterPtr->setPositionY
+               (
+                  static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS
+						- mainCharacterPtr->getSpriteHeight())
+               );
+				else if (mainCharacterPtr->getAabbMin().y
+               > Constants::WINDOW_HEIGHT_PIXELS && worldMap.down())
 					mainCharacterPtr->setPositionY(0);
 				else if (mainCharacterPtr->getAabbMin().x < 0 && worldMap.left())
-					mainCharacterPtr->setPositionX(static_cast<float>(Constants::WINDOW_WIDTH_PIXELS
-						- mainCharacterPtr->getSpriteWidth()));
-				else if (mainCharacterPtr->getAabbMax().x > Constants::WINDOW_WIDTH_PIXELS && worldMap.right())
+					mainCharacterPtr->setPositionX
+               (
+                  static_cast<float>(Constants::WINDOW_WIDTH_PIXELS
+						- mainCharacterPtr->getSpriteWidth())
+               );
+				else if (mainCharacterPtr->getAabbMax().x
+               > Constants::WINDOW_WIDTH_PIXELS && worldMap.right())
 					mainCharacterPtr->setPositionX(0);
 				else
 				{

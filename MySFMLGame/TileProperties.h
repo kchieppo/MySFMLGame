@@ -11,7 +11,7 @@ public:
 	const int& getTileNumber() const;
 	const std::optional<AABB<sf::Vector2i>>& getAabb() const;
 private:
-	void setProperties();
+   void setProperties();
 private:
 	int tileNumber;
 	std::optional<AABB<sf::Vector2i>> aabb;

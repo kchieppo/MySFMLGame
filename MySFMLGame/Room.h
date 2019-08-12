@@ -12,8 +12,7 @@ class Room : public sf::Drawable, public sf::Transformable
 {
 public:
 	Room(const std::string& fileName, const std::string& roomName,
-		const int tileWidth, const int tileHeight,
-		const bool& firstRoom);
+      const int tileWidth, const int tileHeight, const bool& firstRoom);
 	const bool& isLoaded() const;
 	virtual void load(MainCharacter* mcP);
 	virtual void update(const float& dt);
@@ -24,7 +23,8 @@ public:
 	virtual MainCharacter* const getMainCharacterPtr();
 	void setTranslating(const bool& trans);
 protected:
-	virtual void draw(sf::RenderTarget& rt, sf::RenderStates states) const override;
+	virtual void draw(sf::RenderTarget& rt, sf::RenderStates states) const
+		override;
 	sf::Vector2f getUnitVector(Direction& dir);
 protected:
 	MainCharacter* mcPointer;

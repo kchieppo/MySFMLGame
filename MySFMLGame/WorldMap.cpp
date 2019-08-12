@@ -16,7 +16,7 @@ WorldMap::WorldMap()
 	currentRoom{ worldMatrix.at(worldMatRow).at(worldMatCol) },
 	prevRoom{ currentRoom },
 	translationDir{ Direction::None },
-	mainCharacter{ {400.0f, 600.0f} }
+	mainCharacter{ {400.0f, 400.0f} }
 {
 	loadCurrentRoom();
 }

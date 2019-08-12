@@ -11,3 +11,5 @@
 9) Associate Events with AABBs
 11) Add hold time to room transition
 12) Break up findTilesStandingOver method
+13) Make collisions not shake main character
+14) Fix clipping through collisions when moving diagonally

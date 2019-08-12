@@ -2,8 +2,7 @@
 
 GrassRoom::GrassRoom()
 	:
-	Room("Sprites/Environment/gfx/Overworld.png", "GrassRoom",
-		16, 16, true),
+	Room("Sprites/Environment/gfx/Overworld.png", "GrassRoom", 16, 16, true),
 	roomMatrix{ {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 283, 283, 283, 283, 283, 283, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 283, 283, 283, 283, 283, 283, 283, 283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -23,18 +22,18 @@ GrassRoom::GrassRoom()
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 524, 525, 525, 525, 525, 525, 525, 525, 525, 525, 525, 526, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 524, 525, 525, 525, 525, 525, 525, 525, 525, 525, 525, 526, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 207, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 207, 207, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 207, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 207, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -91,32 +90,60 @@ void GrassRoom::load(MainCharacter* mcP)
 			if (firstRoom)
 			{
 				// define its 4 corners
-				quad[0].position = sf::Vector2f(static_cast<float>(i * tileWidth),
-					static_cast<float>(j * tileHeight));
-				quad[1].position = sf::Vector2f(static_cast<float>((i + 1) * tileWidth),
-					static_cast<float>(j * tileHeight));
-				quad[2].position = sf::Vector2f(static_cast<float>((i + 1) * tileWidth),
-					static_cast<float>((j + 1) * tileHeight));
-				quad[3].position = sf::Vector2f(static_cast<float>(i * tileWidth),
-					static_cast<float>((j + 1) * tileHeight));
+				quad[0].position = sf::Vector2f
+            (
+               static_cast<float>(i * tileWidth),
+					static_cast<float>(j * tileHeight)
+            );
+				quad[1].position = sf::Vector2f
+            (
+               static_cast<float>((i + 1) * tileWidth),
+					static_cast<float>(j * tileHeight)
+            );
+				quad[2].position = sf::Vector2f
+            (
+               static_cast<float>((i + 1) * tileWidth),
+					static_cast<float>((j + 1) * tileHeight)
+            );
+				quad[3].position = sf::Vector2f
+            (
+               static_cast<float>(i * tileWidth),
+					static_cast<float>((j + 1) * tileHeight)
+            );
 			}
 			else // make sure positions are off-screen
 			{
-				quad[0].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
-				quad[1].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
-				quad[2].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
-				quad[3].position = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[0].position
+               = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[1].position
+               = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[2].position
+               = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
+				quad[3].position
+               = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
 			}
 
 			// define its 4 texture coordinates
-			quad[0].texCoords = sf::Vector2f(static_cast<float>(tu * tileWidth),
-				static_cast<float>(tv * tileHeight));
-			quad[1].texCoords = sf::Vector2f(static_cast<float>((tu + 1) * tileWidth),
-				static_cast<float>(tv * tileHeight));
-			quad[2].texCoords = sf::Vector2f(static_cast<float>((tu + 1) * tileWidth),
-				static_cast<float>((tv + 1) * tileHeight));
-			quad[3].texCoords = sf::Vector2f(static_cast<float>(tu * tileWidth),
-				static_cast<float>((tv + 1) * tileHeight));
+			quad[0].texCoords = sf::Vector2f
+         (
+            static_cast<float>(tu * tileWidth),
+				static_cast<float>(tv * tileHeight)
+         );
+			quad[1].texCoords = sf::Vector2f
+         (
+            static_cast<float>((tu + 1) * tileWidth),
+				static_cast<float>(tv * tileHeight)
+         );
+			quad[2].texCoords = sf::Vector2f
+         (
+            static_cast<float>((tu + 1) * tileWidth),
+				static_cast<float>((tv + 1) * tileHeight)
+         );
+			quad[3].texCoords = sf::Vector2f
+         (
+            static_cast<float>(tu * tileWidth),
+				static_cast<float>((tv + 1) * tileHeight)
+         );
 		}
 	roomLoaded = true;
 }
@@ -165,8 +192,6 @@ void GrassRoom::findTilesStandingOver()
 		int col = tileIndexTopLeft.x;
 		while (col <= tileIndexTopRight.x)
 		{
-			std::cout << "Up::Tile Index: " << col;
-
 			tileLocation = { col, tileIndexTopLeft.y };
 			const TileProperties& tileProperties
 				= tilePropertiesMat[tileIndexTopLeft.y][col];
@@ -175,7 +200,6 @@ void GrassRoom::findTilesStandingOver()
 					return;
 			col++;
 		}
-		std::cout << std::endl;
 
 		if (tileIndexTopLeft != tileIndexBottomLeft)
 		{
@@ -184,8 +208,6 @@ void GrassRoom::findTilesStandingOver()
 				int row = tileIndexTopLeft.y + 1;
 				while (row <= tileIndexBottomLeft.y)
 				{
-					std::cout << "UpLeft::Tile Index: " << row;
-
 					tileLocation = { tileIndexTopLeft.x, row };
 					const TileProperties& tileProperties
 						= tilePropertiesMat[row][tileIndexTopLeft.x];
@@ -194,15 +216,12 @@ void GrassRoom::findTilesStandingOver()
 							return;
 					row++;
 				}
-				std::cout << std::endl;
 			}
 			else if (dirX == Direction::Right)
 			{
 				int row = tileIndexTopRight.y + 1;
 				while (row <= tileIndexBottomRight.y)
 				{
-					std::cout << "UpRight::Tile Index: " << row;
-
 					tileLocation = { tileIndexTopRight.x, row };
 					const TileProperties& tileProperties
 						= tilePropertiesMat[row][tileIndexTopRight.x];
@@ -211,7 +230,6 @@ void GrassRoom::findTilesStandingOver()
 							return;
 					row++;
 				}
-				std::cout << std::endl;
 			}
 		}
 	}
@@ -220,8 +238,6 @@ void GrassRoom::findTilesStandingOver()
 		int col = tileIndexBottomLeft.x;
 		while (col <= tileIndexBottomRight.x)
 		{
-			std::cout << "Down::Tile Index: " << col;
-
 			tileLocation = { col, tileIndexBottomLeft.y };
 			const TileProperties& tileProperties
 				= tilePropertiesMat[tileIndexBottomLeft.y][col];
@@ -230,15 +246,12 @@ void GrassRoom::findTilesStandingOver()
 					return;
 			col++;
 		}
-		std::cout << std::endl;
 
 		if (dirX == Direction::Left)
 		{
 			int row = tileIndexBottomLeft.y - 1;
 			while (row >= tileIndexTopLeft.y)
 			{
-				std::cout << "DownLeft::Tile Index: " << row;
-
 				tileLocation = { tileIndexBottomLeft.x, row };
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexBottomLeft.x];
@@ -247,15 +260,12 @@ void GrassRoom::findTilesStandingOver()
 						return;
 				row--;
 			}
-			std::cout << std::endl;
 		}
 		else if (dirX == Direction::Right)
 		{
 			int row = tileIndexBottomRight.y - 1;
 			while (row >= tileIndexTopRight.y)
 			{
-				std::cout << "DownRight::Tile Index: " << row;
-
 				tileLocation = { tileIndexBottomRight.x, row };
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexBottomRight.x];
@@ -264,7 +274,6 @@ void GrassRoom::findTilesStandingOver()
 						return;
 				row--;
 			}
-			std::cout << std::endl;
 		}
 	}
 	else
@@ -274,8 +283,6 @@ void GrassRoom::findTilesStandingOver()
 			int row = tileIndexTopLeft.y;
 			while (row <= tileIndexBottomLeft.y)
 			{
-				std::cout << "TrueLeft::Tile Index: " << row;
-
 				tileLocation = { tileIndexTopLeft.x, row };
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexTopLeft.x];
@@ -284,15 +291,12 @@ void GrassRoom::findTilesStandingOver()
 						return;
 				row++;
 			}
-			std::cout << std::endl;
 		}
 		else if (dirX == Direction::Right)
 		{
 			int row = tileIndexTopRight.y;
 			while (row <= tileIndexBottomRight.y)
 			{
-				std::cout << "TrueRight::Tile Index: " << row;
-
 				tileLocation = { tileIndexTopRight.x, row };
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexTopRight.x];
@@ -301,7 +305,6 @@ void GrassRoom::findTilesStandingOver()
 						return;
 				row++;
 			}
-			std::cout << std::endl;
 		}
 	}
 }
@@ -329,8 +332,8 @@ void GrassRoom::translateIn(Direction& dir)
 	switch (dir)
 	{
 	case Direction::Up:
-		if (vertexArray[0].position.y + dirVec.y
-			* static_cast<float>(transMag) == 0)
+		if (vertexArray[0].position.y
+         + dirVec.y * static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
 			translating = false;
@@ -353,8 +356,8 @@ void GrassRoom::translateIn(Direction& dir)
 			}
 		break;
 	case Direction::Down:
-		if (vertexArray[0].position.y + dirVec.y
-			* static_cast<float>(transMag) == 0)
+		if (vertexArray[0].position.y
+         + dirVec.y * static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
 			translating = false;
@@ -376,8 +379,8 @@ void GrassRoom::translateIn(Direction& dir)
 			}
 		break;
 	case Direction::Left:
-		if (vertexArray[0].position.x + dirVec.x
-			* static_cast<float>(transMag) == 0)
+		if (vertexArray[0].position.x
+         + dirVec.x * static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
 			translating = false;
@@ -399,8 +402,8 @@ void GrassRoom::translateIn(Direction& dir)
 			}
 		break;
 	case Direction::Right:
-		if (vertexArray[0].position.x + dirVec.x
-			* static_cast<float>(transMag) == 0)
+		if (vertexArray[0].position.x
+         + dirVec.x * static_cast<float>(transMag) == 0)
 		{
 			dir = Direction::None;
 			translating = false;
@@ -476,8 +479,8 @@ void GrassRoom::translateOut(Direction& dir)
 			}
 		break;
 	case Direction::Left:
-		if (vertexArray[(roomDimCol - 1) * 4 + 1].position.x + dirVec.x
-			* static_cast<float>(transMag) < 0)
+		if (vertexArray[(roomDimCol - 1) * 4 + 1].position.x
+         + dirVec.x * static_cast<float>(transMag) < 0)
 		{
 			dir = Direction::None;
 			translating = false;
@@ -646,8 +649,7 @@ void GrassRoom::prepareTilePositions(Direction& transInDir)
 }
 
 bool GrassRoom::checkForCollision(const Direction& mcDirX,
-	const Direction& mcDirY,
-	const sf::Vector2i& tileLocation,
+   const Direction& mcDirY, const sf::Vector2i& tileLocation,
 	const AABB<sf::Vector2i>& tileAabb) const
 {
 	sf::Vector2i tileAabbAbsoluteMin
@@ -661,6 +663,15 @@ bool GrassRoom::checkForCollision(const Direction& mcDirX,
 		tileLocation.y * tileHeight + tileAabb.getMax().y
 	};
 
+	std::cout << "TileAabbAbsoluteMin: " << tileAabbAbsoluteMin.x
+		<< " " << tileAabbAbsoluteMin.y << std::endl;
+	std::cout << "TileAabbAbsoluteMax: " << tileAabbAbsoluteMax.x
+		<< " " << tileAabbAbsoluteMax.y << std::endl;
+	std::cout << "MCAabbMin: " << mcPointer->getAabbMin().x
+		<< " " << mcPointer->getAabbMin().y << std::endl;
+	std::cout << "MCAabbMax: " << mcPointer->getAabbMax().x
+		<< " " << mcPointer->getAabbMax().y << std::endl;
+
 	float diffx1 = static_cast<float>(tileAabbAbsoluteMax.x)
 		- mcPointer->getAabbMin().x;
 	float diffx2 = mcPointer->getAabbMax().x
@@ -670,7 +681,7 @@ bool GrassRoom::checkForCollision(const Direction& mcDirX,
 	float diffy2 = mcPointer->getAabbMin().y
 		- static_cast<float>(tileAabbAbsoluteMax.y);
 
-	if (diffx1 >= 0 && diffx2 >= 0 && diffy1 >= 0 && diffy2 >= 0)
+	if (diffx1 > -1 && diffx2 > -1 && diffy1 > -1 && diffy2 > -1)
 	{
 		//collision
 		std::cout << "Collision!" << std::endl;
@@ -679,9 +690,14 @@ bool GrassRoom::checkForCollision(const Direction& mcDirX,
 		else if (mcDirY == Direction::Down)
 			mcPointer->moveDistanceY(-diffy2);
 		if (mcDirX == Direction::Left)
-			mcPointer->moveDistanceX(diffx1);
+			mcPointer->moveDistanceX(diffx1 + 1);
 		else if (mcDirX == Direction::Right)
 			mcPointer->moveDistanceX(-diffx2);
+		std::cout << "MCAabbMinNew: " << mcPointer->getAabbMin().x
+			<< " " << mcPointer->getAabbMin().y << std::endl;
+		std::cout << "MCAabbMaxNew: " << mcPointer->getAabbMax().x
+			<< " " << mcPointer->getAabbMax().y << std::endl;
+		std::cout << std::endl;
 		return true;
 	}
 	else
