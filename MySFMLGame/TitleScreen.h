@@ -1,6 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+/*
+Simple class containing the title screen texture.
+*/
 class TitleScreen
 {
 public:

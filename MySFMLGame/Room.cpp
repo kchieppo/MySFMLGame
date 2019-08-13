@@ -1,7 +1,7 @@
 #include "Room.h"
 
 Room::Room(const std::string& fileName, const std::string& roomName,
-	const int tileWidth, const int tileHeight, const bool& firstRoom)
+	const int& tileWidth, const int& tileHeight, const bool& firstRoom)
 	:
 	mcPointer{ nullptr },
 	fileName{ fileName },

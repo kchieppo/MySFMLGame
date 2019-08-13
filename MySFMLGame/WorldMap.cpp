@@ -11,9 +11,9 @@ WorldMap::WorldMap()
 		{new BlackRoom(), new GrassRoom(), new BlackRoom()},
 		{new BlueRoom(), new PurpleRoom(), new BlueRoom()}
 	} },
-	worldMatRow{ 1 },
-	worldMatCol{ 1 },
-	currentRoom{ worldMatrix.at(worldMatRow).at(worldMatCol) },
+	curWorldMatRow{ 1 },
+	curWorldMatCol{ 1 },
+	currentRoom{ worldMatrix.at(curWorldMatRow).at(curWorldMatCol) },
 	prevRoom{ currentRoom },
 	translationDir{ Direction::None },
 	mainCharacter{ {400.0f, 400.0f} }
@@ -23,11 +23,11 @@ WorldMap::WorldMap()
 
 bool WorldMap::up()
 {
-	if (worldMatRow != 0)
+	if (curWorldMatRow != 0)
 	{
 		translationDir = Direction::Down;
 		prevRoom = currentRoom;
-		currentRoom = worldMatrix.at(--worldMatRow).at(worldMatCol);
+		currentRoom = worldMatrix.at(--curWorldMatRow).at(curWorldMatCol);
 		prevRoom->setTranslating(true);
 		currentRoom->setTranslating(true);
 		loadCurrentRoom();
@@ -38,11 +38,11 @@ bool WorldMap::up()
 
 bool WorldMap::down()
 {
-	if (worldMatRow != worldMapDimRow - 1)
+	if (curWorldMatRow != worldMapDimRow - 1)
 	{
 		translationDir = Direction::Up;
 		prevRoom = currentRoom;
-		currentRoom = worldMatrix.at(++worldMatRow).at(worldMatCol);
+		currentRoom = worldMatrix.at(++curWorldMatRow).at(curWorldMatCol);
 		prevRoom->setTranslating(true);
 		currentRoom->setTranslating(true);
 		loadCurrentRoom();
@@ -53,11 +53,11 @@ bool WorldMap::down()
 
 bool WorldMap::left()
 {
-	if (worldMatCol != 0)
+	if (curWorldMatCol != 0)
 	{
 		translationDir = Direction::Right;
 		prevRoom = currentRoom;
-		currentRoom = worldMatrix.at(worldMatRow).at(--worldMatCol);
+		currentRoom = worldMatrix.at(curWorldMatRow).at(--curWorldMatCol);
 		prevRoom->setTranslating(true);
 		currentRoom->setTranslating(true);
 		loadCurrentRoom();
@@ -68,11 +68,11 @@ bool WorldMap::left()
 
 bool WorldMap::right()
 {
-	if (worldMatCol != worldMapDimCol - 1)
+	if (curWorldMatCol != worldMapDimCol - 1)
 	{
 		translationDir = Direction::Left;
 		prevRoom = currentRoom;
-		currentRoom = worldMatrix.at(worldMatRow).at(++worldMatCol);
+		currentRoom = worldMatrix.at(curWorldMatRow).at(++curWorldMatCol);
 		prevRoom->setTranslating(true);
 		currentRoom->setTranslating(true);
 		loadCurrentRoom();
