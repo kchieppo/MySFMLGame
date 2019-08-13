@@ -5,6 +5,21 @@ DemonCharacter::DemonCharacter(const sf::Vector2f& pos)
 	:
 	Character(pos),
 	speed{ 50.0f },
+   animations
+   {{
+         DemonCharacterAnimation("DemonCharacterSSL",
+         "Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png", 45, 4,
+         0.2f, true),
+         DemonCharacterAnimation("DemonCharacterSSR",
+         "Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png", 19, 4,
+         0.2f, false),
+         DemonCharacterAnimation("DemonCharacterWL",
+         "Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png", 172, 4,
+         0.2f, true),
+         DemonCharacterAnimation("DemonCharacterWR",
+         "Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png", 146, 4,
+         0.2f, false)
+   }},
 	curAnimation{ AnimationIndex::StandingStillRight },
 	prevAnimation{ AnimationIndex::StandingStillRight },
 	aabb{ {pos.x - 1.0f * scaleFactor, pos.y + 35.0f * scaleFactor},
@@ -12,22 +27,6 @@ DemonCharacter::DemonCharacter(const sf::Vector2f& pos)
 {
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
 	sprite.scale({ scaleFactor, scaleFactor });
-	animations[int(AnimationIndex::StandingStillLeft)]
-		= DemonCharacterAnimation("DemonCharacterSSL",
-			"Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png", 45, 4,
-         0.2f, true);
-	animations[int(AnimationIndex::StandingStillRight)]
-		= DemonCharacterAnimation("DemonCharacterSSR",
-			"Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png", 19, 4,
-         0.2f, false);
-	animations[int(AnimationIndex::WalkingLeft)]
-		= DemonCharacterAnimation("DemonCharacterWL",
-			"Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png", 172, 4,
-         0.2f, true);
-	animations[int(AnimationIndex::WalkingRight)]
-		= DemonCharacterAnimation("DemonCharacterWR",
-			"Sprites/DownloadedTilesets/0x72_DungeonTilesetII_v1.2.png", 146, 4,
-         0.2f, false);
 }
 
 void DemonCharacter::setAnimationIndex(const sf::Vector2f& dir)

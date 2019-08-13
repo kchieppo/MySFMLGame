@@ -5,6 +5,17 @@ MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	Character(pos),
 	positionChanged{ false },
 	speed{ 10.0f },
+   animations
+   {{
+      MainCharacterAnimation("MainCharacterWalkingUp",
+      "Sprites/Characters/george.png", 106, 4, 0.2f),
+      MainCharacterAnimation("MainCharacterWalkingDown",
+      "Sprites/Characters/george.png", 10, 4, 0.2f),
+      MainCharacterAnimation("MainCharacterWalkingLeft",
+      "Sprites/Characters/george.png", 56, 4, 0.2f),
+      MainCharacterAnimation("MainCharacterWalkingRight",
+      "Sprites/Characters/george.png", 155, 4, 0.2f),
+   }},
 	curAnimation{ AnimationIndex::WalkingDown },
 	prevAnimation{ AnimationIndex::WalkingDown },
 	aabb{ {pos.x + 3.0f, pos.y + 32.0f},
@@ -12,18 +23,6 @@ MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	drawAabb{ true }
 {
 	sprite.setTextureRect(sf::IntRect(8, 8, 30, 32));
-	animations[int(AnimationIndex::WalkingUp)]
-		= MainCharacterAnimation("MainCharacterWalkingUp",
-			"Sprites/Characters/george.png", 106, 4, 0.2f);
-	animations[int(AnimationIndex::WalkingDown)]
-		= MainCharacterAnimation("MainCharacterWalkingDown",
-			"Sprites/Characters/george.png", 10, 4, 0.2f);
-	animations[int(AnimationIndex::WalkingLeft)]
-		= MainCharacterAnimation("MainCharacterWalkingLeft",
-			"Sprites/Characters/george.png", 56, 4, 0.2f);
-	animations[int(AnimationIndex::WalkingRight)]
-		= MainCharacterAnimation("MainCharacterWalkingRight",
-			"Sprites/Characters/george.png", 155, 4, 0.2f);
 
 	if (drawAabb)
 	{

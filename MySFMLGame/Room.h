@@ -87,11 +87,17 @@ protected:
    bool roomLoaded;
 	bool translating;
 
-
+   // Array of vertices used to identify tiles in the texture to draw to the
+   // screen.
 	sf::VertexArray vertexArray;
 	sf::VertexArray vertexArrayLayerTwo;
+
 	sf::Texture texture;
-	sf::Texture textureMasked;
+
+   // The size of room translations when transitioning to a different room. E.g.
+   // a value of 4 means shift 4 pixels per translation. This is static_asserted
+   // to be evenly divisible into the window width and height so the new room
+   // translating in fits perfectly into the window.
 	static constexpr unsigned int transMag = 4;
 	static_assert(Constants::WINDOW_WIDTH_PIXELS % transMag == 0,
 		"Window width not evenly divisible by room transition "

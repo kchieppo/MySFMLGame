@@ -16,24 +16,26 @@ class TileProperties
 {
 public:
 	TileProperties();
-	TileProperties(int& tileNumber);
-	const int& getTileNumber() const;
-	const std::optional<AABB<sf::Vector2i>>& getAabb() const;
+	TileProperties(const int& tNumber, const sf::Vector2i& tLocation);
+	const int& getNumber() const;
+   const sf::Vector2i& getLocation() const;
+   const std::optional<AABB<sf::Vector2i>>& getAabb() const;
 private:
    // Sets the properties based on the tile number.
    void setProperties();
 private:
    /*
-   Uniquely identifies the tile type. Tile number 0 corresponds to the tile
-   in the top left corner of the texture. No. 1 is the tile to the right of
-   tile 0, etc. E.g., in a 3x3 texture, the tiles are numbered as follows:
+   Uniquely identifies the tile type. Number 0 corresponds to the tile in the
+   top left corner of the texture. No. 1 is the tile to the right of tile 0,
+   etc. E.g., in a 3x3 texture, the tiles are numbered as follows:
    
    |0 1 2|
    |3 4 5|
    |6 7 8|
    
    */ 
-	int tileNumber;
+	int number;
+   sf::Vector2i location;
 	std::optional<AABB<sf::Vector2i>> aabb;
 	Event evnt;
 };

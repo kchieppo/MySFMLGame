@@ -196,7 +196,7 @@ void GrassRoom::findTilesStandingOver()
 			const TileProperties& tileProperties
 				= tilePropertiesMat[tileIndexTopLeft.y][col];
 			if (const auto& aabb = tileProperties.getAabb())
-				if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+				if (checkForCollision(dirX, dirY, tileProperties))
 					return;
 			col++;
 		}
@@ -212,7 +212,7 @@ void GrassRoom::findTilesStandingOver()
 					const TileProperties& tileProperties
 						= tilePropertiesMat[row][tileIndexTopLeft.x];
 					if (const auto& aabb = tileProperties.getAabb())
-						if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+						if (checkForCollision(dirX, dirY, tileProperties))
 							return;
 					row++;
 				}
@@ -226,7 +226,7 @@ void GrassRoom::findTilesStandingOver()
 					const TileProperties& tileProperties
 						= tilePropertiesMat[row][tileIndexTopRight.x];
 					if (const auto& aabb = tileProperties.getAabb())
-						if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+						if (checkForCollision(dirX, dirY, tileProperties))
 							return;
 					row++;
 				}
@@ -242,7 +242,7 @@ void GrassRoom::findTilesStandingOver()
 			const TileProperties& tileProperties
 				= tilePropertiesMat[tileIndexBottomLeft.y][col];
 			if (const auto& aabb = tileProperties.getAabb())
-				if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+				if (checkForCollision(dirX, dirY, tileProperties))
 					return;
 			col++;
 		}
@@ -256,7 +256,7 @@ void GrassRoom::findTilesStandingOver()
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexBottomLeft.x];
 				if (const auto& aabb = tileProperties.getAabb())
-					if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+					if (checkForCollision(dirX, dirY, tileProperties))
 						return;
 				row--;
 			}
@@ -270,7 +270,7 @@ void GrassRoom::findTilesStandingOver()
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexBottomRight.x];
 				if (const auto& aabb = tileProperties.getAabb())
-					if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+					if (checkForCollision(dirX, dirY, tileProperties))
 						return;
 				row--;
 			}
@@ -287,7 +287,7 @@ void GrassRoom::findTilesStandingOver()
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexTopLeft.x];
 				if (const auto& aabb = tileProperties.getAabb())
-					if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+					if (checkForCollision(dirX, dirY, tileProperties))
 						return;
 				row++;
 			}
@@ -301,7 +301,7 @@ void GrassRoom::findTilesStandingOver()
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexTopRight.x];
 				if (const auto& aabb = tileProperties.getAabb())
-					if (checkForCollision(dirX, dirY, tileLocation, aabb.value()))
+					if (checkForCollision(dirX, dirY, tileProperties))
 						return;
 				row++;
 			}
@@ -542,7 +542,7 @@ void GrassRoom::initTilePropertiesMat()
 	for (int row = 0; row < tilePropertiesMat.size(); row++)
 		for (int col = 0; col < tilePropertiesMat[0].size(); col++)
 			tilePropertiesMat[row][col]
-				= TileProperties(roomMatrix[row][col]);
+				= TileProperties(roomMatrix[row][col], sf::Vector2i(col, row));
 }
 
 void GrassRoom::prepareTilePositions(Direction& transInDir)
@@ -649,9 +649,10 @@ void GrassRoom::prepareTilePositions(Direction& transInDir)
 }
 
 bool GrassRoom::checkForCollision(const Direction& mcDirX,
-   const Direction& mcDirY, const sf::Vector2i& tileLocation,
-	const AABB<sf::Vector2i>& tileAabb) const
+   const Direction& mcDirY, const TileProperties& tileProperties) const
 {
+   const sf::Vector2i& tileLocation = tileProperties.getLocation();
+   const AABB<sf::Vector2i>& tileAabb = tileProperties.getAabb().value();
 	sf::Vector2i tileAabbAbsoluteMin
 	{
 		tileLocation.x * tileWidth + tileAabb.getMin().x,

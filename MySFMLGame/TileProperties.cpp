@@ -2,23 +2,31 @@
 #include <functional>
 
 TileProperties::TileProperties()
-	:
-	tileNumber{ 0 },
+   :
+   number{ 0 },
+   location{ 0, 0 },
 	aabb{ std::nullopt }
 {
 }
 
-TileProperties::TileProperties(int& tileNumber)
+TileProperties::TileProperties(const int& tNumber,
+   const sf::Vector2i& tLocation)
 	:
-	tileNumber{ tileNumber },
+	number{ tNumber },
+   location{ tLocation },
 	aabb{ std::nullopt }
 {
 	setProperties();
 }
 
-const int& TileProperties::getTileNumber() const
+const int& TileProperties::getNumber() const
 {
-	return tileNumber;
+	return number;
+}
+
+const sf::Vector2i& TileProperties::getLocation() const
+{
+   return location;
 }
 
 const std::optional<AABB<sf::Vector2i>>& TileProperties::getAabb() const
@@ -28,7 +36,7 @@ const std::optional<AABB<sf::Vector2i>>& TileProperties::getAabb() const
 
 void TileProperties::setProperties()
 {
-	switch (tileNumber)
+	switch (number)
 	{
 	case 0:
 		break;
