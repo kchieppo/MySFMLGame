@@ -38,7 +38,18 @@ private:
          float timePerFrame, bool flipHorizontal);
    protected:
       /*
-      Populates
+      Makes the frames for the animation. Specifically, the frames variable is
+      populated with IntRects whose dimensions enclose the images in the texture
+      that are needed for the animation.
+
+      Some of the parameters may be constants in derived Character classes, but
+      decided that this general form be derived anyway to remain open to
+      sprite sheets that may be organized differently.
+
+      x/yFirstFrame: x/y coordinate of the top-left corner of the first image of
+         the animation.
+      x/yOffset: The number of pixels between each frame of the animation in the
+         x/y direction.
       */
       void createFrames(int xFirstFrame, int yFirstFrame, int xOffset,
          int yOffset) override;
@@ -50,6 +61,7 @@ private:
       static constexpr int yOffset = 0;
    };
 
+   // The types of DemonCharacter animations.
    enum class AnimationIndex
    {
       StandingStillLeft,
@@ -59,11 +71,15 @@ private:
       Count
    };
 
+   // Scales the size of the images in the animations.
    static constexpr float scaleFactor = 2.0f;
+   // The speed at which the character moves across the screen.
    const float speed;
+   // Array containing the different types of animations.
    std::array<DemonCharacterAnimation, static_cast<int>(AnimationIndex::Count)>
       animations;
    AnimationIndex curAnimation;
    AnimationIndex prevAnimation;
+   // Axis-aligned bounding box for collision detection.
    AABB<sf::Vector2f> aabb;
 };

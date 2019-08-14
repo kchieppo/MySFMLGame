@@ -82,11 +82,11 @@ private:
 
    // The speed at which the character moves across the screen.
 	const float speed;
+   // Array containing the different types of animations.
 	std::array<MainCharacterAnimation, static_cast<int>(AnimationIndex::Count)>
       animations;
 	AnimationIndex curAnimation;
 	AnimationIndex prevAnimation;
-
    // Axis-aligned bounding box for collision detection.
 	AABB<sf::Vector2f> aabb;
 
