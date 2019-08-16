@@ -4,7 +4,7 @@ MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	:
 	Character(pos),
 	positionChanged{ false },
-	speed{ 10.0f },
+	speed{ 100.0f },
    animations
    {{
       MainCharacterAnimation("MainCharacterWalkingUp",

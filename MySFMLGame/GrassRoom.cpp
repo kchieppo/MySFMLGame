@@ -350,9 +350,9 @@ void GrassRoom::translateIn(Direction& dir)
 				quad[2].position.y += dirVec.y * static_cast<float>(transMag);
 				quad[3].position.y += dirVec.y * static_cast<float>(transMag);
 
-				if (roomDimRow * tileHeight - quad[0].position.y <= tileHeight
-					&& i == roomDimCol - 1)
-					return;
+            if (roomDimRow * tileHeight - quad[0].position.y <= tileHeight
+               && i == roomDimCol - 1)
+               return;
 			}
 		break;
 	case Direction::Down:
@@ -367,7 +367,7 @@ void GrassRoom::translateIn(Direction& dir)
 		for (int j = roomDimRow - 1; j >= 0; j--)
 			for (int i = 0; i < roomDimCol; i++)
 			{
-				quad = &vertexArray[(i + j * roomDimCol) * 4];
+            quad = &vertexArray[(i + j * roomDimCol) * 4];
 
 				quad[0].position.y += dirVec.y * static_cast<float>(transMag);
 				quad[1].position.y += dirVec.y * static_cast<float>(transMag);
@@ -375,7 +375,7 @@ void GrassRoom::translateIn(Direction& dir)
 				quad[3].position.y += dirVec.y * static_cast<float>(transMag);
 
 				if (quad[2].position.y <= tileHeight && i == roomDimCol - 1)
-					return;
+               return;
 			}
 		break;
 	case Direction::Left:
@@ -398,7 +398,7 @@ void GrassRoom::translateIn(Direction& dir)
 				quad[3].position.x += dirVec.x * static_cast<float>(transMag);
 
 				if (roomDimCol * tileWidth - quad[0].position.x <= tileWidth)
-					break;
+               break;
 			}
 		break;
 	case Direction::Right:
@@ -413,7 +413,7 @@ void GrassRoom::translateIn(Direction& dir)
 		for (int j = 0; j < roomDimRow; j++)
 			for (int i = roomDimCol - 1; i >= 0; i--)
 			{
-				quad = &vertexArray[(i + j * roomDimCol) * 4];
+            quad = &vertexArray[(i + j * roomDimCol) * 4];
 
 				quad[0].position.x += dirVec.x * static_cast<float>(transMag);
 				quad[1].position.x += dirVec.x * static_cast<float>(transMag);
@@ -421,7 +421,7 @@ void GrassRoom::translateIn(Direction& dir)
 				quad[3].position.x += dirVec.x * static_cast<float>(transMag);
 
 				if (quad[1].position.x - tileWidth <= 0)
-					break;
+               break;
 			}
 		break;
 	}

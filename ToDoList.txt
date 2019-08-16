@@ -1,15 +1,15 @@
-2) Make diagonal walking speed same as x and y
-3) Maybe unload Rooms when not using
-3a) Maybe Room save states before unloading
-4) Make DialogueBox nicer
-4a) Draw letter-by-letter instead of word-by-word
-4b) Make dialogue speed adjustable by button or setting
-4c) Move DialogueBox back to bottom of screen
-4c1) Make DialogueBox location dynamic with screen size
-7) Give DemonCharacter some kind of movement path
-8) Add AABBs to collision tiles
-9) Associate Events with AABBs
-11) Add hold time to room transition
-12) Break up findTilesStandingOver method
-13) Make collisions not shake main character
-14) Fix clipping through collisions when moving diagonally
+1) Make diagonal walking speed same as x and y
+2) Maybe unload Rooms when not using
+2a) Maybe Room save states before unloading
+3) Make DialogueBox nicer
+3a) Draw letter-by-letter instead of word-by-word
+3b) Make dialogue speed adjustable by button or setting
+3c) Move DialogueBox back to bottom of screen
+3c1) Make DialogueBox location dynamic with screen size
+4) Give DemonCharacter some kind of movement path
+5) Add AABBs to collision tiles
+6) Associate Events with AABBs
+7) Add hold time to room transition
+8) Break up findTilesStandingOver method
+9) Make collisions not shake main character
+10) Fix clipping through collisions when moving diagonally

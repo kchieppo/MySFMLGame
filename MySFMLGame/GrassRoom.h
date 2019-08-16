@@ -38,6 +38,17 @@ private:
 private:
 	static constexpr int roomDimCol = 48;
 	static constexpr int roomDimRow = 40;
+
+   /*
+   roomMatrix is simply a matrix of tile numbers and represents the layout of
+   the room. tilePropertiesMat is a matrix of the same dimensions containing
+   instances of TileProperties, which each contain the corresponding tile number
+   and properties associated with that tile number.
+
+   Only tilePropertiesMat is truly needed, but separating out the tile numbers
+   into a separate matrix (roomMatrix) makes it very easy to see and manually
+   manipulate the tiles in a room.
+   */
 	Matrix<int, roomDimRow, roomDimCol> roomMatrix;
 	Matrix<TileProperties, roomDimRow, roomDimCol> tilePropertiesMat;
 

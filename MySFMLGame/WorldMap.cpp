@@ -4,6 +4,12 @@
 #include "PurpleRoom.h"
 #include "BlackRoom.h"
 
+/*
+The new rooms in worldMatrix are never deleted because worldMatrix persists. In
+the future, may save room states, then destruct rooms as the main character
+leaves them to save on memory.
+*/
+
 WorldMap::WorldMap()
 	:
 	worldMatrix{ {
@@ -93,11 +99,15 @@ void WorldMap::adjustForCollisionsWithRoom()
 
 void WorldMap::handleRoomDrawing(sf::RenderTarget& rt)
 {
+   // Just draw current room to screen if not transitioning to new one.
 	if (translationDir == Direction::None)
 		rt.draw(*currentRoom);
 	else
 	{
 		currentRoom->translateIn(translationDir);
+      // If currentRoom->translateIn changes translationDir to Direction::None,
+      // it is done translating in, so the previous room doesn't need to be
+      // drawn an additional time.
 		if (translationDir != Direction::None)
 		{
 			prevRoom->translateOut(translationDir);

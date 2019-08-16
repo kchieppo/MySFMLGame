@@ -36,6 +36,9 @@ private:
    */ 
 	int number;
    sf::Vector2i location;
+   // This AABB's coordinates are within the scope of the tile. E.g., a 16x16
+   // tile with aabb min of {1, 15} would have a min located one pixel from the
+   // left edge of the tile and 15 pixels from the upper edge of the tile.
 	std::optional<AABB<sf::Vector2i>> aabb;
 	Event evnt;
 };

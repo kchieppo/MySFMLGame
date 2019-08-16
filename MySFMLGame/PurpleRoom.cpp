@@ -74,7 +74,7 @@ void PurpleRoom::load(MainCharacter* mcP)
 					static_cast<float>((j + 1) * tileHeight)
             );
 			}
-			else
+			else // otherwise, just initialize them off screen
 			{
 				quad[0].position
                = sf::Vector2f(static_cast<float>(-tileWidth), 0.0f);
@@ -129,6 +129,9 @@ void PurpleRoom::translateIn(Direction& dir)
 	switch (dir)
 	{
 	case Direction::Up:
+      // If the y position of the top-left corner of the top-left tile + another
+      // translation up = 0, we know this will be the last translation and set
+      // flags accordingly.
 		if (vertexArray[0].position.y
          + dirVec.y * static_cast<float>(transMag) == 0)
 		{
@@ -147,6 +150,9 @@ void PurpleRoom::translateIn(Direction& dir)
 				quad[2].position.y += dirVec.y * static_cast<float>(transMag);
 				quad[3].position.y += dirVec.y * static_cast<float>(transMag);
 
+            // The remaining rows don't need to be shifted if they are still
+            // off-screen once shifted. This cuts the time complexity of the
+            // algorithm in half.
 				if (roomDimRow * tileHeight - quad[0].position.y <= tileHeight
 					&& i == roomDimCol - 1)
 					return;
