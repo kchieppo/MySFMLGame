@@ -148,6 +148,9 @@ void GrassRoom::load(MainCharacter* mcP)
 	roomLoaded = true;
 }
 
+// TODO: break up this method
+// TODO: wrap character position change here in own method
+// TODO: replicate this in other types of rooms
 void GrassRoom::findTilesStandingOver()
 {
 	if (!mcPointer->getPositionChanged())
@@ -189,6 +192,13 @@ void GrassRoom::findTilesStandingOver()
 	sf::Vector2i tileLocation;
 	if (dirY == Direction::Up)
 	{
+		std::cout << "TileIndexTopLeft.y: " << tileIndexTopLeft.y << std::endl;
+		if (mcPointer->getAabbMin().y < 0)
+		{
+			boundaryHit = BoundaryHit::Up;
+			return;
+		}
+
 		int col = tileIndexTopLeft.x;
 		while (col <= tileIndexTopRight.x)
 		{
@@ -205,6 +215,12 @@ void GrassRoom::findTilesStandingOver()
 		{
 			if (dirX == Direction::Left)
 			{
+				if (mcPointer->getAabbMin().x < 0)
+				{
+					boundaryHit = BoundaryHit::Left;
+					return;
+				}
+
 				int row = tileIndexTopLeft.y + 1;
 				while (row <= tileIndexBottomLeft.y)
 				{
@@ -219,6 +235,12 @@ void GrassRoom::findTilesStandingOver()
 			}
 			else if (dirX == Direction::Right)
 			{
+				if (tileIndexTopRight.x >= roomDimCol)
+				{
+					boundaryHit = BoundaryHit::Right;
+					return;
+				}
+
 				int row = tileIndexTopRight.y + 1;
 				while (row <= tileIndexBottomRight.y)
 				{
@@ -235,10 +257,19 @@ void GrassRoom::findTilesStandingOver()
 	}
 	else if (dirY == Direction::Down)
 	{
+		std::cout << "TileIndexBotLeft.y: " << tileIndexBottomLeft.y << std::endl;
+		// check southern boundary
+		if (tileIndexBottomLeft.y >= roomDimRow)
+		{
+			boundaryHit = BoundaryHit::Down;
+			return;
+		}
+
 		int col = tileIndexBottomLeft.x;
 		while (col <= tileIndexBottomRight.x)
 		{
 			tileLocation = { col, tileIndexBottomLeft.y };
+
 			const TileProperties& tileProperties
 				= tilePropertiesMat[tileIndexBottomLeft.y][col];
 			if (const auto& aabb = tileProperties.getAabb())
@@ -249,6 +280,12 @@ void GrassRoom::findTilesStandingOver()
 
 		if (dirX == Direction::Left)
 		{
+			if (mcPointer->getAabbMin().x < 0)
+			{
+				boundaryHit = BoundaryHit::Left;
+				return;
+			}
+
 			int row = tileIndexBottomLeft.y - 1;
 			while (row >= tileIndexTopLeft.y)
 			{
@@ -263,6 +300,12 @@ void GrassRoom::findTilesStandingOver()
 		}
 		else if (dirX == Direction::Right)
 		{
+			if (tileIndexTopRight.x >= roomDimCol)
+			{
+				boundaryHit = BoundaryHit::Right;
+				return;
+			}
+
 			int row = tileIndexBottomRight.y - 1;
 			while (row >= tileIndexTopRight.y)
 			{
@@ -280,6 +323,13 @@ void GrassRoom::findTilesStandingOver()
 	{
 		if (dirX == Direction::Left)
 		{
+			std::cout << "TileIndexTopLeft.x: " << tileIndexTopLeft.x << std::endl;
+			if (mcPointer->getAabbMin().x < 0)
+			{
+				boundaryHit = BoundaryHit::Left;
+				return;
+			}
+
 			int row = tileIndexTopLeft.y;
 			while (row <= tileIndexBottomLeft.y)
 			{
@@ -294,6 +344,13 @@ void GrassRoom::findTilesStandingOver()
 		}
 		else if (dirX == Direction::Right)
 		{
+			std::cout << "TileIndexTopRight.x: " << tileIndexTopRight.x << std::endl;
+			if (tileIndexTopRight.x >= roomDimCol)
+			{
+				boundaryHit = BoundaryHit::Right;
+				return;
+			}
+
 			int row = tileIndexTopRight.y;
 			while (row <= tileIndexBottomRight.y)
 			{

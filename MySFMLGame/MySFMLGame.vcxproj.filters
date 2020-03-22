@@ -122,5 +122,8 @@
     <ClInclude Include="TileProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BoundaryHit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

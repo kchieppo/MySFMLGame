@@ -13,9 +13,9 @@ leaves them to save on memory.
 WorldMap::WorldMap()
 	:
 	worldMatrix{ {
-		{new BlueRoom(), new PurpleRoom(), new BlueRoom()},
-		{new BlackRoom(), new GrassRoom(), new BlackRoom()},
-		{new BlueRoom(), new PurpleRoom(), new BlueRoom()}
+		{new GrassRoom(), new GrassRoom(), new GrassRoom()},
+		{new GrassRoom(), new GrassRoom(), new GrassRoom()},
+		{new GrassRoom(), new GrassRoom(), new GrassRoom()}
 	} },
 	curWorldMatRow{ 1 },
 	curWorldMatCol{ 1 },
@@ -95,6 +95,54 @@ void WorldMap::updateCurrentRoom(const float& dt)
 void WorldMap::adjustForCollisionsWithRoom()
 {
 	currentRoom->findTilesStandingOver();
+
+	// if a boundary was hit, go to the next room
+	switch (currentRoom->getBoundaryHit()){
+	case BoundaryHit::Down:
+		if (down())
+			mainCharacter.setPositionY(0);
+		else
+			mainCharacter.setPositionY
+			(
+				static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS
+					- mainCharacter.getSpriteHeight())
+			);
+		currentRoom->setBoundaryHit(BoundaryHit::None);
+		break;
+	case BoundaryHit::Left:
+		if (left())
+			mainCharacter.setPositionX
+			(
+				static_cast<float>(Constants::WINDOW_WIDTH_PIXELS
+					- mainCharacter.getSpriteWidth())
+			);
+		else
+			mainCharacter.setPositionX(0);
+		currentRoom->setBoundaryHit(BoundaryHit::None);
+		break;
+	case BoundaryHit::Right:
+		if (right())
+			mainCharacter.setPositionX(0);
+		else
+			mainCharacter.setPositionX
+			(
+				static_cast<float>(Constants::WINDOW_WIDTH_PIXELS
+					- mainCharacter.getSpriteWidth())
+			);
+		currentRoom->setBoundaryHit(BoundaryHit::None);
+		break;
+	case BoundaryHit::Up:
+		if (up())
+			mainCharacter.setPositionY
+			(
+				static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS
+					- mainCharacter.getSpriteHeight())
+			);
+		else
+			mainCharacter.setPositionY(0);
+		currentRoom->setBoundaryHit(BoundaryHit::None);
+		break;
+	}
 }
 
 void WorldMap::handleRoomDrawing(sf::RenderTarget& rt)

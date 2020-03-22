@@ -234,6 +234,11 @@ void MainCharacter::setPositionChanged(const bool& posChanged)
 	positionChanged = posChanged;
 }
 
+void MainCharacter::setEnableMovement(const bool& enable)
+{
+	movementEnabled = enable;
+}
+
 const int& MainCharacter::getSpriteWidth() const
 {
 	return MainCharacterAnimation::widthFrame;

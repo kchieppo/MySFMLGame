@@ -10,13 +10,24 @@ Room::Room(const std::string& fileName, const std::string& roomName,
 	tileHeight{ tileHeight },
 	roomLoaded{ false },
 	firstRoom{ firstRoom },
-	translating{ false }
+	translating{ false },
+	boundaryHit{ BoundaryHit::None }
 {
 }
 
 const bool& Room::isLoaded() const
 {
 	return roomLoaded;
+}
+
+const BoundaryHit& Room::getBoundaryHit() const
+{
+	return boundaryHit;
+}
+
+void Room::setBoundaryHit(const BoundaryHit& boundHit)
+{
+	boundaryHit = boundHit;
 }
 
 void Room::load(MainCharacter* mcP)

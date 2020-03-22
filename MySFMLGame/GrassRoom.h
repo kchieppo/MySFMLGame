@@ -16,7 +16,7 @@ public:
 
    // Based on the main character's AABB location, this figures out what tiles
    // the main character is standing over. checkForCollision is called on a
-   // subset of these tiles.
+   // subset of these tiles that have AABBs.
 	void findTilesStandingOver() override;
 protected:
 	void draw(sf::RenderTarget& rt, sf::RenderStates states) const override;

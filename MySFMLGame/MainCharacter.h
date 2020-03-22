@@ -29,6 +29,9 @@ public:
 	bool getPositionChanged() const;
 	void setPositionChanged(const bool& posChanged);
 
+	// Enables/disables main character's movement
+	void setEnableMovement(const bool& enable);
+
    const sf::Vector2f& getPosition() const;
    const sf::Vector2f& getAabbMin() const;
    const sf::Vector2f& getAabbMax() const;
@@ -79,6 +82,7 @@ private:
 	};
 
 	bool positionChanged;
+	bool movementEnabled;
 
    // The speed at which the character moves across the screen.
 	const float speed;

@@ -1,4 +1,5 @@
 #pragma once
+#include "BoundaryHit.h"
 #include "Constants.h"
 #include "Direction.h"
 #include "MainCharacter.h"
@@ -29,8 +30,11 @@ public:
 	Room(const std::string& fileName, const std::string& roomName,
       const int& tileWidth, const int& tileHeight, const bool& firstRoom);
 
-   // Returns true if the room has be initialized.
+   // Returns true if the room has been initialized.
 	const bool& isLoaded() const;
+
+   const BoundaryHit& getBoundaryHit() const;
+   void setBoundaryHit(const BoundaryHit& boundHit);
 
    /*
    Base version just copies a pointer to the main character to the local
@@ -86,6 +90,7 @@ protected:
    bool firstRoom;
    bool roomLoaded;
 	bool translating;
+   BoundaryHit boundaryHit;
 
    // Array of vertices used to identify tiles in the texture to draw to the
    // screen.

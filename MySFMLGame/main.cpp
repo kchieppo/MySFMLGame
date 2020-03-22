@@ -80,35 +80,15 @@ int main()
 				break;
 			case GameState::GameScreen:
 				walkDir = { 0.0f, 0.0f };
-				if (mainCharacterPtr->getAabbMax().y < 0 && worldMap.up())
-					mainCharacterPtr->setPositionY
-               (
-                  static_cast<float>(Constants::WINDOW_HEIGHT_PIXELS
-						- mainCharacterPtr->getSpriteHeight())
-               );
-				else if (mainCharacterPtr->getAabbMin().y
-               > Constants::WINDOW_HEIGHT_PIXELS && worldMap.down())
-					mainCharacterPtr->setPositionY(0);
-				else if (mainCharacterPtr->getAabbMin().x < 0 && worldMap.left())
-					mainCharacterPtr->setPositionX
-               (
-                  static_cast<float>(Constants::WINDOW_WIDTH_PIXELS
-						- mainCharacterPtr->getSpriteWidth())
-               );
-				else if (mainCharacterPtr->getAabbMax().x
-               > Constants::WINDOW_WIDTH_PIXELS && worldMap.right())
-					mainCharacterPtr->setPositionX(0);
-				else
-				{
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-						walkDir.y -= 1.0f;
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-						walkDir.y += 1.0f;
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-						walkDir.x -= 1.0f;
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-						walkDir.x += 1.0f;
-				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+					walkDir.y -= 1.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+					walkDir.y += 1.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+					walkDir.x -= 1.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+					walkDir.x += 1.0f;
+
 				mainCharacterPtr->setAnimationIndex(walkDir);
 
 				worldMap.updateCurrentRoom(dt);
