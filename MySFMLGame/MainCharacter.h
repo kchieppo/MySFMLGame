@@ -12,6 +12,7 @@ public:
 	MainCharacter(const sf::Vector2f& spritePos);
 	void draw(sf::RenderTarget& rt) const;
 	void setAnimationIndex(const sf::Vector2f& dir) override;
+	void setVelocity(const sf::Vector2f& dir) override;
 	void update(const float& dt) override;
 
    // Sets sprite to the exact position passed in.

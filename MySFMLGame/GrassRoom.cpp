@@ -151,12 +151,8 @@ void GrassRoom::load(MainCharacter* mcP)
 // TODO: break up this method
 // TODO: wrap character position change here in own method
 // TODO: replicate this in other types of rooms
-void GrassRoom::findTilesStandingOver()
+void GrassRoom::checkForCollisions()
 {
-	if (!mcPointer->getPositionChanged())
-		return;
-	mcPointer->setPositionChanged(false);
-
 	float diffX = mcPointer->getAabbMin().x - mainCharAabbMinLast.x;
 	float diffY = mcPointer->getAabbMin().y - mainCharAabbMinLast.y;
 	mainCharAabbMinLast = mcPointer->getAabbMin();
@@ -193,10 +189,52 @@ void GrassRoom::findTilesStandingOver()
 	if (dirY == Direction::Up)
 	{
 		std::cout << "TileIndexTopLeft.y: " << tileIndexTopLeft.y << std::endl;
+		// check if collision with upper wall
 		if (mcPointer->getAabbMin().y < 0)
 		{
 			boundaryHit = BoundaryHit::Up;
 			return;
+		}
+
+		if (dirX == Direction::Left)
+		{	// check if collision with left wall
+			if (mcPointer->getAabbMin().x < 0)
+			{
+				boundaryHit = BoundaryHit::Left;
+				return;
+			}
+
+			int row = tileIndexTopLeft.y + 1;
+			while (row <= tileIndexBottomLeft.y)
+			{
+				tileLocation = { tileIndexTopLeft.x, row };
+				const TileProperties& tileProperties
+					= tilePropertiesMat[row][tileIndexTopLeft.x];
+				if (const auto& aabb = tileProperties.getAabb())
+					if (checkForCollisionWithTile(dirX, dirY, tileProperties))
+						return;
+				row++;
+			}
+		}
+		else if (dirX == Direction::Right)
+		{	// check if collision with right wall
+			if (tileIndexTopRight.x >= roomDimCol)
+			{
+				boundaryHit = BoundaryHit::Right;
+				return;
+			}
+
+			int row = tileIndexTopRight.y + 1;
+			while (row <= tileIndexBottomRight.y)
+			{
+				tileLocation = { tileIndexTopRight.x, row };
+				const TileProperties& tileProperties
+					= tilePropertiesMat[row][tileIndexTopRight.x];
+				if (const auto& aabb = tileProperties.getAabb())
+					if (checkForCollisionWithTile(dirX, dirY, tileProperties))
+						return;
+				row++;
+			}
 		}
 
 		int col = tileIndexTopLeft.x;
@@ -206,80 +244,23 @@ void GrassRoom::findTilesStandingOver()
 			const TileProperties& tileProperties
 				= tilePropertiesMat[tileIndexTopLeft.y][col];
 			if (const auto& aabb = tileProperties.getAabb())
-				if (checkForCollision(dirX, dirY, tileProperties))
+				if (checkForCollisionWithTile(dirX, dirY, tileProperties))
 					return;
 			col++;
-		}
-
-		if (tileIndexTopLeft != tileIndexBottomLeft)
-		{
-			if (dirX == Direction::Left)
-			{
-				if (mcPointer->getAabbMin().x < 0)
-				{
-					boundaryHit = BoundaryHit::Left;
-					return;
-				}
-
-				int row = tileIndexTopLeft.y + 1;
-				while (row <= tileIndexBottomLeft.y)
-				{
-					tileLocation = { tileIndexTopLeft.x, row };
-					const TileProperties& tileProperties
-						= tilePropertiesMat[row][tileIndexTopLeft.x];
-					if (const auto& aabb = tileProperties.getAabb())
-						if (checkForCollision(dirX, dirY, tileProperties))
-							return;
-					row++;
-				}
-			}
-			else if (dirX == Direction::Right)
-			{
-				if (tileIndexTopRight.x >= roomDimCol)
-				{
-					boundaryHit = BoundaryHit::Right;
-					return;
-				}
-
-				int row = tileIndexTopRight.y + 1;
-				while (row <= tileIndexBottomRight.y)
-				{
-					tileLocation = { tileIndexTopRight.x, row };
-					const TileProperties& tileProperties
-						= tilePropertiesMat[row][tileIndexTopRight.x];
-					if (const auto& aabb = tileProperties.getAabb())
-						if (checkForCollision(dirX, dirY, tileProperties))
-							return;
-					row++;
-				}
-			}
 		}
 	}
 	else if (dirY == Direction::Down)
 	{
 		std::cout << "TileIndexBotLeft.y: " << tileIndexBottomLeft.y << std::endl;
-		// check southern boundary
+		// check if collision with bottom wall
 		if (tileIndexBottomLeft.y >= roomDimRow)
 		{
 			boundaryHit = BoundaryHit::Down;
 			return;
 		}
 
-		int col = tileIndexBottomLeft.x;
-		while (col <= tileIndexBottomRight.x)
-		{
-			tileLocation = { col, tileIndexBottomLeft.y };
-
-			const TileProperties& tileProperties
-				= tilePropertiesMat[tileIndexBottomLeft.y][col];
-			if (const auto& aabb = tileProperties.getAabb())
-				if (checkForCollision(dirX, dirY, tileProperties))
-					return;
-			col++;
-		}
-
 		if (dirX == Direction::Left)
-		{
+		{	// check if collision with left wall
 			if (mcPointer->getAabbMin().x < 0)
 			{
 				boundaryHit = BoundaryHit::Left;
@@ -293,13 +274,13 @@ void GrassRoom::findTilesStandingOver()
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexBottomLeft.x];
 				if (const auto& aabb = tileProperties.getAabb())
-					if (checkForCollision(dirX, dirY, tileProperties))
+					if (checkForCollisionWithTile(dirX, dirY, tileProperties))
 						return;
 				row--;
 			}
 		}
 		else if (dirX == Direction::Right)
-		{
+		{	// check if collision with right wall
 			if (tileIndexTopRight.x >= roomDimCol)
 			{
 				boundaryHit = BoundaryHit::Right;
@@ -313,55 +294,66 @@ void GrassRoom::findTilesStandingOver()
 				const TileProperties& tileProperties
 					= tilePropertiesMat[row][tileIndexBottomRight.x];
 				if (const auto& aabb = tileProperties.getAabb())
-					if (checkForCollision(dirX, dirY, tileProperties))
+					if (checkForCollisionWithTile(dirX, dirY, tileProperties))
 						return;
 				row--;
 			}
 		}
-	}
-	else
-	{
-		if (dirX == Direction::Left)
-		{
-			std::cout << "TileIndexTopLeft.x: " << tileIndexTopLeft.x << std::endl;
-			if (mcPointer->getAabbMin().x < 0)
-			{
-				boundaryHit = BoundaryHit::Left;
-				return;
-			}
 
-			int row = tileIndexTopLeft.y;
-			while (row <= tileIndexBottomLeft.y)
-			{
-				tileLocation = { tileIndexTopLeft.x, row };
-				const TileProperties& tileProperties
-					= tilePropertiesMat[row][tileIndexTopLeft.x];
-				if (const auto& aabb = tileProperties.getAabb())
-					if (checkForCollision(dirX, dirY, tileProperties))
-						return;
-				row++;
-			}
+		int col = tileIndexBottomLeft.x;
+		while (col <= tileIndexBottomRight.x)
+		{
+			tileLocation = { col, tileIndexBottomLeft.y };
+			const TileProperties& tileProperties
+				= tilePropertiesMat[tileIndexBottomLeft.y][col];
+			if (const auto& aabb = tileProperties.getAabb())
+				if (checkForCollisionWithTile(dirX, dirY, tileProperties))
+					return;
+			col++;
 		}
-		else if (dirX == Direction::Right)
+	}
+	else if (dirX == Direction::Left)
+	{
+		std::cout << "TileIndexTopLeft.x: " << tileIndexTopLeft.x << std::endl;
+		// check if collision with left wall
+		if (mcPointer->getAabbMin().x < 0)
 		{
-			std::cout << "TileIndexTopRight.x: " << tileIndexTopRight.x << std::endl;
-			if (tileIndexTopRight.x >= roomDimCol)
-			{
-				boundaryHit = BoundaryHit::Right;
-				return;
-			}
+			boundaryHit = BoundaryHit::Left;
+			return;
+		}
 
-			int row = tileIndexTopRight.y;
-			while (row <= tileIndexBottomRight.y)
-			{
-				tileLocation = { tileIndexTopRight.x, row };
-				const TileProperties& tileProperties
-					= tilePropertiesMat[row][tileIndexTopRight.x];
-				if (const auto& aabb = tileProperties.getAabb())
-					if (checkForCollision(dirX, dirY, tileProperties))
-						return;
-				row++;
-			}
+		int row = tileIndexTopLeft.y;
+		while (row <= tileIndexBottomLeft.y)
+		{
+			tileLocation = { tileIndexTopLeft.x, row };
+			const TileProperties& tileProperties
+				= tilePropertiesMat[row][tileIndexTopLeft.x];
+			if (const auto& aabb = tileProperties.getAabb())
+				if (checkForCollisionWithTile(dirX, dirY, tileProperties))
+					return;
+			row++;
+		}
+	}
+	else if (dirX == Direction::Right)
+	{
+		std::cout << "TileIndexTopRight.x: " << tileIndexTopRight.x << std::endl;
+		// check if collision with right wall
+		if (tileIndexTopRight.x >= roomDimCol)
+		{
+			boundaryHit = BoundaryHit::Right;
+			return;
+		}
+
+		int row = tileIndexTopRight.y;
+		while (row <= tileIndexBottomRight.y)
+		{
+			tileLocation = { tileIndexTopRight.x, row };
+			const TileProperties& tileProperties
+				= tilePropertiesMat[row][tileIndexTopRight.x];
+			if (const auto& aabb = tileProperties.getAabb())
+				if (checkForCollisionWithTile(dirX, dirY, tileProperties))
+					return;
+			row++;
 		}
 	}
 }
@@ -596,8 +588,8 @@ void GrassRoom::draw(sf::RenderTarget& rt, sf::RenderStates states) const
 
 void GrassRoom::initTilePropertiesMat()
 {
-	for (int row = 0; row < tilePropertiesMat.size(); row++)
-		for (int col = 0; col < tilePropertiesMat[0].size(); col++)
+	for (size_t row = 0; row < tilePropertiesMat.size(); row++)
+		for (size_t col = 0; col < tilePropertiesMat[0].size(); col++)
 			tilePropertiesMat[row][col]
 				= TileProperties(roomMatrix[row][col], sf::Vector2i(col, row));
 }
@@ -705,7 +697,7 @@ void GrassRoom::prepareTilePositions(Direction& transInDir)
 	tilePositionsPrepared = true;
 }
 
-bool GrassRoom::checkForCollision(const Direction& mcDirX,
+bool GrassRoom::checkForCollisionWithTile(const Direction& mcDirX,
    const Direction& mcDirY, const TileProperties& tileProperties) const
 {
    const sf::Vector2i& tileLocation = tileProperties.getLocation();

@@ -22,6 +22,9 @@ public:
    // to {-1, 0}, the character's "walking left" animation will be used.
 	virtual void setAnimationIndex(const sf::Vector2f& dir) = 0;
 
+   // Sets the character's velocity
+   virtual void setVelocity(const sf::Vector2f& dir) = 0;
+
    // Update's the character, given the time passed each frame. Called every
    // frame.
 	virtual void update(const float& dt) = 0;

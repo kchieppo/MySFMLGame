@@ -66,7 +66,7 @@ public:
    compared to the main character's AABB for a possible collision with a call to
    "checkForCollision" that's defined in the derived Room classes.
    */
-	virtual void findTilesStandingOver();
+	virtual void checkForCollisions();
 
 	virtual MainCharacter* const getMainCharacterPtr();
 

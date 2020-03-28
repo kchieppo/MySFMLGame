@@ -26,7 +26,7 @@ public:
    // objects, given delta time dt. Called every frame.
 	void updateCurrentRoom(const float& dt);
 
-   // Calls currentRoom->findTilesStandingOver(), which checks whether the main
+   // Calls currentRoom->checkForCollisions(), which checks whether the main
    // character's AABB is colliding with any of the AABBs of the tiles he is
    // standing over. Called every frame.
 	void adjustForCollisionsWithRoom();

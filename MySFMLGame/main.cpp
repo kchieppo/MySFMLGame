@@ -88,7 +88,13 @@ int main()
 					walkDir.x -= 1.0f;
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 					walkDir.x += 1.0f;
+				if (walkDir.x != 0 && walkDir.y != 0)
+				{
+					walkDir.x = walkDir.x / std::abs(walkDir.x) / Constants::SQRT_2_APPROX;
+					walkDir.y = walkDir.y / std::abs(walkDir.y) / Constants::SQRT_2_APPROX;
+				}
 
+				mainCharacterPtr->setVelocity(walkDir);
 				mainCharacterPtr->setAnimationIndex(walkDir);
 
 				worldMap.updateCurrentRoom(dt);

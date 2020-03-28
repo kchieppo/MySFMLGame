@@ -17,7 +17,7 @@ public:
    // Based on the main character's AABB location, this figures out what tiles
    // the main character is standing over. checkForCollision is called on a
    // subset of these tiles that have AABBs.
-	void findTilesStandingOver() override;
+	void checkForCollisions() override;
 protected:
 	void draw(sf::RenderTarget& rt, sf::RenderStates states) const override;
 private:
@@ -32,7 +32,7 @@ private:
    // AABB contained within tileProperties. If a collision is detected, the main
    // character's position is adjusted based on the main character's AABB's
    // displacement and the main character's direction of motion.
-	bool checkForCollision(const Direction& mcDirX, const Direction& mcDirY,
+	bool checkForCollisionWithTile(const Direction& mcDirX, const Direction& mcDirY,
 		const TileProperties& tileProperties)
 		const;
 private:

@@ -55,6 +55,11 @@ void DemonCharacter::setAnimationIndex(const sf::Vector2f& dir)
 	}
 }
 
+void DemonCharacter::setVelocity(const sf::Vector2f& dir)
+{
+	vel = dir * speed;
+}
+
 void DemonCharacter::update(const float& dt)
 {
 	if (prevAnimation != curAnimation)

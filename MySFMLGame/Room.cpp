@@ -55,7 +55,7 @@ void Room::translateOut(Direction& dir)
 	return;
 }
 
-void Room::findTilesStandingOver()
+void Room::checkForCollisions()
 {
 	return;
 }

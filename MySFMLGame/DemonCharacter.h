@@ -12,6 +12,7 @@ class DemonCharacter : public Character
 public:
    DemonCharacter(const sf::Vector2f& pos);
    void setAnimationIndex(const sf::Vector2f& dir) override;
+   void setVelocity(const sf::Vector2f& dir) override;
    void update(const float& dt) override;
 
    // Resets the character to its starting position. Useful when resetting the

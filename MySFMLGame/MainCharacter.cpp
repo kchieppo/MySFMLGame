@@ -1,4 +1,5 @@
 #include "MainCharacter.h"
+#include <cmath>
 
 MainCharacter::MainCharacter(const sf::Vector2f& pos)
 	:
@@ -33,7 +34,7 @@ MainCharacter::MainCharacter(const sf::Vector2f& pos)
 		aabbForDrawing[2] = sf::Vertex({ pos.x + 25.0f, pos.y + 32.0f });
 		aabbForDrawing[3] = sf::Vertex({ pos.x + 3.0f, pos.y + 32.0f });
 		aabbForDrawing[4] = aabbForDrawing[0];
-		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		for (size_t i = 0; i < aabbForDrawing.getVertexCount(); i++)
 			aabbForDrawing[i].color = sf::Color::Red;
 	}
 }
@@ -51,7 +52,6 @@ void MainCharacter::draw(sf::RenderTarget& rt) const
 
 void MainCharacter::setAnimationIndex(const sf::Vector2f& dir)
 {
-	vel = dir * speed;
 	prevAnimation = curAnimation;
 	if (dir.y < 0.0f)
 		curAnimation = AnimationIndex::WalkingUp;
@@ -61,6 +61,11 @@ void MainCharacter::setAnimationIndex(const sf::Vector2f& dir)
 		curAnimation = AnimationIndex::WalkingLeft;
 	else if (dir.x > 0.0f)
 		curAnimation = AnimationIndex::WalkingRight;
+}
+
+void MainCharacter::setVelocity(const sf::Vector2f& dir)
+{
+	vel = dir * speed;
 }
 
 void MainCharacter::update(const float& dt)
@@ -79,7 +84,7 @@ void MainCharacter::update(const float& dt)
 		aabb.update(spriteDist);
 
 		if (drawAabb)
-			for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+			for (size_t i = 0; i < aabbForDrawing.getVertexCount(); i++)
 			{
 				aabbForDrawing[i] = sf::Vertex
 				(
@@ -123,7 +128,7 @@ void MainCharacter::setPosition(const sf::Vector2f& pos)
 		aabbForDrawing[2] = sf::Vertex({ pos.x + 25.0f, pos.y + 32.0f });
 		aabbForDrawing[3] = sf::Vertex({ pos.x + 3.0f, pos.y + 32.0f });
 		aabbForDrawing[4] = aabbForDrawing[0];
-		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		for (size_t i = 0; i < aabbForDrawing.getVertexCount(); i++)
 			aabbForDrawing[i].color = sf::Color::Red;
 	}
 	positionChanged = true;
@@ -143,7 +148,7 @@ void MainCharacter::setPositionX(const float& posX)
 		aabbForDrawing[2].position.x = posX + 25.0f;
 		aabbForDrawing[3].position.x = posX + 3.0f;
 		aabbForDrawing[4].position.x = aabbForDrawing[0].position.x;
-		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		for (size_t i = 0; i < aabbForDrawing.getVertexCount(); i++)
 			aabbForDrawing[i].color = sf::Color::Red;
 	}
 	positionChanged = true;
@@ -163,7 +168,7 @@ void MainCharacter::setPositionY(const float& posY)
 		aabbForDrawing[2].position.y = posY + 32.0f;
 		aabbForDrawing[3].position.y = posY + 32.0f;
 		aabbForDrawing[4].position.y = aabbForDrawing[0].position.y;
-		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		for (size_t i = 0; i < aabbForDrawing.getVertexCount(); i++)
 			aabbForDrawing[i].color = sf::Color::Red;
 	}
 	positionChanged = true;
@@ -179,7 +184,7 @@ void MainCharacter::moveDistance(const sf::Vector2f& dist)
 	);
 	if (drawAabb)
 	{
-		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		for (size_t i = 0; i < aabbForDrawing.getVertexCount(); i++)
 		{
 			aabbForDrawing[i].position += dist;
 			aabbForDrawing[i].color = sf::Color::Red;
@@ -197,7 +202,7 @@ void MainCharacter::moveDistanceX(const float& distX)
 	);
 	if (drawAabb)
 	{
-		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		for (size_t i = 0; i < aabbForDrawing.getVertexCount(); i++)
 		{
 			aabbForDrawing[i].position.x += distX;
 			aabbForDrawing[i].color = sf::Color::Red;
@@ -215,7 +220,7 @@ void MainCharacter::moveDistanceY(const float& distY)
 	);
 	if (drawAabb)
 	{
-		for (int i = 0; i < aabbForDrawing.getVertexCount(); i++)
+		for (size_t i = 0; i < aabbForDrawing.getVertexCount(); i++)
 		{
 			aabbForDrawing[i].position.y += distY;
 			aabbForDrawing[i].color = sf::Color::Red;

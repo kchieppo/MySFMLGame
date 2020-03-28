@@ -94,7 +94,11 @@ void WorldMap::updateCurrentRoom(const float& dt)
 
 void WorldMap::adjustForCollisionsWithRoom()
 {
-	currentRoom->findTilesStandingOver();
+	if (!mainCharacter.getPositionChanged())
+		return;
+	mainCharacter.setPositionChanged(false);
+
+	currentRoom->checkForCollisions();
 
 	// if a boundary was hit, go to the next room
 	switch (currentRoom->getBoundaryHit()){
