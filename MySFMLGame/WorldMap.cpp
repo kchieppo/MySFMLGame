@@ -169,6 +169,14 @@ void WorldMap::handleRoomDrawing(sf::RenderTarget& rt)
 	}
 }
 
+bool WorldMap::roomIsTranslating()
+{
+	if (translationDir == Direction::None)
+		return false;
+	else
+		return true;
+}
+
 MainCharacter* const WorldMap::getMainCharacterPtr()
 {
 	return currentRoom->getMainCharacterPtr();

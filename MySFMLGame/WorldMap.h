@@ -37,6 +37,9 @@ public:
    // every frame.
 	void handleRoomDrawing(sf::RenderTarget& rt);
 
+   // Returns true if next room is translating into view
+   bool roomIsTranslating();
+
 	MainCharacter* const getMainCharacterPtr();
 private:
    // Initializes the current room if it hasn't been. Also resets the current

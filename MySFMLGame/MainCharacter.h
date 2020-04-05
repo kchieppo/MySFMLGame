@@ -51,9 +51,8 @@ private:
       numFrames: the number of frames in the animation
       timePerFrame: the time (in seconds) between each frame of the animation
       */
-		MainCharacterAnimation(const std::string& name,
-         const std::string& fileName, int xFirstFrame, int numFrames,
-			float timePerFrame);
+		MainCharacterAnimation(std::string&& name, std::string&& fileName,
+			int xFirstFrame, int numFrames, float timePerFrame);
 
       // Width and height of each image in each MainCharacter animation.
 		static constexpr int widthFrame = 29;

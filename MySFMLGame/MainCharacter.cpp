@@ -255,7 +255,7 @@ const int& MainCharacter::getSpriteHeight() const
 }
 
 MainCharacter::MainCharacterAnimation::MainCharacterAnimation(
-	const std::string& name, const std::string& fileName, int xFirstFrame,
+	std::string&& name, std::string&& fileName, int xFirstFrame,
    int numFrames, float timePerFrame)
 	:
 	Animation(std::move(name), std::move(fileName), numFrames, timePerFrame,

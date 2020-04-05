@@ -80,35 +80,36 @@ int main()
 				break;
 			case GameState::GameScreen:
 				walkDir = { 0.0f, 0.0f };
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-					walkDir.y -= 1.0f;
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-					walkDir.y += 1.0f;
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-					walkDir.x -= 1.0f;
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-					walkDir.x += 1.0f;
-				if (walkDir.x != 0 && walkDir.y != 0)
+				if (worldMap.roomIsTranslating() == false)
 				{
-					walkDir.x = walkDir.x / std::abs(walkDir.x) / Constants::SQRT_2_APPROX;
-					walkDir.y = walkDir.y / std::abs(walkDir.y) / Constants::SQRT_2_APPROX;
-				}
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+						walkDir.y -= 1.0f;
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+						walkDir.y += 1.0f;
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+						walkDir.x -= 1.0f;
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+						walkDir.x += 1.0f;
+					if (walkDir.x != 0 && walkDir.y != 0)
+					{
+						walkDir.x = walkDir.x / std::abs(walkDir.x) / Constants::SQRT_2_APPROX;
+						walkDir.y = walkDir.y / std::abs(walkDir.y) / Constants::SQRT_2_APPROX;
+					}
+					worldMap.updateCurrentRoom(dt);
+					worldMap.adjustForCollisionsWithRoom();
 
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+						gameState = GameState::MainMenuScreen;
+				}
 				mainCharacterPtr->setVelocity(walkDir);
 				mainCharacterPtr->setAnimationIndex(walkDir);
-
-				worldMap.updateCurrentRoom(dt);
 				mainCharacterPtr->update(dt);
-
-				worldMap.adjustForCollisionsWithRoom();
 
 				window.clear();
 				worldMap.handleRoomDrawing(window);
 				mainCharacterPtr->draw(window);
 				window.display();
 
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-					gameState = GameState::MainMenuScreen;
 				break;
 			case GameState::MainMenuScreen:
 				dialogueBox.update(dt);
