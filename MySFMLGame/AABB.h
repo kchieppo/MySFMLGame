@@ -21,6 +21,8 @@ public:
 		:
 		aabbMinStart{ 0, 0 },
 		aabbMaxStart{ 0, 0 },
+		prevAabbMin{ 0, 0 },
+		prevAabbMax{ 0, 0 },
 		aabbMin{ 0, 0 },
 		aabbMax{ 0, 0 }
 	{
@@ -30,6 +32,8 @@ public:
 		:
 		aabbMinStart{ min },
 		aabbMaxStart{ max },
+		prevAabbMin{ min },
+		prevAabbMax{ max },
 		aabbMin{ min },
 		aabbMax{ max }
 	{
@@ -39,8 +43,10 @@ public:
       :
       aabbMinStart{ aabb.aabbMinStart },
       aabbMaxStart{ aabb.aabbMaxStart },
-      aabbMin{ aabb.aabbMin },
-      aabbMax{ aabb.aabbMax }
+      prevAabbMin{ aabb.prevAabbMin },
+      prevAabbMax{ aabb.prevAabbMax },
+		aabbMin{ aabb.aabbMin },
+		aabbMax{ aabb.aabbMax }
    {
    }
 
@@ -48,8 +54,10 @@ public:
    {
       aabbMinStart = aabb.aabbMinStart;
       aabbMaxStart = aabb.aabbMaxStart;
-      aabbMin = aabb.aabbMin;
-      aabbMax = aabb.aabbMax;
+      prevAabbMin = aabb.prevAabbMin;
+      prevAabbMax = aabb.prevAabbMax;
+		aabbMin = aabb.aabbMin;
+		aabbMax = aabb.aabbMax;
       return *this;
    }
 
@@ -57,6 +65,7 @@ public:
    // spriteDist is 2D displacement of the character/tile.
 	void update(const T& spriteDist)
 	{
+		storeOldAabb();
 		aabbMin += spriteDist;
 		aabbMax += spriteDist;
 	}
@@ -71,18 +80,38 @@ public:
 		return aabbMax;
 	}
 
+	const T& getPrevMin() const
+	{
+		return prevAabbMin;
+	}
+
+	const T& getPrevMax() const
+	{
+		return prevAabbMax;
+	}
+
 	void setMinMax(const T& min, const T& max)
 	{
+		storeOldAabb();
 		aabbMin = min;
 		aabbMax = max;
 	}
    // Resets the AABB position to its starting position.
 	void reset()
 	{
+		prevAabbMin = aabbMinStart;
+		prevAabbMax = aabbMaxStart;
 		aabbMin = aabbMinStart;
 		aabbMax = aabbMaxStart;
 	}
 private:
+
+	void storeOldAabb()
+	{
+		prevAabbMin = aabbMin;
+		prevAabbMax = aabbMax;
+	}
+
 	// The starting x, y coordinate of the bottom-left corner of the AABB.
    // Needed in case we want to "reset" a character or tile to its original
    // configuration. This should never be changed.
@@ -91,8 +120,15 @@ private:
    // in case we want to "reset" a character or tile to its original
    // configuration. This should never be changed.
 	T aabbMaxStart;
-   // The x, y coordinate of the bottom-left corner of the AABB.
+
+	// Previous AABB kept for collision detection with rays
+   // The x, y coordinate of the bottom-left corner of the old AABB.
+	T prevAabbMin;
+   // The x, y coordinate of the top-right corner of the old AABB.
+	T prevAabbMax;
+
+	// The x, y coordinate of the bottom-left corner of the AABB.
 	T aabbMin;
-   // The x, y coordinate of the top-right corner of the AABB.
+	// The x, y coordinate of the top-right corner of the AABB.
 	T aabbMax;
 };

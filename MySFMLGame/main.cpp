@@ -23,6 +23,8 @@ int main()
    );
 	window.setActive(true);
 	window.setVerticalSyncEnabled(true);
+	window.setPosition({ window.getPosition().x + 450,
+		window.getPosition().y + 125 });
 	// Init game state machine
 	GameState gameState = GameState::TitleScreen;
 	// Title screen
