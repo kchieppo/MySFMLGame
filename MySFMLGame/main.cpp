@@ -1,4 +1,3 @@
-#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <chrono>
@@ -10,6 +9,7 @@
 #include "GameState.h"
 #include "WorldMap.h"
 #include "Constants.h"
+#include "Audio.h"
 
 // TODO: fix vibrating sprite
 
@@ -25,6 +25,8 @@ int main()
 	window.setVerticalSyncEnabled(true);
 	window.setPosition({ window.getPosition().x + 450,
 		window.getPosition().y + 125 });
+	// Init audio
+	Audio audio;
 	// Init game state machine
 	GameState gameState = GameState::TitleScreen;
 	// Title screen
@@ -41,6 +43,8 @@ int main()
 	DialogueBox dialogueBox(dialogueMsg);
 	// timepoint for dt measurement
 	auto tp = std::chrono::steady_clock::now();
+
+	audio.playMusic();
 
 	bool titleScreen = true;
 	bool gameIsPaused = false;
@@ -76,9 +80,11 @@ int main()
 				window.clear();
 				tScreen.draw(window);
 				window.display();
-
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+				{
 					gameState = GameState::GameScreen;
+					audio.stopMusic();
+				}
 				break;
 			case GameState::GameScreen:
 				walkDir = { 0.0f, 0.0f };

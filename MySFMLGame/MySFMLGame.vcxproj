@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="BlackRoom.cpp" />
     <ClCompile Include="BlueRoom.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="AABB.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="BlackRoom.h" />
     <ClInclude Include="BlueRoom.h" />
     <ClInclude Include="BoundaryHit.h" />
